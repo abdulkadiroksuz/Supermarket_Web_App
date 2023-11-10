@@ -1,0 +1,60 @@
+Cart
+-id (primary key)
+-user_id (foreign key = User.id, unique)
+
+Cart-Product
+-id (primary key)
+-cart_id (foreign key = Cart.id)
+-prod_id
+-quantity
+
+Product
+-id (primary key)
+-name
+-descript
+-image
+-price
+-category_id (foreign key = Category.id)
+
+Category
+-id (primary key)
+-name
+
+Storage
+-id (primary key)
+-name
+-area_id (foreign key = Area.id)
+
+Storage-Product
+-id (primary key)
+-storage_id (foreign key = Storage.id)
+-product_id (foreign key = Product.id)
+-stock
+
+User
+-id (primary key)
+-password
+-name
+-surname
+-area_id (foreign key = Area.id)
+-email
+-phone
+
+Order
+-id (primary key)
+-user_id (foreign key = User.id)
+-date
+-total_price
+
+ordered-products
+-id (primary key)
+-order_id (foreign key = Order.id)
+-product_id (foreign key = Product.id)
+-quantity
+
+Area
+-id
+-name
+
+
+
