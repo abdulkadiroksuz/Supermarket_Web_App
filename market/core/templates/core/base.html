@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>
+      Market |{% block title %}
+
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand me-5 ms-5" href="#">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#">category#1</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">category#2</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">category#3</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+          <form class="d-flex ms-5" role="search">
+            <input class="form-control me-2" type="search" placeholder="e.g. Potato, Tomato, Egg" aria-label="Search" style="width: 400px;" />
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <select class="form-select ms-2" style="width: 100px;">
+            <option>Area 1</option>
+            <option>Area 2</option>
+            <option>Area 3</option>
+          </select>
+
+            <div class="dropdown ms-auto">
+                <button class="btn btn-first dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Profile
+                </button>
+                <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Login in</a></li>
+                    <li><a class="dropdown-item" href="#">Sign up</a></li>
+                </ul>
+            </div>
+          <a class="nav-link ms-2 me-5" href="#">Cart</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="px-6 py-6">
+      {% block content %}
+
+      {% endblock %}
+    </div>
+
+    <footer class="py-3 bg-body-tertiary text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <h3 class="mb-4 font-weight-bold text-dark">About</h3>
+            <p class="text-muted">Lorem ipsum blabklfabl klfalkfalk</p>
+          </div>
+          <div class="col-md-4">
+            <h3 class="mb-4 font-weight-bold text-dark">Menu</h3>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#" class="text-muted">About</a>
+              </li>
+              <li>
+                <a href="#" class="text-muted">Privacy policy</a>
+              </li>
+              <li>
+                <a href="#" class="text-muted">Term of use</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Add Bootstrap JS and Popper.js before the closing body tag -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
