@@ -19,7 +19,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from market.admin import CustomLogoutView
+
 urlpatterns = [
     path("", include("core.urls"), name="core"),
     path('admin/', admin.site.urls),
+    path('user/', include('user.urls')),
 ]

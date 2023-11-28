@@ -40,22 +40,19 @@
             <input class="form-control me-2" type="search" placeholder="e.g. Potato, Tomato, Egg" aria-label="Search" style="width: 400px;" />
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
+          
+          {% if user.is_authenticated %}
           <select class="form-select ms-2" style="width: 100px;">
             <option>Area 1</option>
             <option>Area 2</option>
             <option>Area 3</option>
           </select>
-
-            <div class="dropdown ms-auto">
-                <button class="btn btn-first dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Profile
-                </button>
-                <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Login in</a></li>
-                    <li><a class="dropdown-item" href="#">Sign up</a></li>
-                </ul>
-            </div>
-          <a class="nav-link ms-2 me-5" href="#">Cart</a>
+            <a class="btn btn-primary ms-auto me-2" href="#">Profile</a>
+            <a class="btn btn-secondary me-3" href="#">Cart</a>
+          {% else %}
+            <a href="{% url 'user:login'%}" class="btn btn-primary ms-auto me-2">Login</a>
+            <a href="#" class="btn btn-secondary me-3">Signup</a>
+          {% endif %}
         </div>
       </div>
     </nav>
