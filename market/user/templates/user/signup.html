@@ -1,41 +1,80 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Market | Login</title>
-  </head>
-  <body>
-    <div class="maxw-mobile-lg margin-x-auto">
-        <form class="usa-form margin-x-auto">
-          <fieldset class="usa-fieldset">
-            <legend class="usa-legend">Basic Login</legend>
-    
-            <label class="usa-label" for="basic-username">Username or email</label>
-            <input class="usa-input" id="basic-username" name="basic-username" type="text" autocapitalize="off" autocorrect="off" autocomplete="off">
-    
-            <label class="usa-label" for="basic-password-sign-in">Password</label>
-            <input class="usa-input" id="basic-password-sign-in" name="basic-password" type="password" autocomplete="off">
-            <p class="usa-form__note">
-              <a title="Show password" href="javascript:void(0);" class="usa-show-password"
-              aria-controls="basic-password-sign-in">Show password</a>
-            </p>
-            <input class="usa-button width-full" type="submit" value="Sign in">
-    
-            <hr class="border-base-lighter border-solid border-width-1px margin-y-4">
-    
-            <p>
-              <a href="javascript:void(0);" title="Forgot username">
-                Forgot username?
-              </a>
-            </p>
-            <p>
-              <a href="javascript:void(0);" title="Forgot password">
-                Forgot password?
-              </a>
-            </p>
-          </fieldset>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market | Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="me-auto">Sign Up</h2>
+
+        <form action="{% url 'user:signup' %}" method="post" novalidate>
+            {% csrf_token %}
+            
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" class="form-control" required>
+                        <small class="form-text text-muted">Username must be unique.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password1">Password:</label>
+                        <input type="password" id="password1" name="password1" class="form-control" required>
+                        <small class="form-text text-muted">Minimum length: 8 characters.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password2">Confirm Password:</label>
+                        <input type="password" id="password2" name="password2" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name">First Name:</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="surname">Last Name:</label>
+                        <input type="text" id="surname" name="surname" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" required pattern="[0-9]{10}">
+                        <small class="form-text text-muted">Enter a 10-digit phone number.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area">Area:</label>
+                        <select id="area" name="area" class="form-control" required>
+                            {% for area in areas %}
+                                <option value="{{ area.id }}">{{ area.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Sign Up</button>
         </form>
-      </div>
-  </body>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
 </html>

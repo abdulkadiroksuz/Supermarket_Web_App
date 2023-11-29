@@ -1,0 +1,44 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'profile_style.css' %}" />
+    <title>Your Web App</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <div class="tabs">
+          <button onclick="showContent('defaultContent')">Profile</button>
+          <button onclick="showContent('editProfileContent')">Edit Profile</button>
+          <button onclick="showContent('listOrdersContent')">List Orders</button>
+        </div>
+        <button class="logout" onclick="location.href='{{ logout_url }}'">Logout</button>
+      </div>
+      <div class="content" id="defaultContent">
+        <!-- Default content goes here -->
+        <h2>Welcome to Your Web App!</h2>
+        <p>This is the default profile information.</p>
+      </div>
+      <div class="content" id="editProfileContent">
+        <!-- Edit Profile content goes here -->
+        <h2>Edit Profile</h2>
+        <p>Temporary edit profile content.</p>
+      </div>
+      <div class="content" id="listOrdersContent">
+        <!-- List Orders content goes here -->
+        <h2>List Orders</h2>
+        <ul>
+          <li>Order 1: Item A, Item B</li>
+          <li>Order 2: Item C, Item D</li>
+          <!-- Add more dummy orders as needed -->
+        </ul>
+      </div>
+    </div>
+    {% load static %}
+    <script src="{% static 'profile_script.js' %}"></script>
+  </body>
+</html>
