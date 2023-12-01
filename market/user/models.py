@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 class Area(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
+    
+    def __str__(self) -> str:
+        return self.name
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

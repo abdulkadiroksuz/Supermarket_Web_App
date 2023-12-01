@@ -10,4 +10,3 @@ function showContent(contentId) {
     document.getElementById(contentId).classList.add('show');
 }
 
-

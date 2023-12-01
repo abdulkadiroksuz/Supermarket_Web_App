@@ -19,14 +19,96 @@
         <button class="logout" onclick="location.href='{{ logout_url }}'">Logout</button>
       </div>
       <div class="content" id="defaultContent">
-        <!-- Default content goes here -->
-        <h2>Welcome to Your Web App!</h2>
-        <p>This is the default profile information.</p>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Full Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">{{ customer.name }} {{ customer.surname }}</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">{{ customer.email }}</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Phone</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">{{ customer.phone }}</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Area</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">{{ customer.area }}</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-12">
+                <button onclick="showContent('editProfileContent')" style="background-color: transparent; border: none; color: blue; text-decoration: underline;">Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="content" id="editProfileContent">
         <!-- Edit Profile content goes here -->
         <h2>Edit Profile</h2>
-        <p>Temporary edit profile content.</p>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">First Name</h6>
+              </div>
+              <input type="text" id="name" name="name" class="form-control" value="{{ customer.name }}" required>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Last Name</h6>
+              </div>
+              <input type="text" id="surname" name="surname" class="form-control" value="{{ customer.surname }}" required>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <input type="email" id="email" name="email" class="form-control" value="{{ customer.email }}" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Phone</h6>
+              </div>
+              <input type="tel" id="phone" name="phone" class="form-control" value="{{ customer.phone }}" required pattern="[0-9]{10}">
+            </div>
+            <hr />
+            <div class="form-group">
+              <label for="area">Area:</label>
+              <select id="area" name="area" class="form-control" required>
+                {% for area in areas %}
+                  <option value="{{ area.id }}" {% if user_area and user_area.id == area.id %}selected{% endif %}>
+                    {{ area.name }}
+                  </option>
+                {% endfor %}
+              </select>
+              
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-12">
+                <button style="background-color: border: none; color: blue; text-decoration: underline;">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="content" id="listOrdersContent">
         <!-- List Orders content goes here -->
@@ -40,5 +122,11 @@
     </div>
     {% load static %}
     <script src="{% static 'profile_script.js' %}"></script>
+    <script>
+      // Add this script to show the default content on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        showContent('defaultContent')
+      })
+    </script>
   </body>
 </html>

@@ -23,15 +23,12 @@ class UserSignupForm(UserCreationForm):
     
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',
-        'class': 'form-control py-4 px-6 rounded-xl'
     }))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Your password',
-        'class': 'form-control py-4 px-6 rounded-xl'
     }))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Repeat password',
-        'class': 'form-control py-4 px-6 rounded-xl'
     }))
     
 class UserCreationForm(forms.ModelForm):
@@ -44,17 +41,13 @@ class UserCreationForm(forms.ModelForm):
     
     name = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your first name',
-        'class': 'form-control py-4 px-6 rounded-xl'
     }))
     surname = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your last name',
-        'class': 'form-control py-4 px-6 rounded-xl'
     }))
     phone = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your phone number',
-        'class': 'form-control py-4 px-6 rounded-xl'
     }))
-    email = forms.CharField(widget=forms.EmailInput(attrs={
-        'placeholder': 'Your email',
-        'class': 'form-control py-4 px-6 rounded-xl'
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
+        'placeholder': 'Your email address',
     }))

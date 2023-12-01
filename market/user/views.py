@@ -3,7 +3,7 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render, reverse
 from django.contrib.auth import login, logout
 from .forms import UserLoginForm, UserSignupForm, UserCreationForm
-from .models import Area
+from .models import Area, Customer
 
 
 class loginView(LoginView):
@@ -20,7 +20,7 @@ class loginView(LoginView):
         )
 
 
-def signup(request):
+def signupView(request):
     areas = Area.objects.all()  # Retrieve all areas from the database
 
     if request.method == "POST":
@@ -49,11 +49,18 @@ def signup(request):
     )
 
 
-def profile(request):
-    context = {"logout_url": reverse("user:logout")}
+def profileView(request):
+    customer = Customer.objects.get(user=request.user)
+    areas = Area.objects.all()
+    
+    context = {
+        "logout_url": reverse("user:logout"),
+        "customer": customer,
+        "areas": areas,
+        }
     return render(request, "user/profile.html", context)
 
 
-def logout_view(request):
+def logoutView(request):
     logout(request)
     return redirect("core:index")
