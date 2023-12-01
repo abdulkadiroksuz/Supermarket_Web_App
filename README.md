@@ -1,4 +1,4 @@
-# Supermarket_Web_App
+# Supermarket Web App
 This project was prepared by __Abdulkadir Öksüz__, __Gürkan Bıyık__, and __Eren Çiçek__ for the DBMS class Term Project.
 
 ## Setup:
