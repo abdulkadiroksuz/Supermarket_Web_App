@@ -1,0 +1,82 @@
+/* signup.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack children vertically */
+}
+
+.row {
+    display: flex;
+}
+
+.col-md-6 {
+    flex: 1; /* Grow to fill available space */
+    margin-right: 20px; /* Add some spacing between columns */
+}
+
+h2 {
+    color: #007bff;
+}
+
+.form-group {
+    margin-bottom: 5px;
+}
+
+label {
+    font-weight: bold;
+    font-size: medium;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+small {
+    color: #6c757d;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 20%;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column; /* Stack columns on top of each other */
+    }
+
+    .col-md-6 {
+        margin-right: 0; /* Remove margin between columns on smaller screens */
+    }
+}

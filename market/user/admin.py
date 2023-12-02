@@ -1,6 +1,15 @@
 from django.contrib import admin
-from .models import Customer,Area
+from django.contrib.auth.admin import UserAdmin
+from .models import User, Customer
 
-# Register your models here.
-admin.site.register(Customer)
-admin.site.register(Area)
+# Register new user with customer fields
+admin.site.unregister(User)
+class CustomerInline(admin.StackedInline):
+    model = Customer
+    can_delete = False
+    verbose_name_plural = 'Customer'
+
+class CustomUserAdmin(UserAdmin):
+    inlines = (CustomerInline, )
+    
+admin.site.register(User, CustomUserAdmin)

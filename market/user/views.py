@@ -3,7 +3,8 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render, reverse
 from django.contrib.auth import login, logout
 from .forms import UserLoginForm, UserSignupForm, UserCreationForm
-from .models import Area, Customer
+from .models import Customer
+from storage.models import Area
 
 
 class loginView(LoginView):
