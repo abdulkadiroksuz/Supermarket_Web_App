@@ -3,16 +3,16 @@ This project was prepared by __Abdulkadir Öksüz__, __Gürkan Bıyık__, and __
 
 ## Setup:
 Follow these steps to set up and run the project on your local machine. 
-### 1. Clone the Repository
+#### 1. Clone the Repository
 ```
 git clone https://github.com/abdulkadiroksuz/Supermarket_Web_App.git
 cd Supermarket_Web_App
 ```
-### 2. Create a Virtual Environment
+#### 2. Create a Virtual Environment
 ```
 python -m venv venv
 ```
-### 3. Activate the Virtual Environment
+#### 3. Activate the Virtual Environment
 - On Windows:
 ```
 venv\Scripts\activate
@@ -21,16 +21,16 @@ venv\Scripts\activate
 ```
 source venv/bin/activate
 ```
-### 4. Install Dependencies
+#### 4. Install Dependencies
 ```
 pip install -r requirements.txt
 ```
-### 5. Run the Application
+#### 5. Run the Application
 ```
 python market/manage.py runserver
 ```
 Visit the application in your web browser at http://localhost:8000/.
-### 6. Deactivate the Virtual Environment
+#### 6. Deactivate the Virtual Environment
 When you're done working on the project, deactivate the virtual environment:
 ```
 deactivate
