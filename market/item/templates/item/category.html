@@ -1,0 +1,13 @@
+{% extends "core/base.html" %} 
+
+{% block title %}{{ category.name }}{% endblock %} 
+{% block content%}
+{% for product in products %}
+    <div class="product-item">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <h3>{{ product.name }}</h3>
+        <p>Price: ${{ product.price }}</p>
+        <button>+</button>
+    </div>
+{% endfor %}
+{% endblock %}

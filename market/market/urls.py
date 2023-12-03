@@ -16,6 +16,8 @@ Including another URLconf
 """
 
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import include, path
@@ -26,5 +28,6 @@ urlpatterns = [
     path("", include("core.urls"), name="core"),
     path('admin/logout/', lambda request: redirect('user:logout', permanent=False)),
     path('admin/', admin.site.urls),
-    path('user/', include('user.urls')),
-]
+    path('user/', include('user.urls'), name="user"),
+    path('item/', include('item.urls'), name="item"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
