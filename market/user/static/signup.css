@@ -5,6 +5,11 @@ body {
     background-color: #f8f9fa;
 }
 
+.custom-center {
+    display: block;
+    margin: 0 auto;
+}
+
 .container {
     background-color: #ffffff;
     padding: 20px;
