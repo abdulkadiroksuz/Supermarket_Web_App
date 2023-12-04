@@ -27,3 +27,16 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2', 'name', 'surname', 'email', 'phone', 'area']
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        phone = cleaned_data.get('phone')
+
+        # Example custom validation: Ensure email and phone are unique
+        if User.objects.filter(email=email).exists():
+            self.add_error('email', 'This email is already in use.')
+        if User.objects.filter(profile__phone=phone).exists():
+            self.add_error('phone', 'This phone number is already in use.')
+
+        return cleaned_data

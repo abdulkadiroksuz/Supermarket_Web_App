@@ -25,6 +25,27 @@ def profileView(request):
     customer = Customer.objects.get(user=request.user)
     areas = Area.objects.all()
     
+    if request.method == 'POST':
+        # Handle form submission
+        name = request.POST.get('name')
+        surname = request.POST.get('surname')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        area_name = request.POST.get('area')
+        area_id = areas.get(name=area_name).id
+        
+
+        # Update customer information
+        customer.name = name
+        customer.surname = surname
+        customer.email = email
+        customer.phone = phone
+        customer.area_id = area_id
+        customer.save()
+
+        # Redirect to the profile page after updating the customer
+        return redirect('user:profile')
+    
     context = {
         "logout_url": reverse("user:logout"),
         "customer": customer,
