@@ -2,7 +2,7 @@
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render, reverse
 from django.contrib.auth import login, logout
-from .forms import UserLoginForm, UserSignupForm, UserCreationForm
+from .forms import UserLoginForm, SignUpForm
 from .models import Customer
 from storage.models import Area
 
@@ -21,35 +21,6 @@ class loginView(LoginView):
         )
 
 
-def signupView(request):
-    areas = Area.objects.all()  # Retrieve all areas from the database
-
-    if request.method == "POST":
-        user_form = UserSignupForm(request.POST)
-        profile_form = UserCreationForm(request.POST)
-
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-
-            # Log the user in after signing up
-            login(request, user)
-
-            return redirect("core:index")  # Redirect to the home page or any other page
-
-    else:
-        user_form = UserSignupForm()
-        profile_form = UserCreationForm()
-
-    return render(
-        request,
-        "user/signup.html",
-        {"user_form": user_form, "profile_form": profile_form, "areas": areas},
-    )
-
-
 def profileView(request):
     customer = Customer.objects.get(user=request.user)
     areas = Area.objects.all()
@@ -61,6 +32,39 @@ def profileView(request):
         }
     return render(request, "user/profile.html", context)
 
+
+def signupView(request):
+    areas = Area.objects.all()
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+
+            name = form.cleaned_data['name']
+            surname = form.cleaned_data['surname']
+            email = form.cleaned_data['email']
+            phone = form.cleaned_data['phone']
+            area = form.cleaned_data['area']
+
+            customer = Customer.objects.create(
+                user=user,
+                name=name,
+                surname=surname,
+                email=email,
+                phone=phone,
+                area=area
+            )
+
+            return redirect('core:index')  
+    else:
+        form = SignUpForm()
+
+    context = {
+        'form': form,
+        'areas': areas
+    }
+    return render(request, 'user/signup.html', context)
 
 def logoutView(request):
     logout(request)
