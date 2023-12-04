@@ -36,6 +36,9 @@
           </form>
 
           {% if user.is_authenticated %}
+            {% if user.is_staff %}
+              <a class="btn btn-primary ms-auto me-2" href="{% url 'admin:index' %}">Admin Panel</a>
+            {% endif %}
             <a class="btn btn-primary ms-auto me-2" href="{% url 'user:profile' %}">Profile</a>
             <a class="btn btn-secondary me-3" href="#">Cart</a>
           {% else %}
