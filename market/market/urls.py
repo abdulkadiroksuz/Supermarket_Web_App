@@ -25,6 +25,7 @@ from django.urls import include, path
 
 
 urlpatterns = [
+    path("__debug__/", include("debug_toolbar.urls")),
     path("", include("core.urls"), name="core"),
     path('admin/logout/', lambda request: redirect('user:logout', permanent=False)),
     path('admin/', admin.site.urls),

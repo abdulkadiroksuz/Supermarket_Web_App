@@ -20,9 +20,9 @@
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
               <ul class="dropdown-menu">
                 {% for category in categories %}
-                  <li>
+                <li>
                     <a class="dropdown-item" href="{% url 'item:category' category_slug=category.slug %}">{{ category }}</a>
-                  </li>
+                </li>
                 {% endfor %}
               </ul>
             </li>
@@ -30,10 +30,12 @@
               <a class="nav-link disabled" aria-disabled="true">Disabled</a>
             </li>
           </ul>
-          <form class="d-flex ms-5" role="search">
-            <input class="form-control me-2" type="search" placeholder="e.g. Potato, Tomato, Egg" aria-label="Search" style="width: 400px;" />
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+
+          <form class="d-flex ms-5" role="search" onsubmit="submitForm(event)">
+            <input id="searchInput" class="form-control me-2" type="search" name="search_text" placeholder="e.g. Potato, Tomato, Egg" aria-label="Search" style="width: 400px;" />
+            <a href="{% url 'core:search' %}" class="btn btn-outline-success">Search</a>
+        </form>
+      
 
           {% if user.is_authenticated %}
             {% if user.is_staff %}
@@ -51,7 +53,8 @@
 
     <div class="px-6 py-6">
       {% block content %}
-
+      
+      
       {% endblock %}
     </div>
 
