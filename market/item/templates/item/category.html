@@ -14,7 +14,7 @@
         <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <a href="#" class="card-link">Add to cart</a>
-        <a href="#" class="card-link">Details</a>
+        <a href="{% url 'item:product' product_slug=product.slug %}" class="card-link">Details</a>
       </div>
     </div>
   {% endfor %}

@@ -20,6 +20,14 @@ def category(request, category_slug):
     return render(request, 'item/category.html', context)
 
 
-def product(request, product_id):
-    product = Product.objects.get(id=product_id)
-    return render(request, 'market/product.html', {'product': product})
+def product(request, product_slug):
+    product_object = get_object_or_404(Product, slug=product_slug)
+
+    categories = Category.objects.all()
+
+    context = {
+        'categories': categories,
+        'product': product_object,
+    }
+    
+    return render(request, 'item/product.html', context)
