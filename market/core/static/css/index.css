@@ -17,6 +17,7 @@
     align-items: center;
     opacity: 1;
     transition: opacity 0.5s ease; /* Add a smooth transition for opacity changes */
+    position: relative;
 }
 
 #home-banner.banner-hidden {
@@ -42,6 +43,16 @@
     height: 150px;
     object-position: center;
     object-fit: contain;
+}
+
+.bg-3 {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    object-position: center;
 }
 
 .home-banner {
