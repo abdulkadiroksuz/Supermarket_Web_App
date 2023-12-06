@@ -1,18 +1,18 @@
 #home-banner {
-    max-width: 1250px;
-    height: 500px;
+    max-width: 100%; 
+    height: 60vh; 
     border-radius: 30px;
     background-color: #ecf7ee;
-    margin: 5px 50px 10px 50px;
+    margin: 5rem; 
     position: relative;
     overflow: hidden;
     background-image: url(images/bg.png);
     background-repeat: no-repeat;
-    background-size: 1000px;
-    background-position: bottom right;
+    background-size: cover;
+    background-position: center right; 
     padding: 20px;
     display: flex;
-    align-items: center;
+    align-items: center;
 }
 
 .bg-1 {

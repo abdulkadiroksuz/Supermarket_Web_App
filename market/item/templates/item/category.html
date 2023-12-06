@@ -1,24 +1,47 @@
 {% extends 'core/base.html' %}
+{% load static %}
+
+{% block additionalStyles %}
+  <link rel="stylesheet" href="{% static 'category.css' %}">
+{% endblock %}
 
 {% block title %}
   {{ category.name }}
 {% endblock %}
 
 {% block content %}
-{% if products %}
-  {% for product in products %}
-    <div class="card m-2" style="width: 18rem;">
-      <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}" width="150" height="150">
-      <div class="card-body">
-        <h5 class="card-title">{{product.name}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Add to cart</a>
-        <a href="{% url 'item:product' product_slug=product.slug %}" class="card-link">Details</a>
-      </div>
-    </div>
-  {% endfor %}
-{% else %}
-  <p class="card-title m-5">No products available at the moment.</p>
-{% endif %}
+  <div class="product-container">
+    {% if products %}
+      {% for product in products %}
+          <div class="product-box">
+            <div class="icons">
+              <a href="#" class="far fa-heart"></a>
+              <a href="#" class="fas fa-eye"></a>
+            </div>
+
+            <img src="{{ product.image.url }}" alt="">
+            <h3>organic banana</h3>
+            <p class="description multiline">{{ product.description }}
+            </p>
+            <div class="bottom-section">
+              <div class="price">${{ product.price }}</div>
+              <div class="quantity">
+                <span>quantity: </span>
+                <input type="number" min="1" max="100" value="1">
+              </div>
+              {% if user.is_authanticated %}
+                <a href="#" class="btn">add to cart</a>
+              {% else %}
+                  <p class="warn_info" style="font-size: .9rem;">
+                    <a id="a_login" href="{% url 'user:login' %}">login</a> 
+                    to add to cart 
+                  </p>
+              {% endif %}
+            </div>
+          </div>
+      {% endfor %}
+    {% else %}
+      <p>No products available at the moment.</p>
+    {% endif %}
+  </div>
 {% endblock %}
