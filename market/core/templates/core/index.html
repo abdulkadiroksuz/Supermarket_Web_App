@@ -1,12 +1,100 @@
-{% extends "core/base.html" %} 
+    {% extends "core/base.html" %} 
+    {% load static %}
 
-{% block title %}Home{% endblock %} 
-{% block content%}
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Home</h1>
-            <p>Home page content goes here.</p>
+    {% block additionalStyles %}
+    <link rel="stylesheet" href="{% static 'index.css' %}" />
+    {% endblock %}
+    
+    {% block title %}Home{% endblock %} 
+    {% block content%}
+
+    <section id="home-banner">
+        
+        <img src="{% static 'images/bg-1.png' %}" class="bg-1">
+        <img src="{% static 'images/bg-2.png' %}" class="bg-2">
+        <div class="home-banner-text">
+            <h1>Order your daily groceries</h1>
+            <strong># Free Delivery</strong>
         </div>
-    </div>
-{% endblock %}
+    </section>
+
+    <section id="category">
+        <div class="category-heading">
+            <h2>Popular Categories</h2>
+        </div>
+
+        <div class="category-container">
+
+            <!-- max 7 category-box -->
+            <a href="#" class="category-box">
+                
+                <img src="{% static 'images/fish.png' %}" alt="fish">
+                <span>Fish & Meat</span>
+            </a>
+
+
+        </div>
+    </section>
+
+    <section id="popular-product">
+        <div class="product-heading">
+            <h3>Popular product</h3>
+        </div>
+
+
+        <div class="product-container">
+            <div class="product-box">
+                <span class="discount"></span>
+                <div class="icons">
+                    <a href="#" class="far fa-heart"></a>
+                    <a href="#" class="fas fa-eye"></a>
+                </div>
+                
+                <img src="{% static 'images/product-1.png' %}" alt="">
+                <h3>organic banana</h3>
+                <p class="description multiline" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis placeat cumque
+                    amet natus ex accusantium nam soluta nihil aspernatur non!</p>
+                <div class="bottom-section">
+                    <div class="price">$10.00</div>
+                <div class="quantity">
+                    <span>quantity: </span>
+                    <input type="number" min="1" max="100" value="1">
+                </div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="feature">
+        <div class="features-heading">
+            <h3>Features</h3>
+        </div>
+
+
+        <div class="features-container">
+
+            <div class="feature-box">
+                
+                <img class="feature-img" src="{% static 'images/feature-img-1.png' %}" alt="">
+                <h3>Fresh and Organic</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, obcaecati?</p>
+            </div>
+
+            <div class="feature-box">                
+                <img class="feature-img" src="{% static 'images/feature-img-2.png' %}" alt="">
+                <h3>Free Delivery</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, obcaecati?</p>
+            </div>
+
+            <div class="feature-box">                
+                <img class="feature-img" src="{% static 'images/feature-img-3.png' %}" alt="">
+                <h3>Easy Payments</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, obcaecati?</p>
+            </div>
+
+        </div>
+    </section>
+
+
+    {% endblock %}
