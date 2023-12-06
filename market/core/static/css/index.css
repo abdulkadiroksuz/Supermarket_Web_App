@@ -8,7 +8,7 @@
     width: 95%;
     position: relative;
     overflow: hidden;
-    background-image: url(images/bg.png);
+    background-image: url(../images/bg.png);
     background-repeat: no-repeat;
     background-size: cover; /* Cover the entire container */
     background-position: center right; /* Center horizontally, bottom vertically */

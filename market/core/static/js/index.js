@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function handleScroll() {
         var scrollY = window.scrollY || window.pageYOffset;
-        var scrollThreshold = 300; // Adjust this value based on when you want the effect to start
+        var scrollThreshold = 250; // Adjust this value based on when you want the effect to start
 
         if (scrollY > scrollThreshold) {
             homeBanner.classList.add("banner-hidden");
