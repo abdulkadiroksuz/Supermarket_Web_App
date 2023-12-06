@@ -1,18 +1,25 @@
 #home-banner {
-    max-width: 1250px;
-    height: 500px;
+    max-width: 100%; /* Adjusted to be responsive */
+    height: 60vh; /* 60% of the viewport height */
     border-radius: 30px;
     background-color: #ecf7ee;
-    margin: 5px 50px 10px 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
     position: relative;
     overflow: hidden;
     background-image: url(images/bg.png);
     background-repeat: no-repeat;
-    background-size: 1000px;
-    background-position: bottom right;
+    background-size: cover; /* Cover the entire container */
+    background-position: center right; /* Center horizontally, bottom vertically */
     padding: 20px;
     display: flex;
     align-items: center;
+    opacity: 1;
+    transition: opacity 0.5s ease; /* Add a smooth transition for opacity changes */
+}
+#home-banner.banner-hidden {
+    opacity: 0;
 }
 
 .bg-1 {

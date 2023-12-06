@@ -4,6 +4,10 @@
     {% block additionalStyles %}
     <link rel="stylesheet" href="{% static 'index.css' %}" />
     {% endblock %}
+
+    
+
+
     
     {% block title %}Home{% endblock %} 
     {% block content%}
@@ -97,4 +101,8 @@
     </section>
 
 
+    {% endblock %}
+
+    {% block additionalScripts %}
+    <script src="{% static 'index.js' %}"></script>
     {% endblock %}
