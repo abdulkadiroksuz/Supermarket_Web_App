@@ -1,11 +1,11 @@
 <!-- index.html -->
 <!DOCTYPE html>
+{% load static %}
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
     <title>Market | Profile</title>
   </head>
   <body>
@@ -118,7 +118,7 @@
       </div>
     </div>
     {% load static %}
-    <script src="{% static 'profile.js' %}"></script>
+    <script src="{% static 'js/profile.js' %}"></script>
     <script>
       // Add this script to show the default content on page load
       document.addEventListener('DOMContentLoaded', function () {
