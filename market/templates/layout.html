@@ -14,46 +14,49 @@
 </head>
 <body>
 
-    {% include "partials/_messages.html" %}
-
     {% include "partials/_navbar.html" %}
 
-    <!-- login.html -->
+    <form action="{% url 'core:login_view' %}" method="post" class="login-form {% if messages %}active{% endif %}" id="login-form">
+    {% csrf_token %}
 
-    <form action="{% url 'core:login_view' %}" method="post" class="login-form" id="login-form">
-        {% csrf_token %}
+    <h3>Login</h3>
 
-        <h3>Login</h3>
+    <input name="username" type="text" placeholder="Enter your username" class="box">
+    <input type="password" name="password" placeholder="Enter your password" class="box">
 
-        <input name="username" type="text" placeholder="Enter your username" class="box">
-        <input type="password" name="password" placeholder="Enter your password" class="box">
+    <div class="remember">
+        <input type="checkbox" name="remember_me" id="remember-me">
+        <label for="remember-me">Remember me</label>
+    </div>
 
-        <div class="remember">
-            <input type="checkbox" name="remember_me" id="remember-me">
-            <label for="remember-me">Remember me</label>
-        </div>
+    <a href="#" class="btn" id="login-button">Login</a>
 
-        <a href="#" class="btn" id="login-button">Login</a>
-        
-        <span style="font-size: .8rem;">Don't you have an account?</span>
-        <a href="{% url 'user:signup' %}" class="signup-link">Sign up</a>
-    </form>
+    <span style="font-size: .8rem;">Don't you have an account?</span>
+    <a href="{% url 'user:signup' %}" class="signup-link">Sign up</a>
 
-    <script>
-    document.getElementById('login-button').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default form submission
-        document.getElementById('login-form').submit(); // Manually submit the form
-    });
-    </script>
+    {% if messages %}
+        <ul class="errorlist">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</form>
 
+<script>
+document.getElementById('login-button').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+    document.getElementById('login-form').submit(); // Manually submit the form
+});
+</script>
+
+    
 
     {% block content %}{% endblock %}
    
     {% include "partials/_footer.html" %}
 
     {% block additionalScripts %}
-
-  
     {% endblock %}
 </body>
 

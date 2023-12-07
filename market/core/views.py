@@ -43,11 +43,13 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, f'Welcome, {username}!')
                 return redirect('core:index')  # Redirect to the desired page after login
-            else:
-                messages.error(request, 'Invalid username or password.')
+            
+                
+        # If the form is not valid or the authentication failed
+        messages.error(request, 'Invalid username or password.')
+        
     else:
         form = AuthenticationForm()
     
-    return render(request, 'user/login.html', {'form': form})
+    return redirect('core:index')
