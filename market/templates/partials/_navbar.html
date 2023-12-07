@@ -1,0 +1,42 @@
+{% load static %}
+<nav class="navigation">
+    
+    <a href="{% url 'core:index' %}" ><img id="logo" class="logo" src="{% static 'images/trlogo.png' %}" alt=""></a>
+    <div id="category-dropdown-menu" class="dropdown">
+        <a href="#" class="title-categories">Categories</a>
+        <div class="dropdown-content">
+            {% for category in categories %}
+                <a href="{% url 'item:category' category_slug=category.slug %}">{{ category }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <form action="" class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" class="search-input" placeholder="e.g. Potato, Tomato, Orange Juice" name="search" required>
+        <input type="submit" class="search-btn" value="search">
+    </form>
+
+    <div class="right-nav">
+        {% if user.is_authenticated %}
+            {% if user.is_staff %}
+                <a id="admin-icon" href="{% url 'admin:index' %}" class="admin">
+                    <i class="fas fa-address-card"></i>
+                </a>
+            {% endif %}
+            <a id="user-icon" href="{% url 'user:profile' %}" class="user">
+                <i class="fas fa-user"></i>
+            </a>
+            <a id="cart-icon" href="#" class="cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span>0</span>
+            </a>
+        {% else %}
+            <a id="user-icon" class="user">
+                <i class="fal fa-user"></i>
+            </a>
+        {% endif %}
+    </div>
+
+    
+</nav>

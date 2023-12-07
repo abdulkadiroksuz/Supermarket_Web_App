@@ -1,16 +1,16 @@
-    {% extends "core/base.html" %} 
-    {% load static %}
+{% extends "layout.html" %}
+{% load static %}
 
-    {% block additionalStyles %}
+{% block additionalStyles %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-    {% endblock %}
+{% endblock %}
 
     
 
 
     
-    {% block title %}Home{% endblock %} 
-    {% block content%}
+{% block title %}Home{% endblock %} 
+{% block content%}
 
     <section id="home-banner">
         
@@ -102,8 +102,8 @@
     </section>
 
 
-    {% endblock %}
+{% endblock %}
 
-    {% block additionalScripts %}
+{% block additionalScripts %}
     <script src="{% static 'js/index.js' %}"></script>
-    {% endblock %}
+{% endblock %}
