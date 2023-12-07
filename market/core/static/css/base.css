@@ -317,3 +317,112 @@ footer {
     width: 50px;
     height: 50px;
 }
+
+:root {
+    --swiper-theme-color: #007aff;
+    --swiper-navigation-size: 44px;
+    --primary-color: #3bb77e;
+    --secondary: #ffba43;
+    --bg: #e2f9ee;
+    --black: #1c2137;
+    --white: #fff;
+    --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+:root {
+    --primary-color: #3bb77e;
+    --box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+    --white: #fff;
+    --black: #1c2137;
+}
+
+:root {
+    --primary-color: #3bb77e;
+    --box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+    --white: #fff;
+    --black: #1c2137;
+}
+
+:root {
+    --primary-color: #3bb77e;
+    --box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+    --white: #fff;
+    --black: #1c2137;
+}
+
+.login-form {
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-transform: capitalize;
+    text-decoration: none;
+    position: fixed;
+    top: 11%;
+    right: -100%;
+    background: var(--white);
+    border-radius: 0.2rem;
+    box-shadow: var(--box-shadow);
+    width: 22rem;
+    padding: 1.5rem;
+    transition: right 0.4s linear;
+    z-index: 9999;
+}
+
+.login-form.active {
+    right: 3rem;
+}
+
+.login-form h3 {
+    color: var(--black);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.3rem;
+}
+
+.login-form .box {
+    margin: 0.3rem 0;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--black);
+    width: 100%;
+}
+
+.login-form .remember {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin: 0.3rem 0;
+}
+
+.login-form .remember label {
+    font-size: 0.9rem;
+    color: var(--black);
+    cursor: pointer;
+}
+
+.login-form .btn {
+    display: inline-block;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    color: var(--white);
+    border-radius: 0.2rem;
+    background: var(--primary-color);
+    cursor: pointer;
+    margin: 0.3rem 0;
+    text-align: center;
+    width: 100%;
+}
+
+.login-form .signup-link {
+    font-size: 0.9rem; /* Adjusted font size */
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 0.5rem; /* Adjusted margin-top */
+    cursor: pointer;
+}
+
+
