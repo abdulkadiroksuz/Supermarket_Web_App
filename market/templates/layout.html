@@ -44,13 +44,6 @@
 
 </form>
 
-<script>
-document.getElementById('login-button').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent the default form submission
-    document.getElementById('login-form').submit(); // Manually submit the form
-});
-</script>
-
     
 
     {% block content %}{% endblock %}
@@ -59,6 +52,8 @@ document.getElementById('login-button').addEventListener('click', function(event
 
     {% block additionalScripts %}
     {% endblock %}
+
+    <script src="{% static 'js/base.js' %}"></script>
 </body>
 
 </html>

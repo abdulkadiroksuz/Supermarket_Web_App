@@ -70,7 +70,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0 auto;
-    text-align: center; 
+    text-align: center;
 }
 
 .product-container .product-box .description.multiline {
@@ -132,10 +132,17 @@
     color: #17c737;
 }
 
-.warn-info{
-    font-size: .5px;
+.warn_info {
+    font-size: .9rem;
 }
 
-#a_login{
-    font-size: 1rem;
+.warn_info button {
+    font-size: .9rem;
+    border: none!important;
+    background: transparent!important;
+}
+
+.warn_info button:hover {
+    color: #0000cc;
+    cursor: pointer!important;
 }
