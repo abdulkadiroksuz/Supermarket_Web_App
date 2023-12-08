@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    {% comment %} <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <style type="text/css" id="operaUserStyle"></style> {% endcomment %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style type="text/css" id="operaUserStyle"></style>
     <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
 {% endblock %}
 
@@ -22,142 +22,29 @@
                     <div class="col">
                         <h4><b>Shopping Cart</b></h4>
                     </div>
-                    <div class="col align-self-center text-right text-muted">999 items</div>
+                    <div class="col align-self-center text-right text-muted">{{ total_items }} products</div>
                 </div>
             </div>
             <div class="products">
-
-                <div class="product" id="p1">
-
+            {% for item in items %}
+                <div class="product" id="p{{ item.product.id }}">
                     <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
+                        <div class="col-2"><img class="img-fluid" src="{{ item.product.image }}"></div>
                         <div class="col-5">
-                            <div class="row">Blue Cotton T-shirt</div>
-                            <div id="txt-description" class="row text-muted">Comfortable shirt for everyday wear.
-                            </div>
+                            <div class="row">{{ item.product.name }}</div>
+                            <div id="txt-description" class="row text-muted">{{ item.product.description }}</div>
                         </div>
-                        <div class="col">
-                            <button class="action-button" onclick="decreaseQuantity('p1')">-</button>
-                            <span class="quantity">3</span>
-                            <button class="action-button" onclick="increaseQuantity('p1')">+</button>
+                        <div class="col-2">
+                            <button class="action-button" onclick="decreaseQuantity('p{{ item.product.id }}')">-</button>
+                            <span class="quantity">{{ item.quantity }}</span>
+                            <button class="action-button" onclick="increaseQuantity('p{{ item.product.id }}')">+</button>
                         </div>
-                        <div class="col product-price">$ 39.99</div>
-                        <button class="action-button close-button" onclick="removeItem('p1')">✕</button>
+                        <div class="col-2 product-price">$ {{ item.product.price }}</div>
+                        <button class="action-button close-button" onclick="removeItem('p{{ item.product.id }}')">✕</button>
                     </div>
                 </div>
-
-                <div class="product" id="p2">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
-                        <div class="col-5">
-                            <div class="row">Red Cotton T-shirt</div>
-                            <div id="txt-description" class="row text-muted">Classic red shirt with a modern twist.
-                            </div>
-                        </div>
-                        <div class="col">
-                            <button class="action-button" onclick="decreaseQuantity('p2')">-</button>
-                            <span class="quantity" id="quantity-p2">5</span>
-                            <button class="action-button" onclick="increaseQuantity('p2')">+</button>
-                        </div>
-                        <div class="col product-price">$ 49.99</div>
-                        <button class="action-button close-button" onclick="removeItem('p2')">✕</button>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product" id="p3">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
-                        <div class="col-5">
-                            <div class="row">Green Polo Shirt</div>
-                            <div id="txt-description" class="row text-muted">Casual polo shirt in a refreshing green
-                                color.</div>
-                        </div>
-                        <div class="col">
-                            <button class="action-button" onclick="decreaseQuantity('p3')">-</button>
-                            <span class="quantity" id="quantity-p3">2</span>
-                            <button class="action-button" onclick="increaseQuantity('p3')">+</button>
-                        </div>
-                        <div class="col product-price">$ 29.99</div>
-                        <button class="action-button close-button" onclick="removeItem('p3')">✕</button>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="product" id="p4">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
-                        <div class="col-5">
-                            <div class="row">Black Slim Fit Jeans</div>
-                            <div id="txt-description" class="row text-muted">Stylish and comfortable slim fit jeans
-                                in classic black.</div>
-                        </div>
-                        <div class="col">
-                            <button class="action-button" onclick="decreaseQuantity('p4')">-</button>
-                            <span class="quantity" id="quantity-p4">1</span>
-                            <button class="action-button" onclick="increaseQuantity('p4')">+</button>
-                        </div>
-                        <div class="col product-price">$ 59.99</div>
-                        <button class="action-button close-button" onclick="removeItem('p4')">✕</button>
-                    </div>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="product" id="p5">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
-                        <div class="col-5">
-                            <div class="row">Striped Summer Dress</div>
-                            <div id="txt-description" class="row text-muted">Light and airy summer dress with
-                                colorful stripes.</div>
-                        </div>
-                        <div class="col">
-                            <button class="action-button" onclick="decreaseQuantity('p5')">-</button>
-                            <span class="quantity" id="quantity-p5">4</span>
-                            <button class="action-button" onclick="increaseQuantity('p5')">+</button>
-                        </div>
-                        <div class="col product-price">$ 34.99</div>
-                        <button class="action-button close-button" onclick="removeItem('p5')">✕</button>
-                    </div>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="product" id="p6">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
-                        <div class="col-5">
-                            <div class="row">White Sneakers</div>
-                            <div id="txt-description" class="row text-muted">Classic white sneakers for a casual and
-                                stylish look.</div>
-                        </div>
-                        <div class="col">
-                            <button class="action-button" onclick="decreaseQuantity('p6')">-</button>
-                            <span class="quantity" id="quantity-p6">2</span>
-                            <button class="action-button" onclick="increaseQuantity('p6')">+</button>
-                        </div>
-                        <div class="col product-price">$ 29.99</div>
-                        <button class="action-button close-button" onclick="removeItem('p6')">✕</button>
-                    </div>
-                </div>
-
-                <!-- Product 7 -->
-                <div class="product" id="p7">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
-                        <div class="col-5">
-                            <div class="row">Denim Jacket</div>
-                            <div id="txt-description" class="row text-muted">Classic denim jacket for a timeless and
-                                trendy look.</div>
-                        </div>
-                        <div class="col">
-                            <button class="action-button" onclick="decreaseQuantity('p7')">-</button>
-                            <span class="quantity" id="quantity-p7">3</span>
-                            <button class="action-button" onclick="increaseQuantity('p7')">+</button>
-                        </div>
-                        <div class="col product-price">$ 79.99</div>
-                        <button class="action-button close-button" onclick="removeItem('p7')">✕</button>
-                    </div>
-                </div>
+            {% endfor %}
+            
             </div>
 
             <div class="back-to-shop"><a href="#">← <span class="text">Back to shop</span></a></div>
@@ -172,8 +59,8 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col tot-items" style="padding-left:0;">ITEMS 999</div>
-                <div class="col text-right tot-price">$ 99.99</div>
+                <div class="col tot-items" style="padding-left:0;">{{ total_items }} ITEMS</div>
+                <div class="col text-right tot-price">$ 0.00</div>
             </div>
             <form>
                 <p>SHIPPING</p>
@@ -186,7 +73,7 @@
             </form>
             <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                 <div class="col">TOTAL PRICE</div>
-                <div class="col text-right tot-price">$ 99.99</div>
+                <div class="col text-right tot-price">$ 0.00</div>
             </div>
             <button class="btn">CHECKOUT</button>
         </div>
@@ -199,4 +86,7 @@
 {% block additionalScripts %}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'js/cart.js' %}"></script>
+    <script>
+        updateCart();
+    </script>
 {% endblock %}
