@@ -27,20 +27,21 @@
             </div>
             <div class="products">
             {% for item in items %}
-                <div class="product" id="p{{ item.product.id }}">
+                <div class="product" id="p{{ item.product__id }}">
                     <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="{{ item.product.image }}"></div>
+                        {% get_media_prefix  as MEDIA_PREFIX %}
+                        <div class="col-2"><img class="img-fluid" src="{{ MEDIA_PREFIX }}{{ item.product__image }}"></div>
                         <div class="col-5">
-                            <div class="row">{{ item.product.name }}</div>
-                            <div id="txt-description" class="row text-muted">{{ item.product.description }}</div>
+                            <div class="row">{{ item.product__name }}</div>
+                            <div id="txt-description" class="row text-muted">{{ item.product__description }}</div>
                         </div>
                         <div class="col-2">
-                            <button class="action-button" onclick="decreaseQuantity('p{{ item.product.id }}')">-</button>
+                            <button class="action-button" onclick="decreaseQuantity('p{{ item.product__id }}')">-</button>
                             <span class="quantity">{{ item.quantity }}</span>
-                            <button class="action-button" onclick="increaseQuantity('p{{ item.product.id }}')">+</button>
+                            <button class="action-button" onclick="increaseQuantity('p{{ item.product__id }}')">+</button>
                         </div>
-                        <div class="col-2 product-price">$ {{ item.product.price }}</div>
-                        <button class="action-button close-button" onclick="removeItem('p{{ item.product.id }}')">✕</button>
+                        <div class="col-2 product-price">$ {{ item.product__price }}</div>
+                        <button class="action-button close-button" onclick="removeItem('p{{ item.product__id }}')">✕</button>
                     </div>
                 </div>
             {% endfor %}
