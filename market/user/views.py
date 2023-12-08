@@ -1,10 +1,11 @@
 # users_app/views.py
+from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render, reverse
-from django.contrib.auth import login, logout
-from .forms import UserLoginForm, SignUpForm
-from .models import Customer
 from storage.models import Area
+
+from .forms import SignUpForm, UserLoginForm
+from .models import Customer
 
 
 class loginView(LoginView):
@@ -32,7 +33,7 @@ def profileView(request):
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         area_name = request.POST.get('area')
-        area_id = areas.get(name=area_name).id
+        area = areas.get(name=area_name).id
         
 
         # Update customer information
@@ -40,7 +41,7 @@ def profileView(request):
         customer.surname = surname
         customer.email = email
         customer.phone = phone
-        customer.area_id = area_id
+        customer.area = area
         customer.save()
 
         # Redirect to the profile page after updating the customer

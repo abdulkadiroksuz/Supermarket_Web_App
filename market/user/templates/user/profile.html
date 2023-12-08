@@ -95,7 +95,7 @@
                 <label for="area">Area:</label>
                 <select id="area" name="area" class="form-control" required>
                   {% for area in areas %}
-                    <option value="{{ area }}" {% if customer.area_id == area.id %} selected {% endif %}>{{ area.name }}</option>
+                    <option value="{{ area }}" {% if customer.area == area.id %} selected {% endif %}>{{ area.name }}</option>
                   {% endfor %}
                 </select>
               </div>
