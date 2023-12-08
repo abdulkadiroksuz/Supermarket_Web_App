@@ -1,0 +1,244 @@
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+* {
+    font-family: poppins;
+}
+
+.title {
+    margin-bottom: 5vh;
+}
+
+.card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20vh;
+    padding-bottom: 5%;
+    max-width: 950px;
+    width: 90%;
+    border: transparent;
+}
+
+@media(max-width:767px) {
+    .card {
+        margin: 3vh auto;
+    }
+}
+
+.shopping-cart {
+    background-color: #fff;
+    padding: 2rem 2rem;
+    padding-bottom: .5rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.summary {
+    height: fit-content;
+    position: sticky;
+    top: 0;
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh;
+    color: rgb(65, 65, 65);
+}
+
+@media(max-width:767px) {
+    .summary {
+        border-top-right-radius: unset;
+        border-bottom-left-radius: 1rem;
+    }
+}
+
+.summary .col-2 {
+    padding: 0;
+}
+
+.summary .col-10 {
+    padding: 0;
+}
+
+.row {
+    margin: 0;
+}
+
+.title b {
+    font-size: 1.5rem;
+}
+
+.main {
+    margin: 0 1rem;
+    padding: 2vh 0;
+    width: 100%;
+}
+
+.col-2,
+.col {
+    padding: 0 1vh;
+}
+
+a {
+    padding: 0 1vh;
+}
+
+.close {
+    margin-left: auto;
+    font-size: 1.2rem;
+}
+
+img {
+    width: 3.5rem;
+}
+
+.products {
+    margin-bottom: 2rem;
+}
+
+.product{
+    border-top: 1px solid rgba(0, 150, 18, 1)!important;
+    border-bottom: 1px solid rgba(0, 150, 18, 1)!important;
+}
+
+.quantity {
+    margin: 0 .3rem 0.3rem;
+}
+
+.action-button {
+    border-radius: 100%;
+    background: transparent;
+    color: #000;
+    border: none;
+}
+
+.action-button:focus {
+    outline: none;
+    border: none;
+}
+
+.close-button {
+    color: #c82333;
+}
+
+.back-to-shop {
+    position: absolute;
+    bottom: .5rem;
+    margin-top: 1rem;
+}
+
+.back-to-shop a,
+.back-to-shop span {
+    color: #4eb060;
+}
+
+.back-to-shop:hover a,
+.back-to-shop:hover span {
+    color: #c82333;
+}
+
+h5 {
+    margin-top: 4vh;
+}
+
+hr {
+    margin-top: 1.25rem;
+}
+
+form {
+    padding: 2vh 0;
+}
+
+select {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1.5vh 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+
+.btn {
+    box-sizing: border-box;
+    margin: 1rem auto;
+    border: 0;
+    width: 100%;
+    text-align: center;
+    letter-spacing: -.015em;
+    font-size: .7rem;
+    padding: 1em 3em;
+    color: #fff;
+    background: #4eb060;
+    font-weight: bold;
+    border-radius: 30px;
+    float: right;
+    transition: all 0.25s linear;
+}
+
+.btn:focus {
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+    -webkit-user-select: none;
+    transition: none;
+}
+
+.btn:hover {
+    background: #ff6c57;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+#code {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 30px;
+    padding: 1vh 2.2rem 1vh 1rem;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center;
+}
+
+#txt-description {
+    font-size: .8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
