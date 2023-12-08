@@ -1,5 +1,5 @@
 ::-webkit-scrollbar {
-    width: .6rem;
+    width: .6vw;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -360,7 +360,7 @@ footer {
     text-transform: capitalize;
     text-decoration: none;
     position: fixed;
-    top: 11%;
+    top: 20vh;
     right: -100%;
     background: var(--white);
     border-radius: 0.2rem;
@@ -372,12 +372,12 @@ footer {
 }
 
 .login-form.active {
-    right: 3rem;
+    right: 1.5vw;
 }
 
 .login-form h3 {
     color: var(--black);
-    font-size: 1.2rem;
+    font-size: 4.5vh;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 0.3rem;
