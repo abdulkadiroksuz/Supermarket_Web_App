@@ -48,7 +48,7 @@
             
             </div>
 
-            <div class="back-to-shop"><a href="#">← <span class="text">Back to shop</span></a></div>
+            <div class="back-to-shop"><a href="{% url 'core:index' %}">← <span class="text">Back to shop</span></a></div>
 
 
 
@@ -85,6 +85,7 @@
 {% endblock %}
 
 {% block additionalScripts %}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'js/cart.js' %}"></script>
     <script>

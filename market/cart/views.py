@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from market.settings import MEDIA_URL
 from item.models import Category
@@ -35,3 +36,22 @@ def cart(request):
         "total_items": len(cart_products),
     }
     return render(request, "cart.html", context)
+
+
+def update_product(request):
+    if request.method == "POST":
+        product_id = request.POST.get("product_id")
+        customer = Customer.objects.get(user=request.user)
+        cart = Cart.objects.get(customer=customer)
+        cart_item = CartProduct.objects.get(product=product_id, cart=cart)
+        new_quantity = request.POST.get("new_quantity")
+        cart_item.quantity = new_quantity
+        cart_item.save()
+    
+def delete_product(request):
+    if request.method == "POST":
+        product_id = request.POST.get("product_id")
+        customer = Customer.objects.get(user=request.user)
+        cart = Cart.objects.get(customer=customer)
+        cart_item = CartProduct.objects.get(product=product_id, cart=cart)
+        cart_item.delete()

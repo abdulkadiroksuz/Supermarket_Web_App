@@ -29,9 +29,10 @@ function decreaseQuantity(productId) {
 
     if (currentQuantity > 1) {
         quantityElement.innerText = currentQuantity - 1;
+        dbUpdateQuantity(productId, currentQuantity - 1);
         updateCart();
     }else{
-        removeItem(productId);
+        removeItem(productId)
     }
 }
 
@@ -40,12 +41,41 @@ function increaseQuantity(productId) {
     // Implement your logic to increase the quantity for the specific product
     let quantityElement = product.querySelector(".quantity");
     let currentQuantity = parseInt(quantityElement.innerText);
-    quantityElement.innerText = currentQuantity + 1;
+    if (currentQuantity < 20) {
+        quantityElement.innerText = currentQuantity + 1;
+    }
+    dbUpdateQuantity(productId, currentQuantity + 1);
     updateCart();
 }
 
 function removeItem(productId) {
     let product = document.getElementById(productId);
     product.remove();
+    dbDeleteItem(productId);
     updateCart();
+}
+
+// update quantity in database
+function dbUpdateQuantity(productId, newQuantity) {
+    $.ajax({
+        type: "POST",
+        url: "update_cart_item",  // cart app 
+        data: {
+            product_id: productId.substring(1), // remove the 'p' from the id
+            new_quantity: newQuantity,
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        }
+    });
+}
+
+// deletion from database
+function dbDeleteItem(productId) {
+    $.ajax({
+        type: "POST",
+        url: "delete_cart_item",  // cart app 
+        data: {
+            product_id: productId.substring(1), // remove the 'p' from the id
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        }
+    });
 }
