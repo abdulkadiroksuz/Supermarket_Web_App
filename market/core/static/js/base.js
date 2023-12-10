@@ -8,6 +8,43 @@ function closeLoginForm() {
     login.classList.remove('active');
 }
 
+// Function to submit the login form
+function submitLoginForm() {
+    document.getElementById('login-form').submit();
+}
+
+// Event listener for the login button click
+document.getElementById('login-button').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default form submission
+    submitLoginForm(); // Manually submit the form
+});
+
+// Event listener for the Enter key press in the login form
+document.getElementById('login-form').addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default form submission
+        submitLoginForm(); // Manually submit the form
+    }
+});
+
+document.addEventListener('click', function (event) {
+    let loginForm = document.getElementById('login-form');
+    let loginButton = document.getElementById('login-button');
+    let userIcon = document.getElementById('user-icon');
+
+    // Check if the click is outside the form and button
+    let isClickInsideForm = loginForm.contains(event.target);
+    let isClickInsideButton = loginButton.contains(event.target);
+    let isClickInsideUserIcon = userIcon.contains(event.target);
+    if (!(isClickInsideForm || isClickInsideButton || isClickInsideUserIcon)) {
+        closeLoginForm();
+    }
+});
+
+window.onscroll = () => {
+    closeLoginForm();
+}
+
 function saveCredentials() {
     let usernameInput = document.querySelector('input[name="username"]');
     let passwordInput = document.querySelector('input[name="password"]');
@@ -49,16 +86,6 @@ function loadCredentials() {
     }
 }
 
-
-document.getElementById('login-button').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent the default form submission
-    document.getElementById('login-form').submit(); // Manually submit the form
-});
-
 window.onload = function () {
     loadCredentials();
-}
-
-window.onscroll = () => {
-    closeLoginForm();
 }
