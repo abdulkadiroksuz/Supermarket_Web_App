@@ -55,3 +55,14 @@ def delete_product(request):
         cart = Cart.objects.get(customer=customer)
         cart_item = CartProduct.objects.get(product=product_id, cart=cart)
         cart_item.delete()
+        
+def get_navbar_cart(request):
+    if request.method == "GET":
+        customer = Customer.objects.get(user=request.user)
+        cart = Cart.objects.get(customer=customer)
+        total_products = CartProduct.objects.filter(cart=cart).count()
+        
+        data = {
+            "total_cart_products": total_products
+            }
+    return JsonResponse(data)
