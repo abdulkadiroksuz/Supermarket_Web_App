@@ -32,7 +32,7 @@ function decreaseQuantity(productId) {
         dbUpdateQuantity(productId, currentQuantity - 1);
         updateCart();
     }else{
-        removeItem(productId)
+        removeItem(productId);
     }
 }
 
@@ -43,8 +43,8 @@ function increaseQuantity(productId) {
     let currentQuantity = parseInt(quantityElement.innerText);
     if (currentQuantity < 20) {
         quantityElement.innerText = currentQuantity + 1;
+        dbUpdateQuantity(productId, currentQuantity + 1);
     }
-    dbUpdateQuantity(productId, currentQuantity + 1);
     updateCart();
 }
 
@@ -70,6 +70,7 @@ function dbUpdateQuantity(productId, newQuantity) {
 
 // deletion from database
 function dbDeleteItem(productId) {
+    let getIconUrl =
     $.ajax({
         type: "POST",
         url: "delete_cart_item",  // cart app 
