@@ -6,7 +6,7 @@
         <a href="#" class="title-categories">Categories</a>
         <div class="dropdown-content">
             {% for category in categories %}
-                <a href="{% url 'item:category' category_slug=category.slug %}">{{ category }}</a>
+                <a href="{% url 'item:category' category_slug=category.slug %}">{{ category.name }}</a>
             {% endfor %}
         </div>
     </div>

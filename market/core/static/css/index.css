@@ -216,11 +216,6 @@
 
 }
 
-.product-container .product-box .icons a.hover {
-    background: var(--green);
-    color: #fff;
-
-}
 
 .product-container .product-box h3 {
     color: var(--black);

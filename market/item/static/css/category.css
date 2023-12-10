@@ -8,6 +8,7 @@
 }
 
 .product-container .product-box {
+    width: 12vw;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -15,6 +16,7 @@
     border: .05rem solid rgba(0, 0, 0, .3);
     border-radius: .5rem;
     overflow: hidden;
+
     position: relative;
 }
 

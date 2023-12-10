@@ -10,17 +10,20 @@
 {% endblock %}
 
 {% block content %}
+  <h1 style="margin-left: 5vw;" > {{category.name}} </h1>
   <div class="product-container">
+    
     {% if products %}
       {% for product in products %}
+
           <div class="product-box">
             <div class="icons">
               <a href="#" class="far fa-heart"></a>
-              <a href="#" class="fas fa-eye"></a>
+              <a href="{% url 'item:product' product_slug=product.slug %}" class="fas fa-eye"></a>
             </div>
 
             <img src="{{ product.image.url }}" alt="">
-            <h3>organic banana</h3>
+            <h3> {{ product.name }}</h3>
             <p class="description multiline">{{ product.description }}
             </p>
             <div class="bottom-section">
@@ -38,6 +41,7 @@
                   </p>
               {% endif %}
             </div>
+          
           </div>
       {% endfor %}
     {% else %}
