@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    icon = models.ImageField(upload_to='category_icons', blank=True, null=True)
     slug = models.SlugField(max_length=100, unique=True)
     
     class Meta:
