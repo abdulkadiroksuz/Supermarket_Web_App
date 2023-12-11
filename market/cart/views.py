@@ -36,7 +36,7 @@ def cart(request):
     }
     return render(request, "cart.html", context)
 
-
+# used to update the quantity of the product in the cart
 def update_product(request):
     if request.method == "POST":
         product_id = request.POST.get("product_id")
@@ -46,7 +46,10 @@ def update_product(request):
         new_quantity = request.POST.get("new_quantity")
         cart_item.quantity = new_quantity
         cart_item.save()
-    
+
+# used to delete the product from the cart
+# when the use clicks on the delete button
+# or make the quantity of the product to 0    
 def delete_product(request):
     if request.method == "POST":
         product_id = request.POST.get("product_id")
@@ -54,7 +57,8 @@ def delete_product(request):
         cart = Cart.objects.get(customer=customer)
         cart_item = CartProduct.objects.get(product=product_id, cart=cart)
         cart_item.delete()
-        
+
+# returns the count of the products in the cart        
 def get_navbar_cart(request):
     if request.method == "GET":
         customer = Customer.objects.get(user=request.user)
@@ -66,6 +70,7 @@ def get_navbar_cart(request):
             }
     return JsonResponse(data)
 
+# used to add the product to the cart
 def add_to_cart(request):
     if request.method != "POST":
         return JsonResponse({"error": "Invalid request method"})
