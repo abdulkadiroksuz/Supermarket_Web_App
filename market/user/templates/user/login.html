@@ -1,0 +1,27 @@
+<form action="{% url 'core:login_view' %}" method="post" class="login-form {% if messages %}active{% endif %}" id="login-form">
+    {% csrf_token %}
+
+    <h3>Login</h3>
+
+    <input name="username" type="text" placeholder="Enter your username" class="box">
+    <input type="password" name="password" placeholder="Enter your password" class="box">
+
+    {% if messages %}
+        <ul class="errorlist">
+            {% for message in messages %}
+                <li><span style="font-size: .8rem;">{{message}}</span></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="remember">
+        <input type="checkbox" name="remember_me" id="remember-me">
+        <label for="remember-me">Remember me</label>
+    </div>
+
+    <a class="btn" id="login-button" onclick="saveCredentials()" tabindex="0">Login</a>
+
+    <span style="font-size: .8rem;">Don't you have an account?</span>
+    <a href="{% url 'user:signup' %}" class="signup-link">Sign up</a>
+
+</form>
