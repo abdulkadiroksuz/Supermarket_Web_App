@@ -29,7 +29,7 @@
             </a>
             <a id="cart-icon" href="{% url 'cart:cart' %}" class="cart" data-update-url="{% url 'cart:update_navbar_cart' %}">
                 <i class="fas fa-shopping-cart"></i>
-                <span></span>
+                <span>0</span>
             </a>
         {% else %}
             <a id="user-icon" class="user" onclick="openLoginForm()">
