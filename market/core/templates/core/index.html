@@ -25,14 +25,12 @@
         </div>
 
         <div class="category-container">
-
-            <!-- max 7 category-box -->
-            <a href="#" class="category-box">
-                
-                <img src="{% static 'images/fish.png' %}" alt="fish">
-                <span>Fish & Meat</span>
-            </a>
-            
+            {% for c in categories %}
+                <a href="{% url 'item:category' category_slug=c.slug %}" class="category-box">
+                    <img src="{{ c.icon.url }}" alt="{{ c.slug }}">
+                    <span>{{ c.name }}</span>
+                </a>
+            {% endfor %}
 
         </div>
     </section>
