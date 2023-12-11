@@ -1,7 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
-from market.settings import MEDIA_URL
-from item.models import Category
+from item.models import Category, Product
 from user.models import Customer
 
 from .models import Cart,CartProduct
@@ -66,3 +65,18 @@ def get_navbar_cart(request):
             "total_cart_products": total_products
             }
     return JsonResponse(data)
+
+def add_to_cart(request):
+    if request.method == "POST":
+        try:
+            quantity = request.POST.get("quantity")
+            product_slug = request.POST.get("product_slug")
+            product = Product.objects.get(slug=product_slug)
+            customer = Customer.objects.get(user=request.user)
+            cart = Cart.objects.get(customer=customer)
+            new_value = CartProduct(cart=cart, product=product, quantity=quantity)
+            new_value.save()
+            return JsonResponse({"success": True})
+        except:
+            return JsonResponse({"error": True})
+    return JsonResponse({"error": True})

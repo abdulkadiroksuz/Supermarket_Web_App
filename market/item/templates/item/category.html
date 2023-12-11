@@ -16,7 +16,7 @@
     {% if products %}
       {% for product in products %}
 
-          <div class="product-box">
+          <div class="product-box" id="{{ product.slug }}">
             <div class="icons">
               <a href="#" class="far fa-heart"></a>
               <a href="{% url 'item:product' product_slug=product.slug %}" class="fas fa-eye"></a>
@@ -33,7 +33,7 @@
                 <input type="number" min="1" max="100" value="1">
               </div>
               {% if user.is_authenticated %}
-                <a href="#" class="btn">add to cart</a>
+              <a class="btn" onclick='dbAddToCart("{{product.slug}}","{% url 'cart:add_item_to_cart' %}")' >add to cart</a>
               {% else %}
                   <p class="warn_info">
                     <button onclick="openLoginForm()">login</button> 

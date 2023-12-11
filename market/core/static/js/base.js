@@ -93,7 +93,7 @@ window.onload = function () {
 
 // gets number of items in cart in database
 function updateNavbarCart() {
-    var updateUrl = document.querySelector('#cart-icon').getAttribute('data-update-url');
+    var updateUrl = document.getElementById('cart-icon').getAttribute('data-update-url');
     $.ajax({
         type: "GET",
         url: updateUrl,
@@ -105,3 +105,31 @@ function updateNavbarCart() {
         },
     });
 }
+
+
+function dbAddToCart(product_slug, updateUrl) {
+    var element = document.getElementById(product_slug);
+    var quantityInput = element.querySelector('.quantity input');
+    var quantity = parseInt(quantityInput.value);
+
+    $.ajax({
+        type: 'POST',
+        url: updateUrl,
+        data: {
+            'product_slug': product_slug,
+            'quantity': quantity,
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function () {
+            updateNavbarCart();
+        }
+    });
+
+    console.log(quantity);
+    console.log(product_slug);
+    console.log(updateUrl);
+}
+
+
+
+
