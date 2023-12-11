@@ -1,8 +1,9 @@
 # users_app/views.py
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout,authenticate
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render, reverse
 from storage.models import Area
+from django.contrib.auth.forms import AuthenticationForm
 
 from .forms import SignUpForm, UserLoginForm
 from .models import Customer
@@ -22,37 +23,6 @@ class loginView(LoginView):
         )
 
 
-def profileView(request):
-    customer = Customer.objects.get(user=request.user)
-    areas = Area.objects.all()
-    
-    if request.method == 'POST':
-        # Handle form submission
-        name = request.POST.get('name')
-        surname = request.POST.get('surname')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        area_name = request.POST.get('area')
-        area = areas.get(name=area_name).id
-        
-
-        # Update customer information
-        customer.name = name
-        customer.surname = surname
-        customer.email = email
-        customer.phone = phone
-        customer.area = area
-        customer.save()
-
-        # Redirect to the profile page after updating the customer
-        return redirect('user:profile')
-    
-    context = {
-        "logout_url": reverse("user:logout"),
-        "customer": customer,
-        "areas": areas,
-        }
-    return render(request, "user/profile.html", context)
 
 
 def signupView(request):
@@ -91,3 +61,24 @@ def signupView(request):
 def logoutView(request):
     logout(request)
     return redirect("core:index")
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('core:index')  # Redirect to the desired page after login
+            
+                
+        # If the form is not valid or the authentication failed
+        #messages.error(request, 'Invalid username or password.')
+        
+    else:
+        form = AuthenticationForm()
+    
+    return redirect('core:index')
