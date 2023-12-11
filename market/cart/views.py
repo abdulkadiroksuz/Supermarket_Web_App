@@ -67,16 +67,28 @@ def get_navbar_cart(request):
     return JsonResponse(data)
 
 def add_to_cart(request):
-    if request.method == "POST":
-        try:
-            quantity = request.POST.get("quantity")
-            product_slug = request.POST.get("product_slug")
-            product = Product.objects.get(slug=product_slug)
-            customer = Customer.objects.get(user=request.user)
-            cart = Cart.objects.get(customer=customer)
-            new_value = CartProduct(cart=cart, product=product, quantity=quantity)
+    if request.method != "POST":
+        return JsonResponse({"error": "Invalid request method"})
+
+    try:
+        product_slug = request.POST.get("product_slug")
+        product = Product.objects.get(slug=product_slug)
+
+        customer = Customer.objects.get(user=request.user)
+        cart, created = Cart.objects.get_or_create(customer=customer)
+
+        add_quantity = int(request.POST.get("quantity", 1))
+
+        isExists = CartProduct.objects.filter(product=product, cart=cart).exists()
+        if isExists:
+            existing = CartProduct.objects.get(product=product, cart=cart)
+            existing.quantity = existing.quantity + add_quantity
+            existing.save()
+            return JsonResponse({"success": True})
+        else:
+            new_value = CartProduct(cart=cart, product=product, quantity=add_quantity)
             new_value.save()
             return JsonResponse({"success": True})
-        except:
-            return JsonResponse({"error": True})
-    return JsonResponse({"error": True})
+        
+    except Exception as e:
+        return JsonResponse({"error": str(e)})
