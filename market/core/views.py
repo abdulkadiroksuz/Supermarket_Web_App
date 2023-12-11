@@ -34,22 +34,3 @@ def search(request):
     
     return render(request, 'core/search.html', context)
 
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('core:index')  # Redirect to the desired page after login
-            
-                
-        # If the form is not valid or the authentication failed
-        messages.error(request, 'Invalid username or password.')
-        
-    else:
-        form = AuthenticationForm()
-    
-    return redirect('core:index')

@@ -88,27 +88,13 @@ function loadCredentials() {
 
 window.onload = function () {
     loadCredentials();
-    updateNavbarCart();
 }
 
-// gets number of items in cart in database
-function updateNavbarCart() {
-    var updateUrl = document.getElementById('cart-icon').getAttribute('data-update-url');
-    $.ajax({
-        type: "GET",
-        url: updateUrl,
-        success: function (data) {
-            var cartCountSpan = document.querySelector('#cart-icon span');
-            var cartCount = parseInt(data.total_cart_products);
 
-            cartCountSpan.innerText = cartCount;
-        },
-    });
-}
 
 
 document.getElementById('togglePassword').addEventListener('change', function (e) {
-    var passwordInput = document.getElementById('password');
+    var passwordInput = document.getElementById('password-input');
     if (e.target.checked) {
       passwordInput.type = 'text';
     } else {
