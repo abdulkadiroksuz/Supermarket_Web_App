@@ -70,7 +70,6 @@ function dbUpdateQuantity(productId, newQuantity) {
 
 // deletion from database
 function dbDeleteItem(productId) {
-    let getIconUrl =
     $.ajax({
         type: "POST",
         url: "delete_cart_item",  // cart app 

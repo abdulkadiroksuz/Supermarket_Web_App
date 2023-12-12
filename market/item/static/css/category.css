@@ -5,18 +5,22 @@
     padding-left: 5rem;
     padding-right: 5rem;
     margin: 40px 0px;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 
 .product-container .product-box {
-    width: 12vw;
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
     text-align: center;
     padding: 1rem;
     border: .05rem solid rgba(0, 0, 0, .3);
     border-radius: .5rem;
     overflow: hidden;
-
     position: relative;
 }
 

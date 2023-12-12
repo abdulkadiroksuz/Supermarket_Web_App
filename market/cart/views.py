@@ -1,7 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
-from market.settings import MEDIA_URL
-from item.models import Category
+from item.models import Category, Product
 from user.models import Customer
 
 from .models import Cart,CartProduct
@@ -37,7 +36,7 @@ def cart(request):
     }
     return render(request, "cart.html", context)
 
-
+# used to update the quantity of the product in the cart
 def update_product(request):
     if request.method == "POST":
         product_id = request.POST.get("product_id")
@@ -47,7 +46,10 @@ def update_product(request):
         new_quantity = request.POST.get("new_quantity")
         cart_item.quantity = new_quantity
         cart_item.save()
-    
+
+# used to delete the product from the cart
+# when the use clicks on the delete button
+# or make the quantity of the product to 0    
 def delete_product(request):
     if request.method == "POST":
         product_id = request.POST.get("product_id")
@@ -55,7 +57,8 @@ def delete_product(request):
         cart = Cart.objects.get(customer=customer)
         cart_item = CartProduct.objects.get(product=product_id, cart=cart)
         cart_item.delete()
-        
+
+# returns the count of the products in the cart        
 def get_navbar_cart(request):
     if request.method == "GET":
         customer = Customer.objects.get(user=request.user)
@@ -66,3 +69,31 @@ def get_navbar_cart(request):
             "total_cart_products": total_products
             }
     return JsonResponse(data)
+
+# used to add the product to the cart
+def add_to_cart(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Invalid request method"})
+
+    try:
+        product_slug = request.POST.get("product_slug")
+        product = Product.objects.get(slug=product_slug)
+
+        customer = Customer.objects.get(user=request.user)
+        cart, created = Cart.objects.get_or_create(customer=customer)
+
+        add_quantity = int(request.POST.get("quantity", 1))
+
+        isExists = CartProduct.objects.filter(product=product, cart=cart).exists()
+        if isExists:
+            existing = CartProduct.objects.get(product=product, cart=cart)
+            existing.quantity = existing.quantity + add_quantity
+            existing.save()
+            return JsonResponse({"success": True})
+        else:
+            new_value = CartProduct(cart=cart, product=product, quantity=add_quantity)
+            new_value.save()
+            return JsonResponse({"success": True})
+        
+    except Exception as e:
+        return JsonResponse({"error": str(e)})

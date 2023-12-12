@@ -26,7 +26,7 @@ a {
 
 body {
     margin: 0px;
-    margin-top: 7rem;
+    margin-top: 0px;
     padding: 0px;
     font-family: poppins;
 }
@@ -47,6 +47,7 @@ body {
     padding-bottom: 0.7rem;
     padding-left: 6rem;
     padding-right: 6rem;
+    margin-bottom: 2rem;
     max-width: 100%;
     width: 100%;
     background-color: #fff;
@@ -302,9 +303,10 @@ footer {
 }
 
 .credit {
-    margin-top: 2rem;
+    display: block;
+    width: 100%;
     text-transform: capitalize;
-    padding: 0.5rem;
+    padding: 0.3rem;
     background: #dcdcdc;
     text-align: center;
 }

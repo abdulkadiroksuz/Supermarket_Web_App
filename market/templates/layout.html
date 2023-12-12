@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
     {% block additionalStyles %}{% endblock %}
     <title>Market | {% block title %}{% endblock %}</title>
 </head>
@@ -16,33 +16,7 @@
 
     {% include "partials/_navbar.html" %}
 
-    <form action="{% url 'core:login_view' %}" method="post" class="login-form {% if messages %}active{% endif %}" id="login-form">
-    {% csrf_token %}
-
-    <h3>Login</h3>
-
-    <input name="username" type="text" placeholder="Enter your username" class="box">
-    <input type="password" name="password" placeholder="Enter your password" class="box">
-
-    {% if messages %}
-        <ul class="errorlist">
-            {% for message in messages %}
-                <li><span style="font-size: .8rem;">{{message}}</span></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    <div class="remember">
-        <input type="checkbox" name="remember_me" id="remember-me">
-        <label for="remember-me">Remember me</label>
-    </div>
-
-    <a class="btn" id="login-button" onclick="saveCredentials()" tabindex="0">Login</a>
-
-    <span style="font-size: .8rem;">Don't you have an account?</span>
-    <a href="{% url 'user:signup' %}" class="signup-link">Sign up</a>
-
-</form>
+    
 
     
 
@@ -54,7 +28,8 @@
     {% endblock %}
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
+    <script src="{% static 'js/layout.js' %}"></script>
 </body>
 
 </html>
