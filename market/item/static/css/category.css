@@ -30,6 +30,8 @@
 
 .product-container .product-box img {
     height: 10rem;
+    max-width: min-content;
+    align-self: center;
 }
 
 .product-container .product-box .icons {
