@@ -36,10 +36,15 @@ document.addEventListener('click', function (event) {
     let isClickInsideForm = loginForm.contains(event.target);
     let isClickInsideButton = loginButton.contains(event.target);
     let isClickInsideUserIcon = userIcon.contains(event.target);
-    if (!(isClickInsideForm || isClickInsideButton || isClickInsideUserIcon)) {
+    let isFormActive = loginForm.classList.contains('active');
+    if (!isFormActive && isClickInsideUserIcon){
+        openLoginForm();
+    }else if (!(isClickInsideButton || isClickInsideForm || isClickInsideUserIcon)){
+        closeLoginForm();
+    }else if(isClickInsideUserIcon && isFormActive){
         closeLoginForm();
     }
-    
+
 });
 
 window.onscroll = () => {
