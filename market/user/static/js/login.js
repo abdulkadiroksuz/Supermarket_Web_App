@@ -99,7 +99,7 @@ window.onload = function () {
 
 
 
-document.getElementById('togglePassword').addEventListener('change', function (e) {
+document.getElementById('showPassword').addEventListener('change', function (e) {
     var passwordInput = document.getElementById('password-input');
     if (e.target.checked) {
       passwordInput.type = 'text';

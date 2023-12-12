@@ -4,7 +4,7 @@
     <h3>Login</h3>
 
     <input name="username" type="text" placeholder="Enter your username" class="box">
-    <input type="password" name="password" placeholder"Enter your password" class= "box" id="password-input">
+    <input type="password" name="password" placeholder="Enter your password" class= "box" id="password-input">
 
     {% include "partials/_messages.html" %}
 
@@ -13,8 +13,8 @@
         <label for="remember-me">Remember me</label>
 
 
-        <input id="showPassword" type="checkbox" id="togglePassword">
-        <label for="togglePassword">Show password</label>
+        <input id="showPassword" type="checkbox">
+        <label for="showPassword">Show password</label>
     </div>
 
     <a class="btn" href="{% url 'core:index' %}" id="login-button" onclick="saveCredentials()" tabindex="0">Login</a>

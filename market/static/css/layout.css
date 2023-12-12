@@ -41,7 +41,10 @@ body {
     border-bottom-right-radius: 1.5rem;
     border-bottom-left-radius: 1.5rem;
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: space-between;
+    align-content: center;
     align-items: center;
     padding-top: 1.5rem;
     padding-bottom: 0.7rem;
@@ -279,8 +282,8 @@ footer {
     font-weight: 600;
 }
 
-.footer-links p{
-    color: darkgray; 
+.footer-links p {
+    color: darkgray;
     width: 25rem;
 }
 
@@ -362,7 +365,7 @@ footer {
     top: 20vh;
     right: -100%;
     background: var(--white);
-    border-radius: 0.2rem;
+    border-radius: 0.5rem;
     box-shadow: var(--box-shadow);
     width: 23rem;
     padding: 1.5rem;
@@ -411,7 +414,7 @@ footer {
 
 .login-form .btn {
     display: inline-block;
-    padding: 0.7rem 1.2rem;
+    padding: 0.5rem 1.2rem;
     font-size: 1rem;
     color: var(--white);
     border-radius: 0.2rem;
@@ -430,7 +433,8 @@ footer {
     cursor: pointer;
 }
 
-.errorlist {
+#errorMessages {
+    font-size: 0.9rem;
     color: red;
 }
 

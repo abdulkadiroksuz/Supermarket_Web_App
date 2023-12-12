@@ -10,25 +10,23 @@ from .forms import UserLoginForm
 from .models import Customer
 
 def user_login(request):
-    if request.user.is_authenticated and "next" in request.GET:
-        return render(request,"core:index", {"error":"Yetkiniz bulunmamaktadır."})
-
-    if request.method == "POST":
-        form = UserLoginForm(request,data=request.POST)
-        if form.is_valid():     
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(request,username=username,password=password)
-
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            
             if user is not None:
-                login(request,user)
-                messages.add_message(request,messages.SUCCESS,"Giriş Başarılı")
-                nextUrl = request.GET.get("next",None)
-                if nextUrl is None:
-                    return redirect("core:index")
-                else:
-                    return redirect(nextUrl)      
-             
+                login(request, user)
+                return redirect('core:index')  # Redirect to the desired page after login
+
+        # If the form is not valid or the authentication failed
+        messages.error(request, 'Invalid username or password.')
+
+    else:
+        form = AuthenticationForm()
+
     return redirect('core:index')
  
 
