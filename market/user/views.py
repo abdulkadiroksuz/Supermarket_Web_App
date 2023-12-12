@@ -9,8 +9,6 @@ from django.contrib import messages
 from .forms import UserLoginForm
 from .models import Customer
 
-
-
 def user_login(request):
     if request.user.is_authenticated and "next" in request.GET:
         return render(request,"core:index", {"error":"Yetkiniz bulunmamaktadır."})

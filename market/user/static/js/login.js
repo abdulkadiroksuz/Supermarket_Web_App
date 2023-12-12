@@ -39,6 +39,7 @@ document.addEventListener('click', function (event) {
     if (!(isClickInsideForm || isClickInsideButton || isClickInsideUserIcon)) {
         closeLoginForm();
     }
+    
 });
 
 window.onscroll = () => {

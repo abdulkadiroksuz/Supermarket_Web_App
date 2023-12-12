@@ -364,7 +364,7 @@ footer {
     background: var(--white);
     border-radius: 0.2rem;
     box-shadow: var(--box-shadow);
-    width: 22rem;
+    width: 23rem;
     padding: 1.5rem;
     transition: right 0.4s linear;
     z-index: 9999;
@@ -390,14 +390,20 @@ footer {
     width: 100%;
 }
 
-.login-form .remember {
+.login-form .label-div {
+    margin-left: 50px;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
     gap: 0.2rem;
     margin: 0.3rem 0;
 }
 
-.login-form .remember label {
+#showPassword {
+    margin-left: auto;
+}
+
+.login-form label {
     font-size: 0.9rem;
     color: var(--black);
     cursor: pointer;
@@ -417,10 +423,10 @@ footer {
 }
 
 .login-form .signup-link {
-    font-size: 0.9rem; /* Adjusted font size */
+    font-weight: bold;
+    width: initial;
+    height: initial;
     color: var(--primary-color);
-    text-align: center;
-    margin-top: 0.5rem; /* Adjusted margin-top */
     cursor: pointer;
 }
 
