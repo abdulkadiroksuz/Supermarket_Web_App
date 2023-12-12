@@ -21,7 +21,7 @@
 }
 
 #home-banner.banner-hidden {
-    opacity: 0;
+    opacity: 0.25;
 }
 
 .bg-1 {
@@ -200,6 +200,8 @@
 .product-container .product-box img {
     height: 12rem;
     width: 12rem;
+    max-width: min-content;
+    align-self: center;
 }
 
 .product-container .product-box .icons {
