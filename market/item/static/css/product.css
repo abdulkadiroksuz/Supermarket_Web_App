@@ -10,6 +10,7 @@
 }
 
 .product-container .product-box {
+    width:13rem;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
