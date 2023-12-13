@@ -41,7 +41,7 @@ function increaseQuantity(productId) {
     // Implement your logic to increase the quantity for the specific product
     let quantityElement = product.querySelector(".quantity");
     let currentQuantity = parseInt(quantityElement.innerText);
-    if (currentQuantity < 20) {
+    if (currentQuantity < 10) {
         quantityElement.innerText = currentQuantity + 1;
         dbUpdateQuantity(productId, currentQuantity + 1);
     }
