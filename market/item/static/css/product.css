@@ -141,6 +141,12 @@
     color: #17c737;
 }
 
+
+.pagination {
+    display: flex;
+    justify-content:center;
+   
+}
 .warn_info {
     font-size: .9rem;
 }
