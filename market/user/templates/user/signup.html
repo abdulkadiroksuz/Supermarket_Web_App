@@ -2,17 +2,14 @@
 
 {% load static %}
 
+{% block additionalStyles %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% endblock %}
 
-{% block css_files %}
-    
-{% endblock  %}
 
-
-{% block page_title %}
+{% block title %}
     Sign Up
 {% endblock  %}
-
-
 
 
 {% block content %}
@@ -23,13 +20,10 @@
             <hr>
             <form method="post" novalidate>
                 {% csrf_token %}
-
                 {% include "partials/_form.html" %}
                 <button type="submit" class="btn btn-primary">Sign Up</button>
-            </form>
-            
-
-            
+                <hr>
+            </form>            
         </div>
     </div>
 </div>
@@ -38,6 +32,3 @@
 {% endblock content %}
 
 
-{% block js_files %}
-    
-{% endblock  %}

@@ -6,7 +6,7 @@ from storage.models import Area
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 
-from .forms import UserLoginForm
+from .forms import SignUpForm
 from .models import Customer
 
 def user_login(request):
@@ -19,10 +19,11 @@ def user_login(request):
             
             if user is not None:
                 login(request, user)
+                messages.add_message(request,messages.SUCCESS,"Successfully logged in!")
                 return redirect('core:index')  # Redirect to the desired page after login
 
         # If the form is not valid or the authentication failed
-        messages.error(request, 'Invalid username or password.')
+        messages.add_message(request,messages.ERROR,"Invalid username or password")
 
     else:
         form = AuthenticationForm()
@@ -30,19 +31,22 @@ def user_login(request):
     return redirect('core:index')
  
 
-""" def user_signup(request):
+def user_signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            messages.add_message(request,messages.SUCCESS,"Registration is successful!")
+            login(request, user)
             return redirect('core:index')
+        else:
+            return render(request, 'user/signup.html', {'form': form})
     else:
         form = SignUpForm()
-
     return render(request, 'user/signup.html', {'form': form})
- """
 
 def user_logout(request):
+    messages.add_message(request,messages.SUCCESS,"Logged out!")
     logout(request)
     return redirect("core:index")
 

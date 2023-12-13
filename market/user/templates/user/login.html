@@ -6,7 +6,6 @@
     <input name="username" type="text" placeholder="Enter your username" class="box">
     <input type="password" name="password" placeholder="Enter your password" class= "box" id="password-input">
 
-    {% include "partials/_messages.html" %}
 
     <div class="label-div">
         <input type="checkbox" name="remember_me" id="remember-me">
@@ -22,7 +21,7 @@
 
     <div class="label-div">
         <label>Don't you have an account?</label>
-        <a href="#" class="signup-link">Sign up</a>
+        <a href="{% url 'user:signup' %}" class="signup-link">Sign up</a>
     </div>
 
 
