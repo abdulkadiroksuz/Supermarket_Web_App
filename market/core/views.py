@@ -3,8 +3,6 @@ from django.shortcuts import render
 from django.db.models import Q
 from item.models import Category, Product
 
-from .models import Company
-
 
 # Create your views here.
 def index(request):
@@ -43,15 +41,5 @@ def search(request, search_text):
 
 
 
-def load_footer(request):
-    if request.method == "GET":
-        company = Company.objects.get(id=1)
-        
-        data = {
-            "company_name": company.name,
-            "company_phone": company.phone,
-            "company_address": company.address,
-            "company_email": company.email,
-            }
-    return JsonResponse(data)
+
 
