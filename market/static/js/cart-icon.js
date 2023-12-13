@@ -13,6 +13,5 @@ function updateNavbarCart() {
     });
 }
 
-window.onload = function () {
-    updateNavbarCart();
-}
+
+

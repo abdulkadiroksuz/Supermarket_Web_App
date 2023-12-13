@@ -30,12 +30,14 @@
             <a id="cart-icon" href="{% url 'cart:cart' %}" class="cart" data-update-url="{% url 'cart:update_navbar_cart' %}">
                 <i class="fas fa-shopping-cart"></i>
                 <span>0</span>
+                <script onload="updateNavbarCart()" src="{% static 'js/cart-icon.js' %}"></script>
             </a>
         {% else %}
             <a id="user-icon" class="user">
                 <i class="fal fa-user"></i>
             </a>
             {% include "user/login.html" %}
+            <script src="{% static 'js/login.js' %}"></script>
         {% endif %}
     </div>
 
