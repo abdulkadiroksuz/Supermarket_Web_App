@@ -14,7 +14,7 @@ Search
 
       <div class="product-container">
         {% if page_obj.paginator.count == 0 %}
-        <div class ="alert alert-warning">No products available at the moment.</div>
+          <div class ="alert alert-warning">No products available at the moment.</div>
         {% endif %}
         {% for product in page_obj.object_list %}
         <div class="product-box" id="{{ product.slug }}">
