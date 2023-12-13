@@ -10,10 +10,13 @@ Search
 {% endblock %}
 
 {% block content %}
-      <h2 style="margin-left: 5vw;">Search Results : {{ search_text }}</h2>
-      {% if products %}
+      <h2 style="margin-left: 5vw;">Search Results : {{ search_text }}</h2>  
+
       <div class="product-container">
-        {% for product in products %}
+        {% if page_obj.paginator.count == 0 %}
+        <div class ="alert alert-warning">No products available at the moment.</div>
+        {% endif %}
+        {% for product in page_obj.object_list %}
         <div class="product-box" id="{{ product.slug }}">
           <div class="icons">
             <a href="#" class="far fa-heart"></a>
@@ -44,8 +47,9 @@ Search
     
         {% endfor %}
       </div>
-      {% else %}
-        <p style="margin: .5rem 5vw;">No products available related to the search at the moment.</p>
-      {% endif %}
-
+      
+{% include "item/partials/_pagination.html" %}
 {% endblock %}
+
+
+{% comment %} <p style="margin: .5rem 5vw;"></p> {% endcomment %}

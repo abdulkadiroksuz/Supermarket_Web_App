@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.db.models import Q
 from item.models import Category, Product
-
+from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
@@ -28,13 +28,16 @@ def search(request, search_text):
 
     categories = Category.objects.all()
     
-    # get products whose name or description contains search_text non case-sensitive 
-    search_filter = Q(name__icontains=search_text) | Q(description__icontains=search_text)
-    products = Product.objects.filter(search_filter)
+    # get products whose name contains search_text non case-sensitive 
+    products = Product.objects.filter(name__icontains=search_text)
     
+    paginator = Paginator(products,2)
+    page = request.GET.get('page',1)
+    page_obj = paginator.page(page)
+
     context = {
         'search_text': search_text,
-        'products': products,
+        'page_obj': page_obj,
         'categories': categories,
     }
     return render(request, 'core/search.html',context)
