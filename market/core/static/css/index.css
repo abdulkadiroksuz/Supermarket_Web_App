@@ -151,7 +151,18 @@
     transition: all ease 0.3s;
 }
 
-.product-container,
+.product-container{
+    gap: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0 3rem!important;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: center;
+}
+
 .features-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
