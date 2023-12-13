@@ -7,4 +7,4 @@ class Customer(models.Model):
     area = models.ForeignKey('storage.Area', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return f"{self.name.capitalize()}, {self.surname.capitalize()}"
+        return f"{self.user.first_name.capitalize()} {self.user.last_name.capitalize()}"

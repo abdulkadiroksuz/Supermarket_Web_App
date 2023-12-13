@@ -7,7 +7,7 @@ class Cart(models.Model):
     customer = models.ForeignKey('user.Customer', on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"{self.customer.id} - {self.customer.name} {self.customer.surname}".title()
+        return f"{self.customer.user.id} - {self.customer}".title()
     
 class CartProduct(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
