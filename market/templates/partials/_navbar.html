@@ -27,6 +27,9 @@
             <a id="user-icon" href="#" class="user">
                 <i class="fas fa-user"></i>
             </a>
+            <a id="user-icon" href="{% url 'user:logout' %}" class="user">
+                <i class="fas fa-sign-out"></i>
+            </a>
             <a id="cart-icon" href="{% url 'cart:cart' %}" class="cart" data-update-url="{% url 'cart:update_navbar_cart' %}">
                 <i class="fas fa-shopping-cart"></i>
                 <span>0</span>
