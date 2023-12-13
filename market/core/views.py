@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.db.models import Q
-from item.models import Category,Product
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
+from item.models import Category
+from .models import Company
 
 # Create your views here.
 def index(request):
@@ -14,23 +13,15 @@ def index(request):
     }
     return render(request, 'core/index.html', context)
 
-
-
-def search(request):
-    search_text = request.GET.get('search_text')
-    
-    if search_text is None:
-        search_text = ''
+def load_footer(request):
+    if request.method == "GET":
+        company = Company.objects.get(id=1)
         
-    categories = Category.objects.all()
-    filtered_products = Product.objects.filter(
-        Q(name__icontains=search_text) | Q(description__icontains=search_text)
-    )
-    
-    context = {
-        'categories':categories,
-        'products':filtered_products
-    }
-    
-    return render(request, 'core/search.html', context)
+        data = {
+            "company_name": company.name,
+            "company_phone": company.phone,
+            "company_address": company.address,
+            "company_email": company.email,
+            }
+    return JsonResponse(data)
 

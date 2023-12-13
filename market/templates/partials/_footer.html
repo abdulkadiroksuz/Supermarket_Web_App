@@ -1,38 +1,38 @@
 {% load static %}
 <footer>
+    <script onload="updateFooter({% url 'core:update_footer' %})" src="{% static 'js/footer.js' %}"></script>
     <div class="footer-container">
         <div class="footer-logo">
             <!--logo-->
-            <a href="#" class="logo">
-                Logo buraya gelcek
+            <a href="{% url 'core:index' %}" class="logo">
+                <img id="footer-logo" class="logo" src="{% static 'images/trlogo.png' %}" >
             </a>
             <div class="footer-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href=""><i class="fab fa-facebook-f"></i></a>
+                <a href=""><i class="fab fa-twitter"></i></a>
+                <a href=""><i class="fab fa-instagram"></i></a>
+                <a href=""><i class="fab fa-youtube"></i></a>
             </div>
         </div>
         <div class="footer-links">
             <strong>About</strong>
 
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-                doloremque est laborum impedit necessitatibus rem, ducimus, consectetur eligendi consequatur sint
-                assumenda a unde tempora facilis adipisci cum doloribus repellendus omnis?</p>
+            <p id="footer-about">At Grocery Go, we understand that the heart of every home is its kitchen, and we are here to make your daily shopping experience seamless, convenient, and delightful. Our commitment is simple - to bring you the freshest produce, pantry essentials, and household items right to your doorstep.</p>
         </div>
         <div class="footer-links">
             <strong>Menu</strong>
             <ul>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Term of Use</a></li>
-                <li><a href="#">License</a></li>
+                <li><a href="">Privacy Policy</a></li>
+                <li><a href="">Term of Use</a></li>
+                <li><a href="">License</a></li>
             </ul>
         </div>
         <div class="footer-links">
             <strong>Contact</strong>
             <ul>
-                <li><a href="#">Phone : +123456789</a></li>
-                <li><a href="#">Email : abc@gmail.com</a></li>
+                <li><a id="footer-phone">Phone  : +123456789</a></li>
+                <li><a id="footer-email">Email  : abc@gmail.com</a></li>
+                <li><a id="footer-address">Adress : adress</a></li>
             </ul>
         </div>
     </div>

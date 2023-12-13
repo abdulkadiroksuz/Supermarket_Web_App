@@ -320,6 +320,11 @@ footer {
     height: 50px;
 }
 
+#footer-logo{
+    width: 100px;
+    height: 100px;
+}
+
 :root {
     --swiper-theme-color: #007aff;
     --swiper-navigation-size: 44px;
