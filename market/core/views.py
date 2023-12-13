@@ -1,7 +1,10 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.db.models import Q
+from item.models import Category, Product
+
 from .models import Company
-from item.models import Category
+
 
 # Create your views here.
 def index(request):
@@ -22,6 +25,23 @@ def index(request):
         # 'popular_products': popular_products[:12],
     }
     return render(request, 'core/index.html', context)
+
+def search(request, search_text):
+
+    categories = Category.objects.all()
+    
+    # get products whose name or description contains search_text non case-sensitive 
+    search_filter = Q(name__icontains=search_text) | Q(description__icontains=search_text)
+    products = Product.objects.filter(search_filter)
+    
+    context = {
+        'search_text': search_text,
+        'products': products,
+        'categories': categories,
+    }
+    return render(request, 'core/search.html',context)
+
+
 
 def load_footer(request):
     if request.method == "GET":

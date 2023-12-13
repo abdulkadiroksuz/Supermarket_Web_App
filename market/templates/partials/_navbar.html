@@ -11,10 +11,11 @@
         </div>
     </div>
 
-    <form action="" class="search-box">
+    <form action="#" class="search-box" onsubmit="return false;">
+        <script src="{% static 'js/search.js' %}"></script>
         <i class="fas fa-search"></i>
         <input type="text" class="search-input" placeholder="e.g. Potato, Tomato, Orange Juice" name="search" required>
-        <input type="submit" class="search-btn" value="search">
+        <input type="submit" class="search-btn" onclick="return searchProducts();" value="search">
     </form>
 
     <div class="right-nav">
