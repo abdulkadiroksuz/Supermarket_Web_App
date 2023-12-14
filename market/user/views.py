@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render, reverse
 from storage.models import Area
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.db import transaction
 
 from .forms import SignUpForm,ProfileUpdateForm
 from .models import Customer
@@ -57,13 +58,12 @@ def user_profile(request):
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
+            user = form.save()  
             update_session_auth_hash(request, user)  
-            messages.add_message(request,messages.SUCCESS,"Your profile was succesfully updated!")      
-            return redirect('core:index')
+            messages.add_message(request,messages.SUCCESS, 'Your profile was successfully updated!')
+            return redirect('core:index') 
         else:
-            render(request,'user/profile.html', {'form': form , 'show_password_fields' : show_password_fields})
+             return render(request, 'user/profile.html', {'form': form,'show_password_fields' : show_password_fields})
     else:
         user_data = {
             'first_name': request.user.first_name,
