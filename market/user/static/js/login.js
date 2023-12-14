@@ -29,18 +29,14 @@ document.getElementById('login-form').addEventListener('keydown', function (even
 
 document.addEventListener('click', function (event) {
     let loginForm = document.getElementById('login-form');
-    let loginButton = document.getElementById('login-button');
     let userIcon = document.getElementById('user-icon');
 
     // Check if the click is outside the form and button
-    let isClickInsideForm = loginForm.contains(event.target);
-    let isClickInsideButton = loginButton.contains(event.target);
+  
     let isClickInsideUserIcon = userIcon.contains(event.target);
     let isFormActive = loginForm.classList.contains('active');
     if (!isFormActive && isClickInsideUserIcon){
         openLoginForm();
-    }else if (!(isClickInsideButton || isClickInsideForm || isClickInsideUserIcon)){
-        closeLoginForm();
     }else if(isClickInsideUserIcon && isFormActive){
         closeLoginForm();
     }
