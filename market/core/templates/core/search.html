@@ -34,12 +34,10 @@ Search
               <input type="number" min="1" max="10" value="1">
             </div>
             {% if user.is_authenticated %}
+            {% csrf_token %}
             <a class="btn" onclick='dbAddToCart("{{product.slug}}","{% url 'cart:add_item_to_cart' %}")' >add to cart</a>
             {% else %}
-                <p class="warn_info">
-                  <button onclick="openLoginForm()">login</button> 
-                  to add to cart 
-                </p>
+            <a class="btn" onclick='showErrorModal("Please, login to add product to cart"); openLoginForm();' >add to cart</a>
             {% endif %}
           </div>
         
@@ -51,5 +49,3 @@ Search
 {% include "item/partials/_pagination.html" %}
 {% endblock %}
 
-
-{% comment %} <p style="margin: .5rem 5vw;"></p> {% endcomment %}

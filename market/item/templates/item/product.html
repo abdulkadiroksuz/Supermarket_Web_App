@@ -24,10 +24,10 @@
     {% if user.is_authenticated %}
      {% comment %} <form method="post" action="{% url 'add_to_cart' product.id %}"> {% endcomment %}
         {% csrf_token %}
-        <button type="submit">Add to Cart</button>
+        <button type="submit" onclick='dbAddToCart("{{product.slug}}","{% url 'cart:add_item_to_cart' %}")'>Add to Cart</button>
       </form>
-    {% else %}
-      <p><a href="#">Login</a> to add to cart</p>
+      {% else %}
+      <button type="submit" onclick='showErrorModal("Please, login to add product to cart"); openLoginForm();' >Add to Cart</button>
     {% endif %}
   </div>
 {% endblock %}
