@@ -8,28 +8,54 @@
 
 {% load static %}
 {% block additionalStyles %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-sqXBOQBr75QlQ8RtrW87oTt2hLhbd5zPfv2xAfWXzYZaMJpB6U4kR6ViBzW9I5iZfksYFEbB0sDHsW93KDDxA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="{% static 'css/product.css' %}" />
+    
 {% endblock %}
+{% block additionalScripts %}
+    <script src="{% static 'js/product.js' %}"></script>
+    {% endblock %}
 
 <main class="main-product">
   <div class="detail-wrap wrapper webwrap">
+    
     <section class="detail-highlight">
-      <img class="product-image" src="{{ product.image.url }}" alt="{{ product.name }} Image">
-      <div class="highlight-info">
-        <div class="pricetag info-price">Price: ${{product.price}}</div>
-        <h1 class="info-title">{{ product.name }}</h1>
-        {% if user.is_authenticated %}
-        <!-- Example: Add a "Add to Cart" button if user is authenticated -->
-        <form method="post" action="{% url 'cart:add_item_to_cart' %}">
-            {% csrf_token %}
-            <button id="buttonInProduct" type="submit">Add to Cart</button>
-        </form>
-        {% else %}
-        <!-- Show login link if user is not authenticated -->
-        <p><a href="#">Login</a> to add to cart</p>
-        {% endif %}
-      
+      <div style="display: flex; flex-direction: column;">
+        <div id="productBar">
+          <a class="productBar" onclick="goBack()"><i class="fas fa-arrow-left"></i></a>
+          <a class="productBar" onclick="#"><i id="favourite" class="far fa-heart"></i></a>
+        </div>
+        
+        <div style="display: flex; flex-direction: row;">
+          <img class="product-image" src="{{ product.image.url }}" alt="{{ product.name }} Image">
+          <div class="highlight-info">
+            {% if user.is_authenticated %}
+            <!-- Example: Add a "Add to Cart" button if user is authenticated -->
+            <form method="post" action="{% url 'cart:add_item_to_cart' %}">
+                {% csrf_token %}
+                <button id="buttonInProduct" type="submit">Add to Cart</button>
+            </form>
+            {% else %}
+            <!-- Show login link if the user is not authenticated -->
+            <p><a href="#">Login</a> to add to cart</p>
+            {% endif %}
+            <div class="quantity">
+              <span>Quantity: </span>
+              <input style="width: 40px;" type="number" min="1" max="10" value="1">
+            </div>
+            <h1 class="info-title">{{ product.name }}</h1>
+            <div class="pricetag info-price">Price: ${{product.price}}</div>
+            
+        
+        </div>
+      <div>
+          
       </div>
+        </div>
+      </div>
+      
+
+    
     </section>
     <aside class="detail-additions">
       <div class="additions-section additions-info">

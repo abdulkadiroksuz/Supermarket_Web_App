@@ -18,3 +18,7 @@ function dbAddToCart(product_slug, updateUrl) {
         },
     });
 }
+
+function goBack() {
+    window.history.back();
+}

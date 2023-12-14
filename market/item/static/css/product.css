@@ -182,14 +182,14 @@ body {
 
 /* Main product section */
 .main-product {
+    padding-top: 1rem;
+    padding-bottom: 50px;
     background-color: #f5f5f5;
 }
 
 /* Highlight section */
 .detail-highlight {
     border-radius: 2rem;
-    display: flex;
-    flex-direction: row;
     align-items: center;
     background-color: white;
 }
@@ -201,6 +201,9 @@ body {
 
 .highlight-info {
     padding: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    height: auto;
 }
 
 .product-image {
@@ -281,4 +284,29 @@ p a {
 
 #isRunningOut {
     color: rgb(255, 200, 0)!important;
+}
+
+  
+.detail-highlight .productBar {
+    top: 0;
+    left: 0;
+    margin: 10px; /* Adjust the margin as needed */
+  }
+
+  .detail-highlight .productBar {
+    color: var(--black);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+
+.detail-highlight .productBar:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+#productBar {
+    display: flex; justify-content: space-between;
 }
