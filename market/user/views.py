@@ -50,4 +50,10 @@ def user_logout(request):
     logout(request)
     return redirect("core:index")
 
+
+#TODO design profile page html, should render profile page
+def user_profile(request):
+    # return render(request, 'user/profile.html', context)
+    return redirect('core:index')
+
     
