@@ -22,7 +22,7 @@
         <!-- Example: Add a "Add to Cart" button if user is authenticated -->
         <form method="post" action="{% url 'cart:add_item_to_cart' %}">
             {% csrf_token %}
-            <button type="submit">Add to Cart</button>
+            <button id="buttonInProduct" type="submit">Add to Cart</button>
         </form>
         {% else %}
         <!-- Show login link if user is not authenticated -->
