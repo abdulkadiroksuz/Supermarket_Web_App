@@ -1,12 +1,12 @@
 # users_app/views.py
-from django.contrib.auth import login, logout,authenticate
+from django.contrib.auth import login, logout,authenticate,update_session_auth_hash
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render, reverse
 from storage.models import Area
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 
-from .forms import SignUpForm
+from .forms import SignUpForm,ProfileUpdateForm
 from .models import Customer
 
 def user_login(request):
@@ -32,6 +32,7 @@ def user_login(request):
  
 
 def user_signup(request):
+    show_password_fields = True
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -40,10 +41,10 @@ def user_signup(request):
             login(request, user)
             return redirect('core:index')
         else:
-            return render(request, 'user/signup.html', {'form': form})
+            return render(request, 'user/signup.html', {'form': form,'show_password_fields' : show_password_fields})
     else:
         form = SignUpForm()
-    return render(request, 'user/signup.html', {'form': form})
+    return render(request, 'user/signup.html', {'form': form,'show_password_fields' : show_password_fields})
 
 def user_logout(request):
     messages.add_message(request,messages.SUCCESS,"Logged out!")
@@ -51,9 +52,26 @@ def user_logout(request):
     return redirect("core:index")
 
 
-#TODO design profile page html, should render profile page
 def user_profile(request):
-    # return render(request, 'user/profile.html', context)
-    return redirect('core:index')
+    show_password_fields = False
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            update_session_auth_hash(request, user)  
+            messages.add_message(request,messages.SUCCESS,"Your profile was succesfully updated!")      
+            return redirect('core:index')
+        else:
+            render(request,'user/profile.html', {'form': form , 'show_password_fields' : show_password_fields})
+    else:
+        user_data = {
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email,
+            'phone': request.user.customer.phone if hasattr(request.user, 'customer') else '',
+            'area': request.user.customer.area if hasattr(request.user, 'customer') else '',
+        }
+        form = ProfileUpdateForm(initial=user_data)
 
-    
+    return render(request, 'user/profile.html', {'form': form,'show_password_fields' : show_password_fields})

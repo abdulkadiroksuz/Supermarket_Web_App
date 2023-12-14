@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block additionalStyles %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Update Profile</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% include "partials/_form.html" %}
+        
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <hr>
+    </form>
+</div>
+{% endblock %}
