@@ -26,11 +26,9 @@ function decreaseQuantity(productId) {
     // Implement your logic to decrease the quantity for the specific product
     let quantityElement = product.querySelector(".quantity");
     let currentQuantity = parseInt(quantityElement.innerText);
-
+    let newQuantity = currentQuantity - 1;
     if (currentQuantity > 1) {
-        quantityElement.innerText = currentQuantity - 1;
-        dbUpdateQuantity(productId, currentQuantity - 1);
-        updateCart();
+        dbUpdateQuantity(productId, newQuantity);
     }else{
         removeItem(productId);
     }
@@ -41,11 +39,12 @@ function increaseQuantity(productId) {
     // Implement your logic to increase the quantity for the specific product
     let quantityElement = product.querySelector(".quantity");
     let currentQuantity = parseInt(quantityElement.innerText);
-    if (currentQuantity < 10) {
-        quantityElement.innerText = currentQuantity + 1;
-        dbUpdateQuantity(productId, currentQuantity + 1);
+    let new_quantity = currentQuantity + 1;
+    if (new_quantity <= 10) {
+        dbUpdateQuantity(productId, new_quantity);
+    }else{
+        showErrorModal("You can't add more than 10 items for each product");
     }
-    updateCart();
 }
 
 function removeItem(productId) {
@@ -66,7 +65,24 @@ function dbUpdateQuantity(productId, newQuantity) {
         data: {
             product_id: productId.substring(1), // remove the 'p' from the id
             new_quantity: newQuantity,
-        }
+        },
+        success: function (response) {
+            let product = document.getElementById(productId);
+            let quantityElement = product.querySelector(".quantity");
+            if (response.success) {
+                quantityElement.innerText = newQuantity
+            }else{
+                let stock = response.stock;
+                if(stock !== -1){
+                    quantityElement.innerText = response.stock;
+                }
+                showErrorModal(response.error);
+            }
+            updateCart();
+        },
+        error: function (response) {
+            console.log(response);
+        },
     });
 }
 
@@ -80,6 +96,11 @@ function dbDeleteItem(productId) {
         },
         data: {
             product_id: productId.substring(1), // remove the 'p' from the id
-        }
+        },
+        success: function (response) {
+            if (response.success) {
+                updateNavbarCart();
+            }
+        },
     });
 }

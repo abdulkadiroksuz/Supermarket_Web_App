@@ -38,10 +38,7 @@
               {% csrf_token %}
               <a class="btn" onclick='dbAddToCart("{{product.slug}}","{% url 'cart:add_item_to_cart' %}")' >add to cart</a>
             {% else %}
-              <p class="warn_info">
-                <button onclick="openLoginForm()">login</button> 
-                to add to cart 
-              </p>
+              <a class="btn" onclick='showErrorModal("Please, login to add product to cart"); openLoginForm();' >add to cart</a>
             {% endif %}
           </div>
           

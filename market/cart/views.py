@@ -1,9 +1,11 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.db.models import Sum
 from item.models import Category, Product
 from user.models import Customer
 
 from .models import Cart,CartProduct
+from storage.models import StorageProduct
 
 
 # Create your views here.
@@ -38,25 +40,46 @@ def cart(request):
 
 # used to update the quantity of the product in the cart
 def update_product(request):
-    if request.method == "POST":
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "Invalid request method","stock":-1})
+    try:
         product_id = request.POST.get("product_id")
-        customer = Customer.objects.get(user=request.user)
-        cart = Cart.objects.get(customer=customer)
-        cart_item = CartProduct.objects.get(product=product_id, cart=cart)
-        new_quantity = request.POST.get("new_quantity")
-        cart_item.quantity = new_quantity
-        cart_item.save()
+        product_obj = get_object_or_404(Product, id=product_id)
+        customer_obj = Customer.objects.get(user=request.user)
+        cart_obj = Cart.objects.get(customer=customer_obj)
+        cart_item = CartProduct.objects.get(product=product_id, cart=cart_obj)
+        new_quantity = int(request.POST.get("new_quantity"))
+        
+        stock = StorageProduct.objects.filter(product=product_obj).aggregate(Sum('quantity'))['quantity__sum']
+        if new_quantity > stock:
+            cart_item.quantity = stock
+            cart_item.save()
+            err_msg = f"Not enough stock, {stock} left."
+            return JsonResponse({"success": False, "error": err_msg, "stock":stock})
+        else:
+            cart_item.quantity = new_quantity
+            cart_item.save()
+            return JsonResponse({"success": True})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"success": False, "error": "Server error", "stock":-1})
 
 # used to delete the product from the cart
 # when the use clicks on the delete button
 # or make the quantity of the product to 0    
 def delete_product(request):
-    if request.method == "POST":
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "Invalid request method"})
+    try:
         product_id = request.POST.get("product_id")
-        customer = Customer.objects.get(user=request.user)
-        cart = Cart.objects.get(customer=customer)
-        cart_item = CartProduct.objects.get(product=product_id, cart=cart)
+        customer_obj = get_object_or_404(Customer, user=request.user)
+        cart_obj = get_object_or_404(Cart, customer=customer_obj)
+        cart_item = CartProduct.objects.get(product=product_id, cart=cart_obj)
         cart_item.delete()
+        return JsonResponse({"success": True})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"success": False, "error": "Server error"})
 
 # returns the count of the products in the cart        
 def get_navbar_cart(request):
@@ -75,28 +98,41 @@ def get_navbar_cart(request):
 
 # used to add the product to the cart
 def add_to_cart(request):
-    if request.method != "POST":
-        return JsonResponse({"error": "Invalid request method"})
+    if request.method != 'POST':
+        return JsonResponse({"success": False, "error": "Invalid request method"})
 
     try:
         product_slug = request.POST.get("product_slug")
-        product = Product.objects.get(slug=product_slug)
+        product_obj = get_object_or_404(Product, slug=product_slug)
 
-        customer = Customer.objects.get(user=request.user)
-        cart, created = Cart.objects.get_or_create(customer=customer)
+        customer_obj = get_object_or_404(Customer, user=request.user)
+        cart_obj, created = Cart.objects.get_or_create(customer=customer_obj)
 
         add_quantity = int(request.POST.get("quantity", 1))
-
-        isExists = CartProduct.objects.filter(product=product, cart=cart).exists()
-        if isExists:
-            existing = CartProduct.objects.get(product=product, cart=cart)
-            existing.quantity = existing.quantity + add_quantity
+        
+        stock = StorageProduct.objects.filter(product=product_obj).aggregate(Sum('quantity'))['quantity__sum']
+        
+        is_exists = CartProduct.objects.filter(product=product_obj, cart=cart_obj).exists()
+        if is_exists:
+            existing = CartProduct.objects.get(product=product_obj, cart=cart_obj)
+            new_quantity = existing.quantity + add_quantity
+            if new_quantity > 10:
+                err_msg = f"You can't add more.\nYou already have {existing.quantity} in your cart."
+                return JsonResponse({"success": False, "error": err_msg})
+            if new_quantity > stock:
+                err_msg = f"Not enough stock, {stock} left.\nYou already have {existing.quantity} in your cart."
+                return JsonResponse({"success": False, "error": err_msg})
+            existing.quantity = new_quantity
             existing.save()
             return JsonResponse({"success": True})
         else:
-            new_value = CartProduct(cart=cart, product=product, quantity=add_quantity)
+            if add_quantity > stock:
+                err_msg = f"Not enough stock, {stock} left."
+                return JsonResponse({"success": False, "error": err_msg})
+            new_value = CartProduct(cart=cart_obj, product=product_obj, quantity=add_quantity)
             new_value.save()
             return JsonResponse({"success": True})
         
     except Exception as e:
-        return JsonResponse({"error": str(e)})
+        print(e)
+        return JsonResponse({"success": False, "error": "Server error"})

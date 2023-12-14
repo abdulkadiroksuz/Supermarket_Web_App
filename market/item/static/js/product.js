@@ -1,7 +1,11 @@
 function dbAddToCart(product_slug, updateUrl) {
-    var element = document.getElementById(product_slug);
-    var quantityInput = element.querySelector('.quantity input');
-    var quantity = parseInt(quantityInput.value);
+    try {        
+        var element = document.getElementById(product_slug);
+        var quantityInput = element.querySelector('.quantity input');
+        var quantity = parseInt(quantityInput.value);
+    } catch (error) {
+        var quantity = 1;
+    }
     $.ajax({
         type: 'POST',
         url: updateUrl,
@@ -12,9 +16,20 @@ function dbAddToCart(product_slug, updateUrl) {
             'product_slug': product_slug,
             'quantity': quantity,
         },
-        success: function () {
-            updateNavbarCart();
-            quantityInput.value = 1;
+        success: function (response) {
+            if (response.success) {
+                updateNavbarCart();
+                try {
+                    quantityInput.value = 1;
+                } catch (error) {
+                    console.log('.quantity input not found');
+                }
+            } else {
+                showErrorModal(response.error);
+            }
+        },
+        error: function (response) {
+            console.log(response);
         },
     });
 }
