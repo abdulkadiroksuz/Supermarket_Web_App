@@ -42,6 +42,8 @@ function increaseQuantity(productId) {
     let new_quantity = currentQuantity + 1;
     if (new_quantity <= 10) {
         dbUpdateQuantity(productId, new_quantity);
+    }else{
+        showErrorModal("You can't add more than 10 items for each product");
     }
 }
 
