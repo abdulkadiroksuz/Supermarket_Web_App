@@ -52,12 +52,14 @@ def update_product(request):
         
         stock = StorageProduct.objects.filter(product=product_obj).aggregate(Sum('quantity'))['quantity__sum']
         if new_quantity > stock:
+            cart_item.quantity = stock
+            cart_item.save()
             err_msg = f"Not enough stock, {stock} left."
             return JsonResponse({"success": False, "error": err_msg, "stock":stock})
         else:
             cart_item.quantity = new_quantity
-        cart_item.save()
-        return JsonResponse({"success": True})
+            cart_item.save()
+            return JsonResponse({"success": True})
     except Exception as e:
         print(e)
         return JsonResponse({"success": False, "error": "Server error", "stock":-1})
@@ -114,6 +116,9 @@ def add_to_cart(request):
         if is_exists:
             existing = CartProduct.objects.get(product=product_obj, cart=cart_obj)
             new_quantity = existing.quantity + add_quantity
+            if new_quantity > 10:
+                err_msg = f"You can't add more.\nYou already have {existing.quantity} in your cart."
+                return JsonResponse({"success": False, "error": err_msg})
             if new_quantity > stock:
                 err_msg = f"Not enough stock, {stock} left.\nYou already have {existing.quantity} in your cart."
                 return JsonResponse({"success": False, "error": err_msg})
