@@ -1,15 +1,19 @@
 {% for field in form %}
   <div class="mb-3">
-    <label for="{{ field.id_for_label }}" class="form-label">
-      {{ field.label }}
-    </label>
-    {% if field.name == 'password1' or field.name == 'password2' %}
-      <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" placeholder="{{ field.field.widget.attrs.placeholder }}">
+    {% if not show_password_fields and field.name in 'password1 password2' %}
+    
     {% else %}
-      {{ field }}
-    {% endif %}
-    {% if field.errors %}
-      <div class="alert alert-danger mt-2 pb-0">{{ field.errors }}</div>
+      <label for="{{ field.id_for_label }}" class="form-label">
+        {{ field.label }}
+      </label>
+      {% if field.name == 'password1' or field.name == 'password2' %}
+        <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" placeholder="{{ field.field.widget.attrs.placeholder }}">
+      {% else %}
+        {{ field }}
+      {% endif %}
+      {% if field.errors %}
+        <div class="alert alert-danger mt-2 pb-0">{{ field.errors }}</div>
+      {% endif %}
     {% endif %}
   </div>
 {% endfor %}

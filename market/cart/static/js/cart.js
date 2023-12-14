@@ -60,10 +60,12 @@ function dbUpdateQuantity(productId, newQuantity) {
     $.ajax({
         type: "POST",
         url: "update_cart_item",  // cart app 
+        headers: {
+            'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(),
+        },
         data: {
             product_id: productId.substring(1), // remove the 'p' from the id
             new_quantity: newQuantity,
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
         }
     });
 }
@@ -73,9 +75,11 @@ function dbDeleteItem(productId) {
     $.ajax({
         type: "POST",
         url: "delete_cart_item",  // cart app 
+        headers: {
+            'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(),
+        },
         data: {
             product_id: productId.substring(1), // remove the 'p' from the id
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
         }
     });
 }

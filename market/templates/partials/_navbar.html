@@ -25,7 +25,7 @@
                     <i class="fas fa-address-card"></i>
                 </a>
             {% endif %}
-            <a id="user-icon" href="#" class="user">
+            <a id="user-icon" href="{% url 'user:profile' %}" class="user">
                 <i class="fas fa-user"></i>
             </a>
             <a id="logout-icon" href="{% url 'user:logout' %}" class="logout">
@@ -41,7 +41,7 @@
                 <i class="fal fa-user"></i>
             </a>
             {% include "user/login.html" %}
-            <script src="{% static 'js/login.js' %}"></script>
+            
         {% endif %}
     </div>
 

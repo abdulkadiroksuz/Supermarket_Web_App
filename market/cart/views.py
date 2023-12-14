@@ -62,8 +62,11 @@ def delete_product(request):
 def get_navbar_cart(request):
     if request.method == "GET":
         customer = Customer.objects.get(user=request.user)
-        cart = Cart.objects.get(customer=customer)
-        total_products = CartProduct.objects.filter(cart=cart).count()
+        cart, isCreated = Cart.objects.get_or_create(customer=customer)
+        if isCreated:
+            total_products = 0
+        else:
+            total_products = CartProduct.objects.filter(cart=cart).count()
         
         data = {
             "total_cart_products": total_products
