@@ -5,7 +5,9 @@ function dbAddToCart(product_slug, updateUrl) {
     $.ajax({
         type: 'POST',
         url: updateUrl,
-        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        headers: {
+            'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(),
+        },
         data: {
             'product_slug': product_slug,
             'quantity': quantity,
