@@ -1,4 +1,6 @@
-<form action="{% url 'user:login' %}" method="post" class="login-form {% if messages %}active{% endif %}" id="login-form">
+{% load static %}
+
+<form action="{% url 'user:login' %}" method="post" class="login-form {% for message in messages %}{% if 'error' in message.tags %}active{% endif %}{% endfor %}" id="login-form">
     {% csrf_token %}
 
     <h3>Login</h3>
@@ -23,6 +25,6 @@
         <label>Don't you have an account?</label>
         <a href="{% url 'user:signup' %}" class="signup-link">Sign up</a>
     </div>
-
-
 </form>
+
+<script src="{% static 'js/login.js' %}"></script>
