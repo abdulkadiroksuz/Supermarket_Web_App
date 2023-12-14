@@ -5,29 +5,54 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <h1>{{ product.name }}</h1>
-    
-    <div>
-      <img src="{{ product.image.url }}" alt="{{ product.name }} Image">
-    </div>
 
-    <p>Description: {{ product.description }}</p>
-    
-    <p>Price: ${{ product.price }}</p>
-    
-    <!-- Add more information about the product as needed -->
+{% load static %}
+{% block additionalStyles %}
+    <link rel="stylesheet" href="{% static 'css/product.css' %}" />
+{% endblock %}
 
-    <!-- You can add more HTML and template tags based on your needs -->
-
-    <!-- Example: Add a "Add to Cart" button if user is authenticated -->
-    {% if user.is_authenticated %}
-     {% comment %} <form method="post" action="{% url 'add_to_cart' product.id %}"> {% endcomment %}
+<main class="main-product">
+  <div class="detail-wrap wrapper webwrap">
+    <section class="detail-highlight">
+      <img class="product-image" src="{{ product.image.url }}" alt="{{ product.name }} Image">
+      <div class="highlight-info">
+        <div class="pricetag info-price">Price: ${{product.price}}</div>
+        <h1 class="info-title">{{ product.name }}</h1>
+        {% if user.is_authenticated %}
         {% csrf_token %}
-        <button type="submit" onclick='dbAddToCart("{{product.slug}}","{% url 'cart:add_item_to_cart' %}")'>Add to Cart</button>
-      </form>
-      {% else %}
-      <button type="submit" onclick='showErrorModal("Please, login to add product to cart"); openLoginForm();' >Add to Cart</button>
-    {% endif %}
+            <button id="buttonInProduct" type="submit" onclick='dbAddToCart("{{product.slug}}","{% url 'cart:add_item_to_cart' %}")'>Add to Cart</button>
+        {% else %}
+            <button id="buttonInProduct" type="submit" onclick='showErrorModal("Please, login to add product to cart"); openLoginForm();'>Add to Cart</button>
+        {% endif %}
+      
+      </div>
+    </section>
+    <aside class="detail-additions">
+      <div class="additions-section additions-info">
+        <h2 class="section-title">Descriptions</h2>
+        <div id="section-content" class="section-content">
+          <div class="info-description wysiwyg">
+            <p class="detail-additions">{{ product.description }}</p>
+          </div>
+          <div class="info-data">
+            <p class="detail-additions">Product ID: {{product.id}}</p>
+            {% if stock_status == "In Stock" and not isRunningOut %}
+            <p id="inStock" class="detail-additions">{{stock_status}}</p>
+            {% elif isRunningOut and stock == 1 %} 
+            <p id="isRunningOut" class="detail-additions">Hurry up! {{stock}} product left.</p>
+            {% elif isRunningOut%} 
+            <p id="isRunningOut" class="detail-additions">Hurry up! {{stock}} products left.</p>
+            {% else %}
+            <p id="outOfStock" class="detail-additions">{{stock_status}}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </aside>
   </div>
+</main>
+
+
+
+
 {% endblock %}

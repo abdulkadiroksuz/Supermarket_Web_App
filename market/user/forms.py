@@ -1,9 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm,UserChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm,UserChangeForm,PasswordChangeForm
 from django.contrib.auth.models import User
 from .models import Customer
 from storage.models import Area
 from django.forms import widgets
+from django.db import transaction
 
 class UserLoginForm(AuthenticationForm):
     def __init__(self,*args,**kwargs):
@@ -126,3 +127,27 @@ class ProfileUpdateForm(UserChangeForm):
             self.add_error('phone', 'This phone number is already in use.')
 
         return self.cleaned_data
+    
+    def save(self, commit=True):
+        with transaction.atomic():
+            user = super().save(commit=False)
+            if commit:
+                user.save()
+            customer, created = Customer.objects.get_or_create(user=user)
+            customer.phone = self.cleaned_data.get('phone')
+            customer.area = self.cleaned_data.get('area')
+            if commit:
+                customer.save()
+
+        return user
+    
+
+
+    
+class UserPasswordChangeForm(PasswordChangeForm):
+    
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,*kwargs)
+        self.fields["new_password1"].widget = widgets.PasswordInput(attrs={"class":"form-control",'placeholder': 'New Password'})
+        self.fields["new_password2"].widget = widgets.PasswordInput(attrs={"class":"form-control" ,'placeholder': 'Confirm New Password'})
+        self.fields["old_password"].widget = widgets.PasswordInput(attrs={"class":"form-control",'placeholder': 'Current Password'})
