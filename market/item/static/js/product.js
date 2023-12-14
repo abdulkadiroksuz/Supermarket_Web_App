@@ -12,9 +12,16 @@ function dbAddToCart(product_slug, updateUrl) {
             'product_slug': product_slug,
             'quantity': quantity,
         },
-        success: function () {
-            updateNavbarCart();
-            quantityInput.value = 1;
+        success: function (response) {
+            if (response.success) {
+                updateNavbarCart();
+                quantityInput.value = 1;
+            } else {
+                showErrorModal(response.error);
+            }
+        },
+        error: function (response) {
+            console.log(response);
         },
     });
 }
