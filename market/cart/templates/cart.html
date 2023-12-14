@@ -2,12 +2,6 @@
 {% load static %}
 
 {% block additionalStyles %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <style type="text/css" id="operaUserStyle"></style>
-    <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
 {% endblock %}
 
 {% block title %}Cart{% endblock %} 
@@ -31,9 +25,9 @@
                 <div class="product" id="p{{ item.product__id }}">
                     <div class="row main align-items-center">
                         {% get_media_prefix  as MEDIA_PREFIX %}
-                        <div class="col-2"><img class="img-fluid" src="{{ MEDIA_PREFIX }}{{ item.product__image }}"></div>
+                        <div class="col-2"><a href="{% url 'item:product' product_slug=item.product__slug %}"><img class="img-fluid" src="{{ MEDIA_PREFIX }}{{ item.product__image }}"></a></div>
                         <div class="col-5">
-                            <div class="row">{{ item.product__name }}</div>
+                            <div class="row"><a href="{% url 'item:product' product_slug=item.product__slug %}">{{ item.product__name }}</a></div>
                             <div id="txt-description" class="row text-muted">{{ item.product__description }}</div>
                         </div>
                         <div class="col-2">
@@ -42,7 +36,7 @@
                             <button class="action-button" onclick="increaseQuantity('p{{ item.product__id }}')">+</button>
                         </div>
                         <div class="col-2 product-price">$ {{ item.product__price }}</div>
-                        <button class="action-button close-button" onclick="removeItem('p{{ item.product__id }}')">✕</button>
+                        <button style="width: fit-content;" class="action-button close-button" onclick="removeItem('p{{ item.product__id }}')">✕</button>
                     </div>
                 </div>
             {% endfor %}
@@ -86,8 +80,9 @@
 {% endblock %}
 
 {% block additionalScripts %}
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <link href="{% static 'css/cart.css' %}" rel="stylesheet">
     <script src="{% static 'js/cart.js' %}"></script>
     <script>
         updateCart();
