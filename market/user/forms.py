@@ -146,8 +146,8 @@ class ProfileUpdateForm(UserChangeForm):
     
 class UserPasswordChangeForm(PasswordChangeForm):
     
-    def __init__(self,*args,**kwargs):
-        super().__init__(*args,*kwargs)
-        self.fields["new_password1"].widget = widgets.PasswordInput(attrs={"class":"form-control",'placeholder': 'New Password'})
-        self.fields["new_password2"].widget = widgets.PasswordInput(attrs={"class":"form-control" ,'placeholder': 'Confirm New Password'})
-        self.fields["old_password"].widget = widgets.PasswordInput(attrs={"class":"form-control",'placeholder': 'Current Password'})
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["new_password1"].widget = widgets.PasswordInput(attrs={"class": "form-control", 'placeholder': 'New Password'})
+        self.fields["new_password2"].widget = widgets.PasswordInput(attrs={"class": "form-control", 'placeholder': 'Confirm New Password'})
+        self.fields["old_password"].widget = widgets.PasswordInput(attrs={"class": "form-control", 'placeholder': 'Current Password'})
