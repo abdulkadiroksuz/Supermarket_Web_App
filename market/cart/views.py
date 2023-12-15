@@ -1,24 +1,77 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Sum
-from item.models import Category, Product
-from user.models import Customer
+from django.db.models import F, Sum, Case, When, IntegerField, Subquery, OuterRef
 
 from .models import Cart,CartProduct
 from storage.models import StorageProduct
+from user.models import Customer
+from item.models import Product
 
 
-# Create your views here.
 def cart(request):
-    customer = Customer.objects.get(user=request.user)
-    try:
-        cart = Cart.objects.get(customer=customer)
-    except Cart.DoesNotExist:
-        cart = Cart.objects.create(customer=customer)
+    # Get the customer associated with the current user
+    customerObj = Customer.objects.get(user=request.user)
+
+    # Try to get an existing cart for the customer, or create a new one if it doesn't exist
+    cartObj, created = Cart.objects.get_or_create(customer=customerObj)
+
+    cart_products = get_adjusted_cart_products(cartObj)
+
+    context = {
+        "items": cart_products,
+        "total_items": len(cart_products),
+    }
+
+    return render(request, "cart.html", context)
+
+def get_adjusted_cart_products(cartObj: Cart):
+    """
+    Get cart products with adjusted quantities.\n
+
+    Adjusted quantity is the quantity of the product in the cart.\n
+    If it is less than or equal to the quantity of the product in the storage,\n
+    else it is the quantity of the product in the storage.\n    
+    
+    SQL Query ->\n
+    SELECT\n
+        p.id AS product_id,\n
+        p.name AS product_name,\n
+        p.price AS product_price,\n
+        p.description AS product_description,\n
+        p.slug AS product_slug,\n
+        p.image AS product_image,\n
+    CASE\n
+        WHEN cp.quantity > sp.quantity THEN sp.quantity\n
+        ELSE cp.quantity\n
+    END AS adjusted_quantity\n
+    FROM\n
+        cart_cartproduct cp\n
+    INNER JOIN\n
+        item_product p ON cp.product_id = p.id\n
+    LEFT JOIN\n
+    	(SELECT product_id, sum(quantity) as quantity FROM storage_storageproduct sp GROUP BY product_id) sp\n 
+    ON p.id = sp.product_id\n
+    WHERE\n
+        cp.cart_id = <cart_id>;\n
+
+    """
+    storage_subquery = (
+        StorageProduct.objects.filter(product=OuterRef('product_id'))
+        .values('product')
+        .annotate(sum_quantity=Sum('quantity'))
+        .values('sum_quantity')
+    )
 
     cart_products = (
-        CartProduct.objects.filter(cart=cart)
+        CartProduct.objects.filter(cart=cartObj)
         .select_related("product")
+        .annotate(
+            adjusted_quantity=Case(
+                When(quantity__gt=Subquery(storage_subquery), then=Subquery(storage_subquery)),
+                default=F("quantity"),
+                output_field=IntegerField(),
+            )
+        )
         .values(
             "product__id",
             "product__name",
@@ -26,15 +79,13 @@ def cart(request):
             "product__description",
             "product__slug",
             "product__image",
-            "quantity",
+            "adjusted_quantity",
         )
     )
 
-    context = {
-        "items": cart_products,
-        "total_items": len(cart_products),
-    }
-    return render(request, "cart.html", context)
+    return cart_products
+
+
 
 # used to update the quantity of the product in the cart
 def update_product(request):
