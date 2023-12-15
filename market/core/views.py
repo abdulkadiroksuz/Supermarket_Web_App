@@ -24,12 +24,10 @@ def index(request):
     }
     return render(request, 'core/index.html', context)
 
-def search(request, search_text):
-    
+def search(request, search_text): 
     # get products whose name contains search_text non case-sensitive 
     products = Product.objects.filter(name__icontains=search_text)
-    
-    paginator = Paginator(products,2)
+    paginator = Paginator(products,6)
     page = request.GET.get('page',1)
     page_obj = paginator.page(page)
 

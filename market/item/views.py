@@ -13,7 +13,7 @@ def category(request, category_slug):
     # Retrieve all products associated with the category
     associated_products = Product.objects.filter(productcategory__category=category_object)
 
-    paginator = Paginator(associated_products,2)
+    paginator = Paginator(associated_products,6)
     page = request.GET.get('page',1)
     page_obj = paginator.page(page)
 
