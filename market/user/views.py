@@ -7,7 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.db import transaction
 
-from .forms import SignUpForm,ProfileUpdateForm
+from .forms import SignUpForm,ProfileUpdateForm,UserPasswordChangeForm
 from .models import Customer
 
 def user_login(request):
@@ -55,15 +55,34 @@ def user_logout(request):
 
 def user_profile(request):
     show_password_fields = False
+    user = request.user
+    password_form = UserPasswordChangeForm(user=user)
     if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, instance=request.user)
-        if form.is_valid():
-            user = form.save()  
-            update_session_auth_hash(request, user)  
-            messages.add_message(request,messages.SUCCESS, 'Your profile was successfully updated!')
-            return redirect('core:index') 
-        else:
-             return render(request, 'user/profile.html', {'form': form,'show_password_fields' : show_password_fields})
+        form = ProfileUpdateForm(request.POST, instance=user)
+        if "update_profile" in request.POST:
+            if form.is_valid():
+                user = form.save()  
+                update_session_auth_hash(request, user)  
+                messages.add_message(request,messages.SUCCESS, 'Your profile was successfully updated!')
+                return redirect('user:profile') 
+            else:
+                return render(request, 'user/profile.html', {'form': form,'show_password_fields' : show_password_fields})
+        elif "change_password" in request.POST:
+            password_form = UserPasswordChangeForm(data=request.POST,user=user)
+            if password_form.is_valid():
+                updated_user = password_form.save()
+                update_session_auth_hash(request, updated_user)
+                messages.add_message(request, messages.SUCCESS, 'Your password was successfully updated!')
+                return redirect('core:index')  
+            else:
+                user_data = {
+                    'first_name': request.user.first_name,
+                    'last_name': request.user.last_name,
+                    'email': request.user.email,
+                    'phone': request.user.customer.phone if hasattr(request.user, 'customer') else '',
+                    'area': request.user.customer.area if hasattr(request.user, 'customer') else '',
+                }
+                form = ProfileUpdateForm(initial=user_data)
     else:
         user_data = {
             'first_name': request.user.first_name,
@@ -73,5 +92,13 @@ def user_profile(request):
             'area': request.user.customer.area if hasattr(request.user, 'customer') else '',
         }
         form = ProfileUpdateForm(initial=user_data)
+    
+    context = {
+        'form': form,
+        'password_form' : password_form,
+        'show_password_fields':show_password_fields        
+    }
 
-    return render(request, 'user/profile.html', {'form': form,'show_password_fields' : show_password_fields})
+    return render(request, 'user/profile.html',context)
+
+

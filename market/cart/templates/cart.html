@@ -30,11 +30,18 @@
                             <div class="row"><a href="{% url 'item:product' product_slug=item.product__slug %}">{{ item.product__name }}</a></div>
                             <div id="txt-description" class="row text-muted">{{ item.product__description }}</div>
                         </div>
+                        {% if item.adjusted_quantity %}
                         <div class="col-2">
                             <button class="action-button" onclick="decreaseQuantity('p{{ item.product__id }}')">-</button>
-                            <span class="quantity">{{ item.quantity }}</span>
+                            <span class="quantity">{{ item.adjusted_quantity }}</span>
                             <button class="action-button" onclick="increaseQuantity('p{{ item.product__id }}')">+</button>
                         </div>
+                        {% else %}
+                        <div class="col-2">
+                            <span class="quantity" style="display:none;">0</span>
+                            <span style="color:red;">Out of stock</span>
+                        </div>
+                        {% endif %}
                         <div class="col-2 product-price">$ {{ item.product__price }}</div>
                         <button style="width: fit-content;" class="action-button close-button" onclick="removeItem('p{{ item.product__id }}')">✕</button>
                     </div>
@@ -59,10 +66,10 @@
                 <div class="col text-right tot-price">$ 0.00</div>
             </div>
             <form>
-                <p>SHIPPING</p>
-                <select onclick="updateCart()" id="shippingSelect">
-                    <option value="0" class="text-muted">Free-Delivery- $0.00</option>
-                    <option value="5" class="text-muted">Private-Delivery- $5.00</option>
+                <p>ADDRESS</p>
+                <select id="addressSelect">
+                    <option value="" class="text-muted">Home</option>
+                    <option value="" class="text-muted">Work</option>
                 </select>
                 <p>Have A Promo Code?</p>
                 <input id="code" placeholder="Enter your code">
