@@ -1,5 +1,6 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
-
+from django.urls import reverse
 from .models import Product, Category
 from storage.models import StorageProduct
 from django.db.models import Sum
@@ -49,3 +50,16 @@ def product(request, product_slug):
     }
     
     return render(request, 'item/product.html', context)
+
+def get_categories(request):
+    if request.method != 'GET':
+        return JsonResponse({'success': False, 'data': [], 'error': 'Invalid request method. Could not retrieve categories.'})
+    try:
+        categories = Category.objects.all()
+        category_list = []
+        for category in categories:
+            category_list.append({'name':category.name, 'url':reverse('item:category', kwargs={'category_slug':category.slug})})
+        return JsonResponse({'success': True, 'data': category_list})
+    except Exception as e:
+        return JsonResponse({'success': False, 'data': [], 'error': 'Something went wrong. Could not retrieve categories.'})
+        
