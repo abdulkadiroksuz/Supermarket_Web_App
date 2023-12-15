@@ -30,7 +30,7 @@
                             <div class="row"><a href="{% url 'item:product' product_slug=item.product__slug %}">{{ item.product__name }}</a></div>
                             <div id="txt-description" class="row text-muted">{{ item.product__description }}</div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-2 amount">
                             <button class="action-button" onclick="decreaseQuantity('p{{ item.product__id }}')">-</button>
                             <span class="quantity">{{ item.quantity }}</span>
                             <button class="action-button" onclick="increaseQuantity('p{{ item.product__id }}')">+</button>
@@ -59,10 +59,10 @@
                 <div class="col text-right tot-price">$ 0.00</div>
             </div>
             <form>
-                <p>SHIPPING</p>
-                <select onclick="updateCart()" id="shippingSelect">
-                    <option value="0" class="text-muted">Free-Delivery- $0.00</option>
-                    <option value="5" class="text-muted">Private-Delivery- $5.00</option>
+                <p>ADDRESS</p>
+                <select id="addressSelect">
+                    <option value="" class="text-muted">Home</option>
+                    <option value="" class="text-muted">Work</option>
                 </select>
                 <p>Have A Promo Code?</p>
                 <input id="code" placeholder="Enter your code">

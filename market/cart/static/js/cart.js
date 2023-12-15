@@ -10,9 +10,6 @@ function updateCart() {
         total += (price * quantity);
     }
 
-    let shippingCost = parseFloat(document.getElementById("shippingSelect").value);
-    total += shippingCost;
-
     document.getElementsByClassName("col align-self-center text-right text-muted")[0].innerHTML = productsQuantity + " products";
     document.getElementsByClassName("tot-items")[0].innerHTML = productsQuantity + " ITEMS";
     document.querySelectorAll(".tot-price").forEach(function(element) {
