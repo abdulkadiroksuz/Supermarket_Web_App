@@ -10,7 +10,6 @@ from storage.models import StorageProduct
 
 # Create your views here.
 def cart(request):
-    categories = Category.objects.all()
     customer = Customer.objects.get(user=request.user)
     try:
         cart = Cart.objects.get(customer=customer)
@@ -32,7 +31,6 @@ def cart(request):
     )
 
     context = {
-        "categories": categories,
         "items": cart_products,
         "total_items": len(cart_products),
     }

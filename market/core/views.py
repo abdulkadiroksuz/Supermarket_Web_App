@@ -25,8 +25,6 @@ def index(request):
     return render(request, 'core/index.html', context)
 
 def search(request, search_text):
-
-    categories = Category.objects.all()
     
     # get products whose name contains search_text non case-sensitive 
     products = Product.objects.filter(name__icontains=search_text)
@@ -38,7 +36,6 @@ def search(request, search_text):
     context = {
         'search_text': search_text,
         'page_obj': page_obj,
-        'categories': categories,
     }
     return render(request, 'core/search.html',context)
 

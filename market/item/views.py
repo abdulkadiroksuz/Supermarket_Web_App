@@ -10,7 +10,6 @@ def category(request, category_slug):
     # Retrieve the category object based on the provided slug
     category_object = get_object_or_404(Category, slug=category_slug)
 
-    categories = Category.objects.all()
     # Retrieve all products associated with the category
     associated_products = Product.objects.filter(productcategory__category=category_object)
 
@@ -19,7 +18,6 @@ def category(request, category_slug):
     page_obj = paginator.page(page)
 
     context = {
-        'categories': categories,
         'category': category_object,
         'page_obj' : page_obj,
     }
@@ -30,9 +28,7 @@ def category(request, category_slug):
 def product(request, product_slug):
     product_object = get_object_or_404(Product, slug=product_slug)
     stock = StorageProduct.objects.filter(product = product_object).aggregate(Sum("quantity"))["quantity__sum"]
-    
-    categories = Category.objects.all()
-    
+        
     stock_status = "In Stock"
     if (stock is None) or stock==0:
         stock_status = "Out of Stock"
@@ -42,7 +38,6 @@ def product(request, product_slug):
         isRunningOut = True
      
     context = {
-        'categories': categories,
         'product': product_object,
         'stock_status': stock_status,
         'isRunningOut': isRunningOut,
