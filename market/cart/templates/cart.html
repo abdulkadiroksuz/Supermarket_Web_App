@@ -9,6 +9,7 @@
 
 
 <div class="card">
+    {% if items %}
     <div class="row">
         <div class="col-md-8 shopping-cart">
             <div class="title">
@@ -86,6 +87,9 @@
             <button class="btn" onclick='checkout()'>CHECKOUT</button>
         </div>
     </div>
+    {% else %}
+    <div class="row"> <div class="alert alert-warning">Your cart is empty. Please add product.</div>   </div>
+    {% endif %}
 
 </div>
 

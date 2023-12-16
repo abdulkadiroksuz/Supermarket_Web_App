@@ -106,6 +106,11 @@ function dbDeleteItem(productId) {
 function checkout() {
 
     var quantityElements = document.getElementsByClassName("quantity");
+    if (quantityElements.length === 0) {
+        showErrorModal("Your cart is empty. Please add product.");
+        return;
+    }
+
     var quantityArray = Array.from(quantityElements);
     quantityArray.forEach(function(element) {
         if (element.innerText === '0') {
@@ -117,7 +122,7 @@ function checkout() {
 
 
     let addressId = $('#addressSelect').val();
-    if (addressId === -1) {
+    if (addressId === "-1") {
         showErrorModal('Please add an address from profile page');
         return;
     }
