@@ -8,3 +8,11 @@ class Customer(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name.capitalize()} {self.user.last_name.capitalize()}"
+    
+class Adress(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    title = models.CharField(max_length=20, null=False)
+    full_adress = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return f"{self.customer}, {self.title} - {self.full_adress}"
