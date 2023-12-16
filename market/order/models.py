@@ -21,7 +21,7 @@ class OrderProduct(models.Model):
         unique_together = ('order', 'product')
     
     def row_price(self):
-        return self.product.price * self.quantity
+        return f"{(self.product.price * self.quantity):.2f}"
     
     def __str__(self):
         return f"{self.order} - Product: {self.product.name} - Quantity: {self.quantity}"
