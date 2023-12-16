@@ -5,8 +5,9 @@ function updateCart() {
 
     for (var i = 0; i < productsQuantity; i++) {
         let product = products[i];
-        let price = parseFloat(product.querySelector(".product-price").innerText.replace("$", ""));
+        var price = parseFloat(product.querySelector(".product-price").getAttribute('price'));
         let quantity = parseInt(product.querySelector(".quantity").innerText);
+        product.querySelector(".product-price").innerText = "$" + (price * quantity).toFixed(2);
         total += (price * quantity);
     }
 

@@ -43,7 +43,7 @@
                             <span style="color:red;">Out of stock</span>
                         </div>
                         {% endif %}
-                        <div class="col-2 product-price">$ {{ item.product__price }}</div>
+                        <div class="col-2 product-price" price="{{ item.product__price  }}">$ {{ item.product__price  }}</div>
                         <button style="width: fit-content;" class="action-button close-button" onclick="removeItem('p{{ item.product__id }}')">✕</button>
                     </div>
                 </div>
