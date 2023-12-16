@@ -1,4 +1,7 @@
 {% load static %}
+
+<link rel="stylesheet" href="{% static 'css/user-menu.css' %}">
+
 <nav class="navigation">
     
     <a href="{% url 'core:index' %}" ><img id="logo" class="logo" src="{% static 'images/trlogo.png' %}" alt=""></a>
@@ -24,12 +27,33 @@
                     <i class="fas fa-address-card"></i>
                 </a>
             {% endif %}
-            <a id="user-icon" href="{% url 'user:profile' %}" class="user">
-                <i class="fas fa-user"></i>
-            </a>
-            <a id="order-icon" href="{% url 'order:order-history' %}" class="order">
-                <i class="fas fa-shipping-fast"></i>
-            </a>
+           
+
+            
+             
+            <div id="user-dropdown" class="user-menu">      
+                <a id="user-icon" href="#">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="user-dropdown-content">
+                    <script src="{% static 'js/user-menu.js' %}"></script>
+                    <a href="{% url 'user:profile' %}">My Profile</a>
+                    {% if not user.is_staff %}
+                        <a id="order-icon" href="{% url 'order:order-history' %}" class="order">
+                            <div class="text">My Orders</div>
+                            <i class="fas fa-shipping-fast"></i>
+                        </a>
+                        <a href="{% url 'user:address' %}">My Addresses</a>
+                    {% endif %}
+                        
+                    <a id="logout-icon" href="{% url 'user:logout' %}" class="logout">
+                        <div class="text">Log out</div>
+                        <i class="fas fa-sign-out"></i>
+                    </a>   
+                </div>
+            </div>
+           
+            
             
             <a id="cart-icon" href="{% url 'cart:cart' %}" class="cart" data-update-url="{% url 'cart:update_navbar_cart' %}">
                 <i class="fas fa-shopping-cart"></i>
@@ -37,9 +61,7 @@
                 <script onload="updateNavbarCart()" src="{% static 'js/cart-icon.js' %}"></script>
             </a>
             
-            <a id="logout-icon" href="{% url 'user:logout' %}" class="logout">
-                <i class="fas fa-sign-out"></i>
-            </a>
+            
         {% else %}
             <a id="user-icon" class="user">
                 <i class="fal fa-user"></i>

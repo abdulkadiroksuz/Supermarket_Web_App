@@ -180,26 +180,6 @@ body {
 
 }
 
-.right-nav .order {
-    background-color: #eef7ff;
-    color: #6583ef;
-}
-
-.right-nav .order:hover {
-    border: 1px solid #6583ef;
-
-}
-
-.right-nav .logout {
-    background-color: #ffeeee;
-    color: #ff0000;
-}
-
-.right-nav .logout:hover {
-    border: 1px solid #ff0000;
-
-}
-
 .right-nav .cart {
     background-color: #ecf7ee;
     color: #4eb060;
