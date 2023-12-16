@@ -7,14 +7,14 @@ function updateCart() {
         let product = products[i];
         var price = parseFloat(product.querySelector(".product-price").getAttribute('price'));
         let quantity = parseInt(product.querySelector(".quantity").innerText);
-        product.querySelector(".product-price").innerText = "$" + (price * quantity).toFixed(2);
+        product.querySelector(".product-price").innerText = "₺" + (price * quantity).toFixed(2);
         total += (price * quantity);
     }
 
     document.getElementsByClassName("col align-self-center text-right text-muted")[0].innerHTML = productsQuantity + " products";
     document.getElementsByClassName("tot-items")[0].innerHTML = productsQuantity + " ITEMS";
     document.querySelectorAll(".tot-price").forEach(function(element) {
-        element.innerText = "$" + total.toFixed(2);
+        element.innerText = "₺" + total.toFixed(2);
     });
 }
 
