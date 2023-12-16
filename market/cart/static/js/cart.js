@@ -128,7 +128,7 @@ function checkout() {
         return;
     }
 
-    let totalPrice = parseFloat(document.getElementById('total_price').innerText.replace('$', ''));
+    let totalPrice = parseFloat(document.getElementById('total_price').innerText.replace('₺', ''));
     
     $.ajax({
         type: "POST",
@@ -139,7 +139,7 @@ function checkout() {
         data: {
             'total_price': totalPrice,
             'adress_id': addressId,
-        },
+                    },
         success: function (response) {
             if (response.success) {
                 showErrorModal('Your order has been placed successfully');
