@@ -162,7 +162,7 @@ body {
 
 .right-nav .admin {
     width: 3.5rem;
-    background-color: #fff0ee;
+    background-color: #ffeeee;
     color: #ff0000;
 }
 
@@ -171,11 +171,21 @@ body {
 }
 
 .right-nav .user {
-    background-color: #fff0ee;
+    background-color: #fdf2e2;
     color: #ff6c57;
 }
 
 .right-nav .user:hover {
+    border: 1px solid #ff6c57;
+
+}
+
+.right-nav .order {
+    background-color: #eef7ff;
+    color: #6583ef;
+}
+
+.right-nav .order:hover {
     border: 1px solid #ff6c57;
 
 }

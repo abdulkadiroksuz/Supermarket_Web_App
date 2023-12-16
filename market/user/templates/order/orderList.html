@@ -40,7 +40,7 @@
                             <td>{{order.address}}</td>
                             <td>{{order.total_price}}</td>
                             <td>{{order.status }}</td>
-                            <td><a href="#" class="btn btn-primary">View</a></td>
+                            <td><a href="{% url 'order:order-detail' order_id=order.id %}" class="btn btn-primary">View</a></td>
                         </tr>
                         
                         {% endfor %}
