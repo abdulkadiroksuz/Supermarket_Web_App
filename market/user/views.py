@@ -102,3 +102,6 @@ def user_profile(request):
     return render(request, 'user/profile.html',context)
 
 
+def user_address(request):
+    return render(request,"user/address.html")
+
