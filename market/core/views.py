@@ -1,26 +1,16 @@
-from django.http import JsonResponse
 from django.shortcuts import render
-from django.db.models import Q
+from django.db.models import Sum
 from item.models import Category, Product
+from order.models import OrderProduct
 from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
     categories = Category.objects.all()
-    
-     #  SQL QUERY ->
-#       SELECT p.*
-#       FROM item_product p
-#       JOIN (
-#           SELECT product_id, SUM(quantity) AS total
-#           FROM order_orderproduct
-#           GROUP BY product_id
-#       ) op ON p.id = op.product_id
-#       ORDER BY op.total DESC;
-    
+       
     context = {
         'categories':categories,
-        # 'popular_products': popular_products[:12],
+        'popularProducts': get_popular_products(),
     }
     return render(request, 'core/index.html', context)
 
@@ -36,6 +26,31 @@ def search(request, search_text):
         'page_obj': page_obj,
     }
     return render(request, 'core/search.html',context)
+
+
+def get_popular_products():
+    """
+    gets the 8 most popular products
+
+    RELATED SQL QUERY ->\n
+    SELECT *\n 
+    FROM item_product\n
+    WHERE id IN (\n
+        SELECT product_id\n
+        FROM order_orderproduct\n
+        GROUP BY product_id\n
+        ORDER BY SUM(quantity) DESC\n
+        LIMIT 8);\n
+    """
+    subquery = (
+        OrderProduct.objects
+        .annotate(total=Sum("quantity"))
+        .values("product_id")
+        .order_by('-total')  # Use '-' to order in descending order (highest total first)
+    )
+    
+    return Product.objects.filter(id__in=subquery)
+
 
 
 
