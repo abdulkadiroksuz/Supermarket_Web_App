@@ -1,11 +1,12 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.db.models import F, Sum, Case, When, IntegerField, Subquery, OuterRef
-
+from django.db import transaction
 from .models import Cart,CartProduct
 from storage.models import StorageProduct
-from user.models import Customer
+from user.models import Customer, Adress
 from item.models import Product
+from order.models import Order, OrderProduct
 
 
 def cart(request):
@@ -16,10 +17,13 @@ def cart(request):
     cartObj, created = Cart.objects.get_or_create(customer=customerObj)
 
     cart_products = get_adjusted_cart_products(cartObj)
+    
+    address_list = Adress.objects.filter(customer=customerObj)
 
     context = {
         "items": cart_products,
         "total_items": len(cart_products),
+        "address_list": address_list,
     }
 
     return render(request, "cart.html", context)
@@ -182,6 +186,41 @@ def add_to_cart(request):
             new_value.save()
             return JsonResponse({"success": True})
         
+    except Exception as e:
+        print(e)
+        return JsonResponse({"success": False, "error": "Server error"})
+    
+    
+def checkout(request):
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "Invalid request method"})
+    try:
+        customerObj = get_object_or_404(Customer, user=request.user)
+        cartObj = get_object_or_404(Cart, customer=customerObj)
+        
+        totalPrice = float(request.POST.get("total_price"))
+        addressId = int(request.POST.get("adress_id"))
+        addressObj = get_object_or_404(Adress, id=addressId)
+        # Create order
+        orderObj = Order(customer=customerObj, total_price=totalPrice, address=addressObj)
+        orderObj.save()        
+
+        cartProducts = CartProduct.objects.filter(cart=cartObj)
+        orderProducts = []
+        with transaction.atomic():
+            for cartProduct in cartProducts:
+                stock = StorageProduct.objects.filter(product=cartProduct.product).aggregate(Sum('quantity'))['quantity__sum']
+                if cartProduct.quantity > stock:
+                    orderObj.delete()
+                    return JsonResponse({"success": False, "error": "Not enough stock for some products, Please refresh the page."})
+                else:
+                    orderProductObj = OrderProduct(order=orderObj, product=cartProduct.product, quantity=cartProduct.quantity)
+                    orderProducts.append(orderProductObj)
+            
+            for orderProduct in orderProducts:
+                orderProduct.save()
+            cartObj.delete()
+        return JsonResponse({"success": True})
     except Exception as e:
         print(e)
         return JsonResponse({"success": False, "error": "Server error"})

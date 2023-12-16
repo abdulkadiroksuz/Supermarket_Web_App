@@ -101,3 +101,51 @@ function dbDeleteItem(productId) {
         },
     });
 }
+
+
+function checkout() {
+
+    var quantityElements = document.getElementsByClassName("quantity");
+    var quantityArray = Array.from(quantityElements);
+    quantityArray.forEach(function(element) {
+        if (element.innerText === '0') {
+            showErrorModal("Please remove the non-available products from your cart, refresh the page and try again.");
+            return;
+        }
+    });
+    
+
+
+    let addressId = $('#addressSelect').val();
+    if (addressId === -1) {
+        showErrorModal('Please add an address from profile page');
+        return;
+    }
+
+    let totalPrice = parseFloat(document.getElementById('total_price').innerText.replace('$', ''));
+    
+    $.ajax({
+        type: "POST",
+        url: "checkout",  // cart app 
+        headers: {
+            'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(),
+        },
+        data: {
+            'total_price': totalPrice,
+            'adress_id': addressId,
+        },
+        success: function (response) {
+            if (response.success) {
+                showErrorModal('Your order has been placed successfully');
+                setTimeout(function() {
+                    window.location.href = "/";
+                }, 2500);   
+            }else{
+                showErrorModal(response.error);
+            }
+        },
+        error: function (response) {
+            console.log(response);
+        },
+    });
+}

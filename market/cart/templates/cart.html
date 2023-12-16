@@ -68,17 +68,22 @@
             <form>
                 <p>ADDRESS</p>
                 <select id="addressSelect">
-                    <option value="" class="text-muted">Home</option>
-                    <option value="" class="text-muted">Work</option>
+                {% if address_list %}
+                    {% for address in address_list %}
+                    <option value="{{ address.id }}" class="text-muted">{{ address.title }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option value="-1" class="text-muted">No saved addresses</option>
+                {% endif %}
                 </select>
                 <p>Have A Promo Code?</p>
                 <input id="code" placeholder="Enter your code">
             </form>
             <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                 <div class="col">TOTAL PRICE</div>
-                <div class="col text-right tot-price">$ 0.00</div>
+                <div id="total_price" class="col text-right tot-price">$ 0.00</div>
             </div>
-            <button class="btn">CHECKOUT</button>
+            <button class="btn" onclick='checkout()'>CHECKOUT</button>
         </div>
     </div>
 

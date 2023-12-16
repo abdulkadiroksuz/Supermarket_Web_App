@@ -6,7 +6,7 @@ class Order(models.Model):
     customer = models.ForeignKey('user.Customer', on_delete=models.CASCADE)
     status = models.CharField(max_length=100, default='pending')
     total_price = models.IntegerField()
-    address = models.CharField(max_length=100)
+    address = models.ForeignKey('user.Adress' , on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
