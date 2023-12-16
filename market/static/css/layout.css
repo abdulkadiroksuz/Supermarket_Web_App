@@ -162,12 +162,12 @@ body {
 
 .right-nav .admin {
     width: 3.5rem;
-    background-color: #ffeeee;
-    color: #ff0000;
+    background-color: #fff0ee;
+    color: #ff6c57;
 }
 
 .right-nav .admin:hover {
-    border: 1px solid #ff0000;
+    border: 1px solid #ff6c57;
 }
 
 .right-nav .user {
@@ -191,12 +191,12 @@ body {
 }
 
 .right-nav .logout {
-    background-color: #fff0ee;
-    color: #ff6c57;
+    background-color: #ffeeee;
+    color: #ff0000;
 }
 
 .right-nav .logout:hover {
-    border: 1px solid #ff6c57;
+    border: 1px solid #ff0000;
 
 }
 
