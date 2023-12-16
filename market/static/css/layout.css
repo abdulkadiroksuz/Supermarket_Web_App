@@ -163,15 +163,15 @@ body {
 .right-nav .admin {
     width: 3.5rem;
     background-color: #fff0ee;
-    color: #ff0000;
+    color: #ff6c57;
 }
 
 .right-nav .admin:hover {
-    border: 1px solid #ff0000;
+    border: 1px solid #ff6c57;
 }
 
 .right-nav .user {
-    background-color: #fff0ee;
+    background-color: #fdf2e2;
     color: #ff6c57;
 }
 
@@ -180,13 +180,23 @@ body {
 
 }
 
+.right-nav .order {
+    background-color: #eef7ff;
+    color: #6583ef;
+}
+
+.right-nav .order:hover {
+    border: 1px solid #ff6c57;
+
+}
+
 .right-nav .logout {
-    background-color: #fff0ee;
-    color: #ff6c57;
+    background-color: #ffeeee;
+    color: #ff0000;
 }
 
 .right-nav .logout:hover {
-    border: 1px solid #ff6c57;
+    border: 1px solid #ff0000;
 
 }
 

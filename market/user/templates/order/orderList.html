@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block title %}Order History{% endblock %}
+{% block additionalStyles %}
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock %}
+
+{% block additionalScripts %}
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="ftco-section" style="min-height: 500px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-center mb-4">Order History</h4>
+                {% if orders %}<div class="table-wrap">
+                    <table class="table">
+                    <thead class="thead-primary">
+                        <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Address</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <th scope="row" class="scope" >{{order.id}}</th>
+                            <td>{{order.date}}</td>
+                            <td>{{order.address}}</td>
+                            <td>{{order.total_price}}</td>
+                            <td>{{order.status }}</td>
+                            <td><a href="{% url 'order:order-detail' order_id=order.id %}" class="btn btn-primary">View</a></td>
+                        </tr>
+                        
+                        {% endfor %}
+                        
+                    </tbody>
+                    </table>
+                </div>
+                {% else  %}
+                <div class="alert alert-warning">It looks like you never ordered.</div>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+
+

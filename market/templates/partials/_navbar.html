@@ -27,13 +27,18 @@
             <a id="user-icon" href="{% url 'user:profile' %}" class="user">
                 <i class="fas fa-user"></i>
             </a>
-            <a id="logout-icon" href="{% url 'user:logout' %}" class="logout">
-                <i class="fas fa-sign-out"></i>
+            <a id="order-icon" href="{% url 'order:order-history' %}" class="order">
+                <i class="fas fa-shipping-fast"></i>
             </a>
+            
             <a id="cart-icon" href="{% url 'cart:cart' %}" class="cart" data-update-url="{% url 'cart:update_navbar_cart' %}">
                 <i class="fas fa-shopping-cart"></i>
                 <span>0</span>
                 <script onload="updateNavbarCart()" src="{% static 'js/cart-icon.js' %}"></script>
+            </a>
+            
+            <a id="logout-icon" href="{% url 'user:logout' %}" class="logout">
+                <i class="fas fa-sign-out"></i>
             </a>
         {% else %}
             <a id="user-icon" class="user">

@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}Order Details{% endblock %}
+{% load static %}
+
+{% block additionalStyles %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/orderDetail.css' %}" />
+{% endblock %}
+
+{% block additionalScripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <div class="title">Purchase Reciept</div>
+    <div class="info">
+        <div class="row">
+            <div class="col-7">
+                <span id="heading">Date</span><br>
+                <span id="details">{{order.date}}</span>
+            </div>
+            <div class="col-5 pull-right">
+                <span id="heading">Order No.</span><br>
+                <span id="details">{{order.id}}</span>
+            </div>
+        </div>      
+    </div>     
+    
+    {% for item in order_products %}
+    <div class="pricing">
+        <div class="row">
+            <div class="col-9">
+                <span id="name">{{item.product.name}} x {{item.quantity}}</span>  
+            </div>
+            <div class="col-3">
+                <span id="price">&#8378;{{item.row_price}}</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="total">
+        <div class="row">
+            <div class="col-9"></div>
+            <div class="col-3"><big>&#8378;{{order.total_price}}</big></div>
+        </div>
+    </div>
+    <div class="tracking">
+        <div class="title">Tracking Order</div>
+    </div>
+    <div class="progress-track">
+        <ul id="progressbar">
+            <li class="step0 active " id="step1">Confirmed</li>
+            <li class="step0 active text-center" id="step2">Preparing</li>
+            <li class="step0 active text-right" id="step3">On the way</li>
+            <li class="step0 text-right" id="step4">Delivered</li>
+        </ul>
+    </div>
+    
+
+    <div class="footer">
+            <img id="footer-logo" class="logo" src="{% static 'images/trlogo.png' %}" >
+
+            <div class="text">Want any help? Please contact us</div>
+        
+        
+       
+    </div>
+</div>
+{% endblock %}
+

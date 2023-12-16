@@ -1,6 +1,7 @@
 # users_app/urls.py
 from django.urls import path
 from . import views
+from order import views as orderview
 
 app_name = 'user'
 
