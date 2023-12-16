@@ -43,7 +43,7 @@
                             <span style="color:red;">Out of stock</span>
                         </div>
                         {% endif %}
-                        <div class="col-2 product-price" price="{{ item.product__price  }}">₺ {{ item.product__price  }}</div>
+                        <div class="col-2 product-price" price="{{ item.product__price  }}">&#8378;{{ item.product__price  }}</div>
                         <button style="width: fit-content;" class="action-button close-button" onclick="removeItem('p{{ item.product__id }}')">✕</button>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
             <hr>
             <div class="row">
                 <div class="col tot-items" style="padding-left:0;">{{ total_items }} ITEMS</div>
-                <div class="col text-right tot-price">₺ 0.00</div>
+                <div class="col text-right tot-price">&#8378; 0.00</div>
             </div>
             <form>
                 <p>ADDRESS</p>
@@ -82,7 +82,7 @@
             </form>
             <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                 <div class="col">TOTAL PRICE</div>
-                <div id="total_price" class="col text-right tot-price">₺ 0.00</div>
+                <div id="total_price" class="col text-right tot-price">&#8378; 0.00</div>
             </div>
             <button class="btn" onclick='checkout()'>CHECKOUT</button>
         </div>

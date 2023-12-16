@@ -38,9 +38,9 @@
                             <th scope="row" class="scope" >{{order.id}}</th>
                             <td>{{order.date}}</td>
                             <td>{{order.address.title}} - {{order.address.full_adress}}</td>
-                            <td>{{order.total_price}}</td>
+                            <td>&#8378;{{order.total_price}}</td>
                             <td>{{order.status }}</td>
-                            <td><a href="{% url 'order:order-detail' order_id=order.id %}" class="btn btn-primary">View</a></td>
+                            <td id="viewBtn"><a href="{% url 'order:order-detail' order_id=order.id %}" class="btn btn-primary" >View</a></td>
                         </tr>
                         
                         {% endfor %}

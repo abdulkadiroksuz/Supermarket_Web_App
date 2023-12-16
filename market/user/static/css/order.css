@@ -8182,6 +8182,10 @@ h1, h2, h3, h4, h5,
 .table-wrap {
   overflow-x: scroll; }
 
+#viewBtn {
+  color: #4eb060;
+}
+
 .table {
   min-width: 1000px !important;
   width: 100%;
@@ -8246,6 +8250,7 @@ h1, h2, h3, h4, h5,
       box-shadow: none; }
   .btn.btn-outline-primary {
     color: #fff; }
+
 
    
 
