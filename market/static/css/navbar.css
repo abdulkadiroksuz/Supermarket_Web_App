@@ -1,0 +1,323 @@
+.navigation {
+    border-bottom: 1px solid rgba(0, 150, 18, 0.947);
+    border-bottom-right-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    padding-top: 1.5rem;
+    padding-bottom: 0.7rem;
+    padding-left: 6rem;
+    padding-right: 6rem;
+    margin-bottom: 2rem;
+    max-width: 100%;
+    width: 100%;
+    background-color: #fff;
+    z-index: 9;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #202020;
+}
+
+.title-categories {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #202020;
+}
+
+.title-categories:hover {
+    color: #40aa54;
+}
+
+#category-title:hover {
+    cursor: pointer;
+}
+
+.category-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    opacity: 1;
+    margin-left: -1rem;
+    transition: opacity 0.3s ease;
+    min-width: 10rem;
+}
+
+.category-dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    color: #333;
+}
+
+.category-dropdown-content a:hover {
+    color: #17c737;
+}
+
+.search-box {
+    border: 1px solid #1bac36;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0px 5px 0px 20px;
+    border-radius: 30px;
+}
+
+.search-box i {
+    font-size: 1.3rem;
+    color: #3b3b3b;
+    margin: 0px 10px;
+}
+
+.search-box .search-input {
+    height: 40px;
+    border: none;
+    width: 100%;
+    padding: 0px 10px;
+    outline: none;
+}
+
+.search-box .search-btn {
+    width: 220px;
+    height: 40px;
+    border-radius: 30px;
+    background-color: #4eb060;
+    border: none;
+    color: #ffffff;
+    outline: none;
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.search-box .search-btn:hover {
+    background-color: #1d8330;
+    transition: all ease 0.3s;
+}
+
+
+.right-nav {
+    display: flex;
+    grid-gap: 20px;
+}
+
+.right-nav a {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: relative;
+}
+
+.right-nav .admin {
+    width: 3.5rem;
+    background-color: #fff0ee;
+    color: #ff6c57;
+}
+
+.right-nav .admin:hover {
+    border: 1px solid #ff6c57;
+}
+
+.right-nav .cart {
+    background-color: #ecf7ee;
+    color: #4eb060;
+}
+
+.right-nav .cart:hover {
+    border: 1px solid #4eb060;
+}
+
+.right-nav .user{
+    background-color: #fdf2e2;
+    color: #ff6c57!important;
+}
+
+.right-nav a span {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 0.6rem;
+    font-weight: 500;
+}
+
+.right-nav .cart span {
+    background-color: #ecf7ee;
+    background-color: #4eb060;
+}
+
+.right-nav a span {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 0.6rem;
+    font-weight: 500;
+    background-color: #202020;
+}
+
+#logo{
+    width: 50px;
+    height: 50px;
+}
+
+#footer-logo{
+    width: 100px;
+    height: 100px;
+}
+
+.login-form {
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-transform: capitalize;
+    text-decoration: none;
+    position: fixed;
+    top: 20vh;
+    right: -100%;
+    background: var(--white);
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow);
+    width: 23rem;
+    padding: 1.5rem;
+    transition: right 0.4s linear;
+    z-index: 9999;
+}
+
+.login-form.active {
+    right: 1.5vw;
+}
+
+.login-form h3 {
+    color: var(--black);
+    font-size: 4.5vh;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.3rem;
+}
+
+.login-form .box {
+    margin: 0.3rem 0;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--black);
+    width: 100%;
+}
+
+.login-form .label-div {
+    margin-left: 50px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin: 0.3rem 0;
+}
+
+#showPassword {
+    margin-left: auto;
+}
+
+.login-form{
+    background-color: #fff;
+}
+
+.login-form label {
+    font-size: 0.9rem;
+    color: #1c2137;
+    cursor: pointer;
+}
+
+.login-form .btn {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    color: #fff;
+    border-radius: 0.2rem;
+    background: #3bb77e;
+    cursor: pointer;
+    margin: 0.3rem 0;
+    text-align: center;
+    width: 100%;
+}
+
+.login-form .signup-link {
+    font-weight: bold;
+    width: initial;
+    height: initial;
+    color: #3bb77e;
+    cursor: pointer;
+}
+
+.user-dropdown-content {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    position: fixed;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+    border-top-right-radius: 10%;
+    background-color: #fff; 
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1); 
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+    transform: translateY(0); 
+    padding: 0.5rem 1rem;
+    z-index: 8;
+    top: 5rem;
+    right: 1.5vw;
+
+}
+
+.user-dropdown-content a {
+    color: #333;
+    width: initial;
+    height: initial;
+    min-width: max-content;
+    display: flex;
+    border-radius: initial;
+    position: initial;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    margin: .5rem;
+    gap: 0.5rem;
+}
+
+
+.user-dropdown-content a:hover {
+    color: #17c737; 
+}
+
+.user-dropdown-content p{
+    margin-top: initial;
+    margin-bottom: initial;
+}
