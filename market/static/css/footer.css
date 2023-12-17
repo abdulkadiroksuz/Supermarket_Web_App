@@ -5,7 +5,6 @@ footer {
 }
 
 .footer-container {
-    max-width: 1100px;
     margin: auto;
     display: flex;
     justify-content: space-around;
@@ -62,10 +61,11 @@ footer {
 
 .footer-links ul {
     margin-top: 10px;
+    padding-left: initial;
 }
 
 .footer-links ul li a {
-    color: #ffffff;
+    color: #ffffff!important;
     opacity: 0.5;
     margin: 4px 0px;
     font-size: 0.9rem;
