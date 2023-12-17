@@ -1,16 +1,21 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Customer, Adress
+from .models import Customer, Adress
 
-# Register new user with customer fields
-admin.site.unregister(User)
-class CustomerInline(admin.StackedInline):
-    model = Customer
-    can_delete = False
-    verbose_name_plural = 'Customer'
+# Register new user with customer fields  
 
-class CustomUserAdmin(UserAdmin):
-    inlines = (CustomerInline, )
+class CustomerAdressInline(admin.TabularInline):
+    model = Adress
+    readonly_fields = ()
+    extra = 1
     
-admin.site.register(User, CustomUserAdmin)
-admin.site.register(Adress)
+class CustomerAdmin(admin.ModelAdmin):
+    inlines = (CustomerAdressInline, )
+    readonly_fields = ("user",)
+      
+admin.site.register(Customer, CustomerAdmin)
+
+class AdressAdmin(admin.ModelAdmin): 
+    list_display = ("customer", "title", "full_adress")
+
+admin.site.register(Adress, AdressAdmin)

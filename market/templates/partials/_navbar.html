@@ -1,13 +1,13 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'css/user-menu.css' %}">
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 
 <nav class="navigation">
     
     <a href="{% url 'core:index' %}" ><img id="logo" class="logo" src="{% static 'images/trlogo.png' %}" alt=""></a>
-    <div id="category-dropdown-menu" class="dropdown">
-        <a href="#" class="title-categories">Categories</a>
-        <div class="dropdown-content">
+    <div id="category-dropdown-menu" class="category-dropdown">
+        <a id="category-title" class="title-categories">Categories</a>
+        <div class="category-dropdown-content">
             <script src="{% static 'js/category-dropdown.js' %}"></script>
             <script>loadCategories("{% url 'item:get_categories' %}")</script>
         </div>
@@ -24,34 +24,37 @@
         {% if user.is_authenticated %}
             {% if user.is_staff %}
                 <a id="admin-icon" href="{% url 'admin:index' %}" class="admin">
-                    <i class="fas fa-address-card"></i>
+                    <i class="fas fa-users-cog"></i>
                 </a>
             {% endif %}
            
-
-            
-             
-            <div id="user-dropdown" class="user-menu">      
-                <a id="user-icon" href="#">
+                <a id="user-icon" class="user">
                     <i class="fas fa-user"></i>
                 </a>
-                <div class="user-dropdown-content">
+
+                <div id="user-menu" class="user-dropdown-content">
                     <script src="{% static 'js/user-menu.js' %}"></script>
-                    <a href="{% url 'user:profile' %}">My Profile</a>
+                    <a href="{% url 'user:profile' %}">
+                        <i class="fas fa-address-card"></i>
+                        <p> My Profile</p>
+                    </a>
                     {% if not user.is_staff %}
                         <a id="order-icon" href="{% url 'order:order-history' %}" class="order">
-                            <div class="text">My Orders</div>
                             <i class="fas fa-shipping-fast"></i>
+                            <p>My Orders</p>
                         </a>
-                        <a href="{% url 'user:address' %}">My Addresses</a>
+                        <a href="{% url 'user:address' %}">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <p>My Addresses</p>
+                        </a>
                     {% endif %}
                         
                     <a id="logout-icon" href="{% url 'user:logout' %}" class="logout">
-                        <div class="text">Log out</div>
+                        <p>Log out</p>
                         <i class="fas fa-sign-out"></i>
                     </a>   
                 </div>
-            </div>
+            
            
             
             
