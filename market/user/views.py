@@ -1,6 +1,7 @@
 # users_app/views.py
 from django.contrib.auth import login, logout,authenticate,update_session_auth_hash
-from django.shortcuts import redirect, render
+from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404, redirect, render
 from storage.models import Area
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -100,16 +101,45 @@ def user_profile(request):
 
 
 def user_address(request):
+    context = {'form_errors': False}
+    form = AddressForm()
+    addresses = Adress.objects.filter(customer=request.user.customer)
+    context['addresses'] = addresses
+
     if request.method == 'POST':
-        form = AddressForm(request.POST)
-        if form.is_valid():
-            address = form.save(commit=False)
-            address.customer = request.user.customer
-            address.save()
-            messages.add_message(request,messages.SUCCESS,"Address is succesfully added!")
+        address_id = request.POST.get('address_id')
+
+        if 'add_address' in request.POST:
+            form = AddressForm(request.POST)
+            if form.is_valid():
+                address = form.save(commit=False)
+                address.customer = request.user.customer
+                address.save()
+                messages.success(request, "Address has been added successfully!")
+                return redirect('user:address')
+
+        elif 'edit_address' in request.POST and address_id:
+            address_id = request.POST.get('address_id')
+            address = get_object_or_404(Adress, pk=address_id, customer=request.user.customer)
+            form = AddressForm(request.POST, instance=address)
+            if form.is_valid():
+                form.save()
+                messages.add_message(request,messages.SUCCESS,"Address has been updated successfully!")
+                return redirect('user:address')
+            else:
+                context['form_errors'] = True
+                context['edit_address_id'] = address_id
+
+        elif 'delete_address' in request.POST and address_id:
+            address = get_object_or_404(Adress, pk=address_id, customer=request.user.customer)
+            if address.customer != request.user.customer:
+                return HttpResponseForbidden()
+            address.delete()
+            messages.add_message(request,messages.SUCCESS,"Address has been deleted successfully!")
             return redirect('user:address')
+
     else:
         form = AddressForm()
-    
-    addresses = Adress.objects.filter(customer=request.user.customer)
-    return render(request, 'user/address.html', {'addresses': addresses, 'form': form})
+
+    context['form'] = form
+    return render(request, 'user/address.html', context)

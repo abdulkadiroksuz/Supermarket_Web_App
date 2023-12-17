@@ -2,40 +2,143 @@
 
 {% load static %}
 
+{% block additionalStyles %}
 <link rel="stylesheet" href="{% static 'css/address.css' %}">
+{% endblock %}
 
+
+{% block title %}
+My Addresses
+{% endblock %}
 
 {% block content %}
 <div class="container my-5">
+    <h2>My Addresses</h2>
+    <hr>
     <div class="row">
-        <div class="col-md-6">
-            <h2>My Addresses</h2>
-            <hr>
-            {% for address in addresses %}
-                <div class="card mb-3">
+        {% for address in addresses %}
+            <div class="col-md-6">
+                <div class="card address-card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">{{ address.title }}</h5>
                         <p class="card-text">{{ address.full_adress }}</p>
+                        <div class="address-actions">
+                            <!-- Edit form -->                      
+                            {% csrf_token %}
+                            <input type="hidden" name="address_id" value="{{ address.id }}">
+                            <a href="#" class="btn btn-outline-secondary btn-sm edit-link" data-id="{{ address.id }}" data-title="{{ address.title }}" data-full_address="{{ address.full_adress }}">Edit</a>
+                           
+                            <!-- Delete form -->
+                            <form method="post" action="{% url 'user:address' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="address_id" value="{{ address.id }}">
+                                <button class="btn btn-outline-danger btn-sm" type="submit" name="delete_address">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
-        <div class="col-md-6">
-            <h2>Add New Address</h2>
-            <form method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                    <label for="{{ field.id_for_label }}" class="form-label">
-                        {{ field.label }}
-                    </label>
-                    {{ field }}
-                    {% if field.errors %}
-                        <div class="alert alert-danger mt-2 pb-0">{{ field.errors }}</div>
-                    {% endif %}
-                {% endfor %}
-                <button type="submit" class="btn btn-primary">Add Address</button>
-            </form>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="new-address mt-3">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addressModal">Add new address</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addressModalLabel">Add new address</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'user:address' %}">
+                        {% csrf_token %}
+           
+                        {% if edit_address %}
+                            <input type="hidden" name="address_id" value="{{ address.id }}">       
+                            {% for field in form %}
+                                <label for="{{ field.id_for_label }}" class="form-label">
+                                    {{ field.label }}
+                                </label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="alert alert-danger mt-2 pb-0">{{ field.errors }}</div>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        {% else %}
+                            {% for field in form %}
+                                <label for="{{ field.id_for_label }}" class="form-label">
+                                    {{ field.label }}
+                                </label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="alert alert-danger mt-2 pb-0">{{ field.errors }}</div>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" name="add_address" class="btn btn-primary">Save</button>
+                            </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 {% endblock %}
+
+{% block additionalScripts %}
+<script src="{% static 'js/address.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function() {     
+        {% if form_errors %}
+            if (!$('#addressModal').hasClass('show')) {
+                $('#addressModal').modal('show');
+            }
+        {% endif %}
+
+        $('#addressModal .close, #addressModal .btn-secondary').on('click', function() {
+            $('#addressModal').modal('hide');
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.edit-link').click(function() {
+            var addressId = $(this).data('id');
+            var addressTitle = $(this).data('title');
+            var addressFullAddress = $(this).data('full_address');
+            
+            // Form alanlarını doldur
+            $('#addressModal input[name="title"]').val(addressTitle);
+            $('#addressModal textarea[name="full_adress"]').val(addressFullAddress);
+            $('#addressModal input[name="address_id"]').val(addressId);
+            
+            // Modal başlığını güncelle ve modalı göster
+            $('#addressModalLabel').text('Edit Address');
+            $('#addressModal').modal('show');
+
+            // 'Save' butonunu 'Update' olarak değiştir
+            $('#addressModal button[type="submit"]').text('Update').attr('name', 'edit_address');
+        });
+
+        // Form hataları varsa modalı göster
+        {% if form_errors %}
+            $('#addressModal').modal('show');
+        {% endif %}
+    });
+</script>
+{% endblock %}
+
