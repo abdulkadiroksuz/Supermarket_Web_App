@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm,UserChangeForm,PasswordChangeForm
 from django.contrib.auth.models import User
-from .models import Customer
+from .models import Customer,Adress
 from storage.models import Area
 from django.forms import widgets
 from django.db import transaction
@@ -151,3 +151,13 @@ class UserPasswordChangeForm(PasswordChangeForm):
         self.fields["new_password1"].widget = widgets.PasswordInput(attrs={"class": "form-control", 'placeholder': 'New Password'})
         self.fields["new_password2"].widget = widgets.PasswordInput(attrs={"class": "form-control", 'placeholder': 'Confirm New Password'})
         self.fields["old_password"].widget = widgets.PasswordInput(attrs={"class": "form-control", 'placeholder': 'Current Password'})
+
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Adress
+        fields = ['title', 'full_adress']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}),
+            'full_adress': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Full Address'}),
+        }

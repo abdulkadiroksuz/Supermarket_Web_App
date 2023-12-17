@@ -1,14 +1,11 @@
 # users_app/views.py
 from django.contrib.auth import login, logout,authenticate,update_session_auth_hash
-from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect, render, reverse
+from django.shortcuts import redirect, render
 from storage.models import Area
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from django.db import transaction
-
-from .forms import SignUpForm,ProfileUpdateForm,UserPasswordChangeForm
-from .models import Customer
+from .forms import SignUpForm,ProfileUpdateForm,UserPasswordChangeForm,AddressForm
+from .models import Customer,Adress
 
 def user_login(request):
     if request.method == 'POST':
@@ -103,5 +100,16 @@ def user_profile(request):
 
 
 def user_address(request):
-    return render(request,"user/address.html")
-
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.customer = request.user.customer
+            address.save()
+            messages.add_message(request,messages.SUCCESS,"Address is succesfully added!")
+            return redirect('user:address')
+    else:
+        form = AddressForm()
+    
+    addresses = Adress.objects.filter(customer=request.user.customer)
+    return render(request, 'user/address.html', {'addresses': addresses, 'form': form})
