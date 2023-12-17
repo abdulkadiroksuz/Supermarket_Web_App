@@ -10,7 +10,7 @@ def index(request):
        
     context = {
         'categories':categories,
-        'popularProducts': get_popular_products(),
+        'popularProducts': get_popular_products()[:8],
     }
     return render(request, 'core/index.html', context)
 
