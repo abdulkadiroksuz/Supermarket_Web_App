@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import F, Sum, Case, When, IntegerField, Subquery, OuterRef
 from django.db import transaction
 from .models import Cart,CartProduct
-from storage.models import StorageProduct
+from storage.models import StorageProduct, Storage
 from user.models import Customer, Adress
 from item.models import Product
 from order.models import Order, OrderProduct
@@ -86,6 +86,12 @@ def get_adjusted_cart_products(cartObj: Cart):
             "adjusted_quantity",
         )
     )
+    
+    # update cart product quantity if stock is not enough
+    for cart_product in cart_products:
+        cartProductObj = CartProduct.objects.get(cart=cartObj, product=cart_product["product__id"])
+        cartProductObj.quantity = cart_product["adjusted_quantity"]
+        cartProductObj.save()
 
     return cart_products
 
@@ -218,9 +224,60 @@ def checkout(request):
                     orderProducts.append(orderProductObj)
             
             for orderProduct in orderProducts:
+                delete_product_from_storage(customerObj, orderProduct)                    
                 orderProduct.save()
             cartObj.delete()
         return JsonResponse({"success": True})
     except Exception as e:
         print(e)
         return JsonResponse({"success": False, "error": "Server error"})
+    
+
+def delete_product_from_storage(customerObj: Customer, orderProduct: OrderProduct):
+    # get the qunatity of ordered product
+    orderQuantity = orderProduct.quantity
+    
+    # get the ordered product
+    orderProduct = orderProduct.product
+    
+    # get the storage which is in the same area as the customer
+    closeStorage =  Storage.objects.get(area=customerObj.area)
+    
+    # get the ordered product from the storage
+    closeStorageProduct = StorageProduct.objects.get(product=orderProduct, storage=closeStorage)
+    
+    
+    # if the storage has enough stock
+    if closeStorageProduct.quantity >= orderQuantity:
+        closeStorageProduct.quantity -= orderQuantity
+        closeStorageProduct.save()
+    # if the storage doesn't have enough stock
+    else:
+        # decrease the order quantity by the storage quantity
+        orderQuantity -= closeStorageProduct.quantity
+        # remove the stock from the storage
+        closeStorageProduct.quantity = 0
+        closeStorageProduct.save()
+        
+        # delete the remaining quantity from other storages
+        
+        # get the product from storages that exclude the storage 
+        # which is in the same area as the customer
+        otherStorages = StorageProduct.objects.filter(product=orderProduct).exclude(storage=closeStorage)
+        
+        for sp in otherStorages:
+            # if the storage has enough stock
+            # remove the ordered stock from the storage
+            # and break the loop
+            if sp.quantity >= orderQuantity:
+                sp.quantity -= orderQuantity
+                sp.save()
+                break
+            # if the storage doesn't have enough stock
+            # reset the stock of the storage
+            # and decrease the order quantity by the storage quantity
+            # and continue the loop
+            else:
+                orderQuantity -= sp.quantity
+                sp.quantity = 0
+                sp.save()
