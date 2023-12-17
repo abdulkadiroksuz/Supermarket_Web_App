@@ -13,7 +13,7 @@
     
 {% endblock %}
 {% block additionalScripts %}
-    <script src="{% static 'js/product.js' %}"></script>
+    <script src="{% static 'js/addToCart.js' %}"></script>
     {% endblock %}
 
 <main class="main-product">
@@ -28,7 +28,7 @@
         
         <div style="display: flex; flex-direction: row;">
           <img class="product-image" src="{{ product.image.url }}" alt="{{ product.name }} Image">
-          <div class="highlight-info">
+          <div id="{{ product.slug }}" class="highlight-info">
 
             
 
