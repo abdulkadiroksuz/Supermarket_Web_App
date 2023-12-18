@@ -57,7 +57,7 @@ My Addresses
                 <div class="modal-body">
                     <form method="post" action="{% url 'user:address' %}">
                         {% csrf_token %}
-           
+                        
                         {% if edit_address %}
                             <input type="hidden" name="address_id" value="{{ address.id }}">       
                             {% for field in form %}
@@ -71,7 +71,7 @@ My Addresses
                             {% endfor %}
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="btn btn-primary" name="edit_address">Update</button>
                             </div>
                         {% else %}
                             {% for field in form %}

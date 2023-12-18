@@ -119,7 +119,6 @@ def user_address(request):
                 return redirect('user:address')
 
         elif 'edit_address' in request.POST and address_id:
-            address_id = request.POST.get('address_id')
             address = get_object_or_404(Adress, pk=address_id, customer=request.user.customer)
             form = AddressForm(request.POST, instance=address)
             if form.is_valid():
