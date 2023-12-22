@@ -62,7 +62,8 @@
                   </div>
                   {% if user.is_authenticated %}
                   {% csrf_token %}
-                  <a class="btn" onclick='dbAddToCart("{{product.slug}}","{% url 'cart:add_item_to_cart' %}")' >add to cart</a>
+                  <script src="{% static 'js/addToCart.js' %}"></script>
+                  <a class="btn" onclick='dbAddToCart("{{p.slug}}","{% url 'cart:add_item_to_cart' %}")' >add to cart</a>
                   {% else %}
                   <a class="btn" onclick='showErrorModal("Please, login to add product to cart"); openLoginForm();' >add to cart</a>
                   {% endif %}
