@@ -91,3 +91,8 @@ footer {
     width: 100px;
     height: 100px;
 }
+
+#footer-address{
+    display: block;
+    max-width: 14rem;
+}
