@@ -10,7 +10,7 @@ def index(request):
        
     context = {
         'categories':categories,
-        'popularProducts': get_popular_products()[:8],
+        'popularProducts': get_popular_products(),
     }
     return render(request, 'core/index.html', context)
 
@@ -30,25 +30,24 @@ def search(request, search_text):
 
 def get_popular_products():
     """
-    gets the 8 most popular products
+    Gets the 8 most popular products.
 
     RELATED SQL QUERY ->\n
-    SELECT *\n 
-    FROM item_product\n
-    WHERE id IN (\n
-        SELECT product_id\n
-        FROM order_orderproduct\n
-        GROUP BY product_id\n
-        ORDER BY SUM(quantity) DESC\n
-        LIMIT 8);\n
+    SELECT p.*\n
+    FROM item_product p\n
+    INNER JOIN order_orderproduct o\n
+    ON p.id = o.product_id\n
+    GROUP BY o.product_id\n
+    ORDER BY SUM(o.quantity) DESC;
     """
     subquery = (
         OrderProduct.objects
-        .annotate(total=Sum("quantity"))
-        .values("product_id")
+        .values('product_id')
+        .annotate(total=Sum('quantity'))
         .order_by('-total')  # Use '-' to order in descending order (highest total first)
-    )
-    
+        .values_list('product_id', flat=True)
+    )[:8]
+
     return Product.objects.filter(id__in=subquery)
 
 
