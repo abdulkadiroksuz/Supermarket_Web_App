@@ -2,9 +2,10 @@
 This project was prepared by [__Abdulkadir Öksüz__](https://github.com/abdulkadiroksuz), [__Gürkan Bıyık__](https://github.com/grknbyk), and [__Eren Çiçek__](https://github.com/erenciceek) for the DBMS class Term Project.
 
 __Framework__: Django
-## Preview
+## Preview 
+Click the image and check out the preview video.
 
-[![Teaser Video](https://img.youtube.com/vi/HeyAbTITaTY/0.jpg)](https://www.youtube.com/watch?v=HeyAbTITaTY)
+[![Preview](https://img.youtube.com/vi/HeyAbTITaTY/0.jpg)](https://www.youtube.com/watch?v=HeyAbTITaTY)
 
 ## Setup:
 Follow these steps to set up and run the project on your local machine. 
