@@ -4,14 +4,22 @@
 
 <nav class="navigation">
     
-    <a href="{% url 'core:index' %}" ><img id="logo" class="logo" src="{% static 'images/trlogo.png' %}" alt=""></a>
+    <div id="website-name">
+        <a href="{% url 'core:index' %}" ><img id="logo" class="logo" src="{% static 'images/trlogo.png' %}" alt=""></a>
+        <a href="{% url 'core:index' %}" class="grocery-go-link">
+            <span class="grocery-go">Grocery GO</span>
+        </a>
+    </div>
+
     <div id="category-dropdown-menu" class="category-dropdown">
         <a id="category-title" class="title-categories">Categories</a>
         <div class="category-dropdown-content">
             <script src="{% static 'js/category-dropdown.js' %}"></script>
+            <script src="{% static 'js/navbar.js' %}"></script>
             <script>loadCategories("{% url 'item:get_categories' %}")</script>
         </div>
     </div>
+    
 
     <form action="#" class="search-box" onsubmit="return false;">
         <script src="{% static 'js/search.js' %}"></script>

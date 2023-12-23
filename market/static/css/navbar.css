@@ -143,6 +143,11 @@
     background-color: #fdf2e2;
     color: #ff6c57!important;
 }
+.right-nav .user{
+    background-color: #fdf2e2;
+    color: #ff6c57!important;
+    cursor: pointer; 
+}
 
 .right-nav a span {
     position: absolute;
@@ -275,26 +280,25 @@
     cursor: pointer;
 }
 
-.user-dropdown-content {
+.right-nav .user-dropdown-content {
     display: none;
     flex-direction: column;
     align-items: flex-start;
     position: absolute;
-    border-bottom-left-radius: 10%;
-    border-bottom-right-radius: 10%;
-    border-top-right-radius: 10%;
     background-color: #fff; 
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1); 
-    z-index: 1;
+    border-radius: 10%;
     opacity: 1;
     transition: opacity 0.3s ease, transform 0.3s ease; 
-    transform: translateY(0); 
+    transform: translateY(50px); /* Adjust the translateY value */
     padding: 0.5rem 1rem;
     z-index: 8;
-    top: 5rem;
-    right: 1.5vw;
-
 }
+
+.right-nav .user-dropdown-content.show {
+    display: flex;
+}
+
 
 .user-dropdown-content a {
     color: #333;
@@ -320,4 +324,20 @@
 .user-dropdown-content p{
     margin-top: initial;
     margin-bottom: initial;
+}
+
+#website-name {
+    display: flex;
+    align-items: center;
+}
+
+.grocery-go {
+    margin-left: 10px; /* Adjust the margin as needed */
+    font-size: 1.2em; /* Adjust the font size as needed */
+    font-weight: bold; /* Adjust the font weight as needed */
+    color: #4eb060;
+}
+
+.grocery-go:hover {
+    color: #1d8330;
 }
