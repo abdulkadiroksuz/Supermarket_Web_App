@@ -1,5 +1,10 @@
 # Supermarket Web App
-This project was prepared by __Abdulkadir Öksüz__, __Gürkan Bıyık__, and __Eren Çiçek__ for the DBMS class Term Project.
+This project was prepared by [__Abdulkadir Öksüz__](https://github.com/abdulkadiroksuz), [__Gürkan Bıyık__](https://github.com/grknbyk), and [__Eren Çiçek__](https://github.com/erenciceek) for the DBMS class Term Project.
+
+__Framework__: Django
+## Preview
+
+[![Teaser Video](https://img.youtube.com/vi/HeyAbTITaTY/0.jpg)](https://www.youtube.com/watch?v=HeyAbTITaTY)
 
 ## Setup:
 Follow these steps to set up and run the project on your local machine. 
@@ -38,8 +43,10 @@ deactivate
 
 ## About Branches:
 - "main" is the branch the code part of the project is located at.
-- "documents" is the branch where the study documents are located. 
+- "documents" is the branch where the study documents are located.
+  
+## Diagrams:
 
-[Entity Relation Diagram](https://lucid.app/lucidchart/d68e6404-50b2-4697-8b0e-35debead3c5e/view?page=0_0&invitationId=inv_1c6d98e6-f8b2-490d-aa01-f75406d19b66#)
+- [Entity Relation Diagram](https://lucid.app/lucidchart/d68e6404-50b2-4697-8b0e-35debead3c5e/view?page=0_0&invitationId=inv_1c6d98e6-f8b2-490d-aa01-f75406d19b66#)
 
-[Use Case Diagram](https://lucid.app/lucidchart/816685de-f2c5-45ec-9730-51bad9bb17dc/edit?viewport_loc=-1388%2C-1464%2C4105%2C2165%2C0_0&invitationId=inv_851bb3cc-e6b9-4e98-aca6-491c544d1eb7)
+- [Use Case Diagram](https://lucid.app/lucidchart/816685de-f2c5-45ec-9730-51bad9bb17dc/edit?viewport_loc=-1388%2C-1464%2C4105%2C2165%2C0_0&invitationId=inv_851bb3cc-e6b9-4e98-aca6-491c544d1eb7)
