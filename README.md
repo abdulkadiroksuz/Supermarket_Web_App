@@ -1,7 +1,9 @@
 # Supermarket Web App
 This project was prepared by [__Abdulkadir Öksüz__](https://github.com/abdulkadiroksuz), [__Gürkan Bıyık__](https://github.com/grknbyk), and [__Eren Çiçek__](https://github.com/erenciceek) for the DBMS class Term Project.
 
-__Framework__: Django
+__Frontend__: HTML, CSS, Javascript<br>
+__Backend__: Django<br>
+__Database__: SQLite3
 ## Preview 
 Click the image and check out the preview video.
 
