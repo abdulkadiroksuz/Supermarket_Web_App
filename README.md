@@ -10,7 +10,7 @@ Click the image and check out the preview video.
 [![Preview](https://img.youtube.com/vi/HeyAbTITaTY/0.jpg)](https://www.youtube.com/watch?v=HeyAbTITaTY)
 
 ## Setup:
-Follow these steps to set up and run the project on your local machine. 
+Follow these steps to set up and run the project on your local machine or simply download and run the [bat file](https://drive.google.com/file/d/1j9d8iJEPavPMNp4XSEw4agIsWBQU1o4A/view?usp=drive_link).
 #### 1. Clone the Repository
 ```
 git clone https://github.com/abdulkadiroksuz/Supermarket_Web_App.git
