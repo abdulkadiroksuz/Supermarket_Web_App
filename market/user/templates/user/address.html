@@ -25,7 +25,6 @@ My Addresses
                         <div class="address-actions">
                             <!-- Edit form -->                      
                             {% csrf_token %}
-                            <input type="hidden" name="address_id" value="{{ address.id }}">
                             <a href="#" class="btn btn-outline-secondary btn-sm edit-link" data-id="{{ address.id }}" data-title="{{ address.title }}" data-full_address="{{ address.full_adress }}">Edit</a>
                            
                             <!-- Delete form -->
@@ -56,10 +55,10 @@ My Addresses
                 </div>
                 <div class="modal-body">
                     <form method="post" action="{% url 'user:address' %}">
+                        <input type="hidden" name="address_id" value="{{ address.id }}">
                         {% csrf_token %}
                         
-                        {% if edit_address %}
-                            <input type="hidden" name="address_id" value="{{ address.id }}">       
+                        {% if edit_address %}     
                             {% for field in form %}
                                 <label for="{{ field.id_for_label }}" class="form-label">
                                     {{ field.label }}

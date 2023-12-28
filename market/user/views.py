@@ -118,7 +118,7 @@ def user_address(request):
                 messages.success(request, "Address has been added successfully!")
                 return redirect('user:address')
 
-        elif 'edit_address' in request.POST and address_id:
+        elif 'edit_address' in request.POST:
             address = get_object_or_404(Adress, pk=address_id, customer=request.user.customer)
             form = AddressForm(request.POST, instance=address)
             if form.is_valid():
