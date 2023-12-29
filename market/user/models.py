@@ -13,6 +13,11 @@ class Adress(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     title = models.CharField(max_length=20, null=False)
     full_adress = models.CharField(max_length=200)
-    
+
+    class Meta:
+        unique_together = ('customer', 'title')
+
     def __str__(self):
         return f"{self.customer}, {self.title} - {self.full_adress}"
+    
+    

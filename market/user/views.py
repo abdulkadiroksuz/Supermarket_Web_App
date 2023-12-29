@@ -107,10 +107,11 @@ def user_address(request):
     context['addresses'] = addresses
 
     if request.method == 'POST':
+        print(request.POST) 
         address_id = request.POST.get('address_id')
 
         if 'add_address' in request.POST:
-            form = AddressForm(request.POST)
+            form = AddressForm(request.POST,request=request)
             if form.is_valid():
                 address = form.save(commit=False)
                 address.customer = request.user.customer
