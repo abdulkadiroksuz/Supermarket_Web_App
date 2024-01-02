@@ -162,23 +162,4 @@ class AddressForm(forms.ModelForm):
             'full_adress': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Full Address'}),
         }
 
-    def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request', None)
-        super(AddressForm, self).__init__(*args, **kwargs)
-
-    def clean(self):
-        cleaned_data = super().clean()
-        title = cleaned_data.get('title')
-
-        customer = cleaned_data.get('customer') or getattr(self.instance, 'customer', None)
-        if customer is None and self.request:
-            customer = self.request.user.customer
-
-        if self.instance and self.instance.pk:
-            if Adress.objects.exclude(pk=self.instance.pk).filter(customer=customer, title=title).exists():
-                self.add_error('title', "There is an address with this title! Please enter a different title.")
-        else:
-            if Adress.objects.filter(customer=customer, title=title).exists():
-                self.add_error('title', "There is an address with this title! Please enter a different title.")
-
-        return cleaned_data
+ 

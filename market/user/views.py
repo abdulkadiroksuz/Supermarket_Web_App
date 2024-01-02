@@ -111,7 +111,7 @@ def user_address(request):
         address_id = request.POST.get('address_id')
 
         if 'add_address' in request.POST:
-            form = AddressForm(request.POST,request=request)
+            form = AddressForm(request.POST)
             isExists = Adress.objects.filter(title=request.POST.get('title'), customer=request.user.customer).exists()
             if isExists:
                 messages.error(request, "Address could not be added! Try another title.")

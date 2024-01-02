@@ -115,6 +115,18 @@ My Addresses
 
 <script>
     $(document).ready(function() {
+        // Modal gösterildiğinde form alanlarını temizleyin
+        $('#addressModal').on('show.bs.modal', function (e) {
+            if (!e.relatedTarget) {
+                // Eğer 'Edit' düğmesinden tetiklenmediyse, form alanlarını temizleyin
+                $(this).find('input[name="title"]').val('');
+                $(this).find('textarea[name="full_adress"]').val('');
+                $(this).find('input[name="address_id"]').val('');
+                $('#addressModalLabel').text('Add new address');
+                $('#addressModal button[type="submit"]').text('Save').attr('name', 'add_address');
+            }
+        });
+    
         $('.edit-link').click(function() {
             var addressId = $(this).data('id');
             var addressTitle = $(this).data('title');
@@ -128,11 +140,11 @@ My Addresses
             // Modal başlığını güncelle ve modalı göster
             $('#addressModalLabel').text('Edit Address');
             $('#addressModal').modal('show');
-
+    
             // 'Save' butonunu 'Update' olarak değiştir
             $('#addressModal button[type="submit"]').text('Update').attr('name', 'edit_address');
         });
-
+    
         // Form hataları varsa modalı göster
         {% if form_errors %}
             $('#addressModal').modal('show');
