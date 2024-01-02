@@ -33,7 +33,7 @@ source venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
-#### 5. Run the Application
+#### 5. Run the Application or run "runWin.bat"
 ```
 python market/manage.py runserver
 ```
