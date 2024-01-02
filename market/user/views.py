@@ -112,11 +112,18 @@ def user_address(request):
 
         if 'add_address' in request.POST:
             form = AddressForm(request.POST,request=request)
-            if form.is_valid():
+            isExists = Adress.objects.filter(title=request.POST.get('title'), customer=request.user.customer).exists()
+            if isExists:
+                messages.error(request, "Address could not be added! Try another title.")
+                return redirect('user:address')
+            elif form.is_valid():
                 address = form.save(commit=False)
                 address.customer = request.user.customer
                 address.save()
                 messages.success(request, "Address has been added successfully!")
+                return redirect('user:address')
+            else:
+                messages.error(request, "Invalid Form.")
                 return redirect('user:address')
 
         elif 'edit_address' in request.POST:
