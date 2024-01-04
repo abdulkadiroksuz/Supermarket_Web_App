@@ -106,22 +106,12 @@ function dbDeleteItem(productId) {
 
 function checkout() {
 
-    var quantityElements = document.getElementsByClassName("quantity");
-    if (quantityElements.length === 0) {
-        showErrorModal("Your cart is empty. Please add product.");
+    let outOfStock = $('span.quantity[style="display:none;"]').length > 0;
+    if (outOfStock) {
+        showErrorModal("Please remove the non-available products from your cart, refresh the page and try again.");
         return;
     }
-
-    var quantityArray = Array.from(quantityElements);
-    quantityArray.forEach(function(element) {
-        if (element.innerText === '0') {
-            showErrorModal("Please remove the non-available products from your cart, refresh the page and try again.");
-            return;
-        }
-    });
     
-
-
     let addressId = $('#addressSelect').val();
     if (addressId === "-1") {
         showErrorModal('Please add an address from profile page');
