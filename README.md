@@ -33,7 +33,7 @@ source venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
-#### 5. Run the Application or run "runWin.bat"
+#### 5. Run "runWin.bat" file (available for windows machines) or run the following command
 ```
 python market/manage.py runserver
 ```
@@ -52,4 +52,4 @@ deactivate
 
 - [Entity Relation Diagram](https://lucid.app/lucidchart/d68e6404-50b2-4697-8b0e-35debead3c5e/view?page=0_0&invitationId=inv_1c6d98e6-f8b2-490d-aa01-f75406d19b66#)
 
-- [Use Case Diagram](https://lucid.app/lucidchart/816685de-f2c5-45ec-9730-51bad9bb17dc/edit?viewport_loc=-1388%2C-1464%2C4105%2C2165%2C0_0&invitationId=inv_851bb3cc-e6b9-4e98-aca6-491c544d1eb7)
+- The other diagrams (Activity, Sequence, Use Case) are located at "documents" branch.
